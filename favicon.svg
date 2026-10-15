@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Spell Balance">
+  <rect width="64" height="64" rx="14" fill="#1a2948"/>
+  <path d="M32 38c-5-3-11-4-20-3v15c9-1 15 0 20 4V38Z" fill="#e6a654" stroke="#fffaf1" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M32 38c5-3 11-4 20-3v15c-9-1-15 0-20 4V38Z" fill="#80a9ec" stroke="#f5f9ff" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M32 38v16" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <path d="m32 9 2.6 8.4L43 20l-8.4 2.6L32 31l-2.6-8.4L21 20l8.4-2.6L32 9Z" fill="#fff"/>
+  <circle cx="17" cy="17" r="2" fill="#e6a654"/>
+  <circle cx="47" cy="17" r="2" fill="#80a9ec"/>
+</svg>
