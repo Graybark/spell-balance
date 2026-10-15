@@ -1,0 +1,79 @@
+name: Add Mordenkainen's Sword Buff entry
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/add-mordenkainens-sword-buff.yml']
+permissions:
+  contents: write
+jobs:
+  update-spell:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Update only the approved spell entry
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: python
+        run: |
+          import base64, hashlib, html, json, os, re, urllib.parse, urllib.request
+          repo = os.environ['REPOSITORY']
+          allowed = {'Graybark/spell-balance': 'index.html', 'Graybark/Doldrum': 'Spell Balance/Spell Balance.html'}
+          assert repo in allowed, 'Unexpected repository'
+          path = allowed[repo]
+          base = 'https://api.github.com/repos/' + repo
+          def api(route, data=None):
+              headers = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'spell-balance-maintenance'}
+              if data is not None:
+                  headers['Content-Type'] = 'application/json'
+              request = urllib.request.Request(base + route, data=None if data is None else json.dumps(data).encode(), headers=headers, method='GET' if data is None else 'PUT')
+              with urllib.request.urlopen(request, timeout=60) as response:
+                  return json.load(response)
+          route = '/contents/' + urllib.parse.quote(path, safe='/')
+          metadata = api(route + '?ref=main')
+          assert metadata['sha'] == '03a086bc2761f0a35790e1f038c8a94f8a3d7d7e', 'Source changed; stop for review'
+          blob = api('/git/blobs/' + metadata['sha'])
+          assert blob['encoding'] == 'base64'
+          raw = base64.b64decode(blob['content'])
+          assert hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest() == metadata['sha']
+          original = raw.decode('utf-8')
+          pattern = r'<section class="spell-card"[^>]*>[\s\S]*?</section>'
+          cards = list(re.finditer(pattern, original))
+          assert len(cards) == 391, 'Unexpected spell count'
+          def name(card):
+              match = re.search(r'<h2>(.*?)</h2>', card, re.S)
+              return html.unescape(match.group(1)) if match else ''
+          targets = [m for m in cards if name(m.group()) == "Mordenkainen's Sword"]
+          assert len(targets) == 1, 'Expected exactly one Sword entry'
+          target = targets[0]
+          before = target.group()
+          assert 'class="balance-note"' not in before, 'Balance note already exists'
+          cat = re.search(r'data-categories="([^"]*)"', before)
+          assert cat and 'buff' not in cat.group(1).split()
+          categories = ' '.join(cat.group(1).split() + ['buff'])
+          after = before[:cat.start(1)] + categories + before[cat.end(1):]
+          assert after.count('<a class="permalink"') == 1
+          after = after.replace('<a class="permalink"', '<span class="tag tag-buff">Buff</span><a class="permalink"', 1)
+          note = '<p class="balance-note"><strong>Balance discussion:</strong> Players argue that its damage and limited utility do not justify a level 7 slot compared with an upcast Bigby&#x27;s Hand. Proposed buffs include removing Concentration or lowering the spell&#x27;s level; these are community suggestions, not official changes. <a href="https://www.dndbeyond.com/spells/2619118-mordenkainens-sword" target="_blank" rel="noopener noreferrer">Community discussion</a></p>'
+          assert after.count('<div class="versions">') == 1
+          after = after.replace('<div class="versions">', note + '<div class="versions">', 1)
+          assert before.split('<div class="versions">', 1)[1] == after.split('<div class="versions">', 1)[1], 'Spell text must not change'
+          updated = original[:target.start()] + after + original[target.end():]
+          def count_category(document, category):
+              return sum(category in x.split() for x in re.findall(r'<section class="spell-card"[^>]*data-categories="([^"]*)"', document))
+          old_notes = original.count('<p class="balance-note">')
+          old_buffs = count_category(original, 'buff')
+          def update_count(match):
+              prefix, number, middle, label, suffix = match.groups()
+              if ('balance' in label.lower() and int(number) == old_notes) or ('buff' in label.lower() and int(number) == old_buffs):
+                  number = str(int(number) + 1)
+              return prefix + number + middle + label + suffix
+          updated = re.sub(r'(<span class="count"><strong>)(\d+)(</strong>\s*)([^<]*)(</span>)', update_count, updated)
+          final_cards = [m.group() for m in re.finditer(pattern, updated)]
+          assert len(final_cards) == 391
+          assert count_category(updated, 'buff') == 9 and count_category(updated, 'nerf') == 8
+          assert updated.count('<p class="balance-note">') == old_notes + 1
+          assert [m.group() for m in cards if m is not target] == [c for c in final_cards if name(c) != "Mordenkainen's Sword"], 'Another spell was changed'
+          result = api(route, {'message': "Add Mordenkainen's Sword to Buff with sourced community proposals", 'content': base64.b64encode(updated.encode('utf-8')).decode(), 'sha': metadata['sha'], 'branch': 'main'})
+          print(json.dumps({'commit': result['commit']['sha'], 'blob': result['content']['sha'], 'spell': "Mordenkainen's Sword", 'buffs': 9, 'nerfs': 8, 'spell_count': 391, 'other_spells_unchanged': True, 'spell_rules_unchanged': True, 'card_id': re.search(r'id="([^"]+)"', after).group(1)}))
+          print('Header counts:', re.findall(r'<span class="count">.*?</span>', updated[:updated.index('<main')]))
