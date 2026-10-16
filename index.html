@@ -11,10 +11,87 @@
 * { box-sizing:border-box; }
 @media(max-width:560px) { .hero { padding:28px 18px; } .content { padding:17px 12px 50px; } .toolbar-inner { padding:10px 12px; gap:7px; } .spell-heading { padding:17px 16px; } .version { padding:17px 16px 22px; } .review-note,.revised-note,.balance-note,.errata-note,.field-signals { padding:10px 16px; } .metadata { grid-template-columns:1fr 1fr; } .heading-tags { align-self:flex-start; } }
 @media print { .toolbar { display:none; } .hero { background:#fff; color:#000; padding:10px 0; } .hero p,.hero .eyebrow { color:#333; } .count { color:#333; border-color:#888; } .content { padding:0; } .spell-card { break-inside:avoid; box-shadow:none; border-color:#777; } .version { background:#fff; } .footer { display:none; } }
+/* Full-caster slot proposal. Scoped so spell cards and filters are unchanged. */
+.slot-nav { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; font-size:.85rem; font-weight:600; }
+.slot-nav a { padding:6px 11px; border:1px solid #8da5ce; border-radius:8px; color:#fff; text-decoration:none; }
+.slot-nav a:hover { background:#ffffff18; }
+.slot-nav a:focus-visible, .slot-section > summary:focus-visible { outline:3px solid #739be0; outline-offset:3px; }
+.slot-section { margin:0 0 22px; padding:0; border:1px solid #b7ccdc; border-radius:12px; background:#fbfdff; color:#22384e; scroll-margin-top:110px; }
+.slot-section > summary { display:flex; align-items:center; flex-wrap:wrap; gap:7px 10px; padding:13px 16px; cursor:pointer; list-style:none; border-radius:11px; background:linear-gradient(120deg,#e0edf7,#f4f8fc); }
+.slot-section > summary::-webkit-details-marker { display:none; }
+.slot-section > summary::marker { content:''; }
+.slot-section[open] > summary { border-radius:11px 11px 0 0; border-bottom:1px solid #cbdce9; }
+.slot-chevron { display:inline-block; width:12px; flex:0 0 12px; font:26px/1 system-ui,sans-serif; text-align:center; }
+.slot-section[open] .slot-chevron { transform:rotate(90deg); }
+.slot-section h2 { margin:0; color:#183a59; font-size:1.35rem; }
+.slot-state { margin-left:auto; font:600 .76rem/1.4 system-ui,sans-serif; color:#436582; }
+.slot-body { padding:13px 16px 16px; }
+.slot-intro { margin:0 0 14px; max-width:78ch; font-size:.94rem; }
+.slot-layout { display:flex; flex-wrap:wrap; align-items:flex-start; gap:16px; }
+.slot-table-wrap { max-width:100%; overflow-x:auto; }
+.slot-table { border-collapse:collapse; width:auto; table-layout:fixed; font:13px/1.25 system-ui,sans-serif; font-variant-numeric:tabular-nums; color:#203c55; }
+.slot-table .slot-level-col { width:46px; }
+.slot-table .slot-prof-col { width:87px; }
+.slot-table .slot-prepared-col { width:99px; }
+.slot-table .slot-number-col { width:31px; }
+.slot-table th, .slot-table td { padding:4px 3px; border:1px solid #cbdde9; text-align:center; }
+.slot-table thead th { background:#315f87; color:white; font-weight:700; border-color:#7293af; }
+.slot-table thead tr:first-child th { padding-top:6px; padding-bottom:6px; }
+.slot-table .slot-hint { display:block; font-size:.85em; font-weight:500; }
+.slot-table tbody th { font-weight:700; }
+.slot-table tbody tr:nth-child(odd) { background:#dceaf3; }
+.slot-table tbody tr:nth-child(even) { background:#f4f8fb; }
+.slot-table tbody tr:hover { background:#cadfea; }
+.slot-table .slot-zero { color:#607789; }
+.slot-short { display:none; }
+.slot-aside { flex:0 1 220px; font:.84rem/1.55 system-ui,sans-serif; }
+.slot-reserve { padding:13px; background:#edf4fa; border:1px solid #cbdde9; border-radius:8px; margin-bottom:16px; }
+.slot-reserve-label { margin:0; font-size:.68rem; font-weight:700; letter-spacing:.055em; text-transform:uppercase; color:#4a6d8e; }
+.slot-reserve strong { display:block; font-size:2.4rem; line-height:1.25; margin:5px 0; color:#1c3e5c; }
+.slot-reserve p { margin:4px 0; }
+.slot-reserve hr { border:0; border-top:1px solid #cbdde9; margin:13px 0; }
+.slot-prepared-note p { margin:0 0 8px; }
+.slot-notes { margin-top:14px; padding:10px 13px; border:1px solid #d2e2ee; border-radius:8px; background:#f0f6fb; font:.84rem/1.5 system-ui,sans-serif; }
+.slot-notes h3 { margin:0 0 6px; color:#224665; font:700 .88rem/1.5 system-ui,sans-serif; }
+.slot-notes ul { margin:0; padding-left:18px; }
+.slot-notes li { margin:4px 0; }
+.slot-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.spell-list-start { scroll-margin-top:110px; }
+@media (max-width:600px) {
+  .slot-section > summary { padding:10px; }
+  .slot-section h2 { font-size:1.15rem; }
+  .slot-state { margin-left:22px; width:100%; font-size:.7rem; }
+  .slot-body { padding:11px 8px; }
+  .slot-intro { font-size:.88rem; }
+  .slot-table-wrap { width:100%; }
+  .slot-table { width:100%; font-size:12px; }
+  .slot-table .slot-level-col { width:9%; }
+  .slot-table .slot-prof-col { width:16%; }
+  .slot-table .slot-prepared-col { width:21%; }
+  .slot-table .slot-number-col { width:6%; }
+  .slot-table th, .slot-table td { padding:4px 1px; }
+  .slot-table thead th { font-size:11px; }
+  .slot-long { display:none; }
+  .slot-short { display:inline; }
+  .slot-aside { flex-basis:100%; display:flex; flex-wrap:wrap; gap:12px; }
+  .slot-reserve { flex:1 1 135px; margin-bottom:0; }
+  .slot-prepared-note { flex:1 1 130px; }
+  .slot-notes { padding:9px; }
+}
+@media print {
+  .slot-nav, .slot-chevron { display:none; }
+  .slot-section { border-color:#9db5c9; break-inside:avoid; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .slot-section > summary { padding:6px 10px; }
+  .slot-section h2 { font-size:1.1rem; }
+  .slot-body { padding:9px; }
+  .slot-table { font-size:10px; }
+  .slot-table th, .slot-table td { padding:2px 3px; }
+  .slot-notes, .slot-aside { font-size:10px; }
+}
 </style>
 </head>
 <body>
-<header class="hero"><div class="hero-inner"><div class="eyebrow">Player’s Handbook spell comparison</div><h1>Spell Balance</h1><p>Full 2014 and 2024 spell text, side by side. Every spell is open on this page; use the controls to find one quickly.</p><div class="counts"><span class="count"><strong>391</strong> spells</span><span class="count"><strong>361</strong> matched editions</span><span class="count"><strong>30</strong> without a 2014 PHB entry</span><span class="count"><strong>27</strong> redesigned</span><span class="count"><strong>170</strong> revised</span><span class="count"><strong>17</strong> balance discussions</span><span class="count"><strong>72</strong> material costs</span><span class="count"><strong>9</strong> errata updates</span></div></div></header>
+<header class="hero"><div class="hero-inner"><div class="eyebrow">Player’s Handbook spell comparison</div><h1>Spell Balance</h1><p>Full 2014 and 2024 spell text, side by side. Every spell is open on this page; use the controls to find one quickly.</p><div class="counts"><span class="count"><strong>391</strong> spells</span><span class="count"><strong>361</strong> matched editions</span><span class="count"><strong>30</strong> without a 2014 PHB entry</span><span class="count"><strong>27</strong> redesigned</span><span class="count"><strong>170</strong> revised</span><span class="count"><strong>17</strong> balance discussions</span><span class="count"><strong>72</strong> material costs</span><span class="count"><strong>9</strong> errata updates</span></div><nav class="slot-nav" aria-label="Page sections"><a href="#spell-slots">Spell Slots</a><a href="#spells">Browse spells</a></nav></div></header>
 <nav class="toolbar" aria-label="Find spells"><div class="toolbar-inner">
 <div class="control"><label for="search">Search</label><input id="search" type="search" placeholder="Spell name or text" autocomplete="off"></div>
 <div class="control"><label for="level">Level</label><select id="level"><option value="">All levels</option><option value="0">Cantrip</option><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option><option value="4">Level 4</option><option value="5">Level 5</option><option value="6">Level 6</option><option value="7">Level 7</option><option value="8">Level 8</option><option value="9">Level 9</option></select></div>
@@ -22,9 +99,53 @@
 <div id="visible-count" class="visible-count" aria-live="polite">391 shown</div>
 </div></nav>
 <main class="content"><div class="notice"><p><strong>Reading note:</strong> Both sources are OCR transcriptions. Numbers, dice, and some words may contain scanning errors, so check the source before adopting a rule change. All text is displayed in full; the browser wraps only to fit the screen.</p><p><strong>Sources:</strong> the supplied 2024 Player’s Handbook PDF and the <a href="https://archive.org/stream/players-handbook_202308/Player%27s%20Handbook_djvu.txt">2014 Player’s Handbook text supplied by you</a>. The publisher’s New, Redesigned, and Revised labels come from <a href="https://www.dndbeyond.com/posts/1810-updates-in-the-players-handbook-2024">D&amp;D Beyond’s 2024 update list</a>; Revised also includes eight additional spells identified in this comparison. Balance marks spells with documented community buff or nerf discussions; it is not a verdict. Material Cost marks 2024 spells whose components list a coin value or are consumed by the spell. The 2024 text incorporates the nine spell corrections in the <a href="https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf">official errata</a>, with a note on each affected spell.</p></div>
+<details id="spell-slots" class="slot-section">
+<summary><span class="slot-chevron" aria-hidden="true">›</span><h2>Spell Slots (Full Casters)</h2><span class="slot-state">Proposed house rule · Not yet adopted</span></summary>
+<div class="slot-body">
+<p class="slot-intro">This progression reduces spell-slot reserves while preserving access to new spell levels at the usual character levels. Levels 1–2 remain unchanged; reductions begin at level 3.</p>
+<div class="slot-layout"><div class="slot-table-wrap">
+<table class="slot-table" aria-describedby="slot-base-note slot-prepared-note">
+<caption class="slot-sr">Proposed full-caster spell slots at levels 1–20. Prepared Spells uses the Wizard progression.</caption>
+<colgroup><col class="slot-level-col"><col class="slot-prof-col"><col class="slot-prepared-col"></colgroup><colgroup span="9" class="slot-number-col"></colgroup>
+<thead><tr><th rowspan="2" scope="col">Level</th><th rowspan="2" scope="col"><span class="slot-long">Proficiency</span><span class="slot-short">Prof.</span><br>Bonus</th><th rowspan="2" scope="col">Prepared<br>Spells<span class="slot-hint">(Wizard)</span></th><th colspan="9" scope="colgroup">Spell Slots per Spell Level</th></tr><tr><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th><th scope="col">4</th><th scope="col">5</th><th scope="col">6</th><th scope="col">7</th><th scope="col">8</th><th scope="col">9</th></tr></thead>
+<tbody>
+<tr><th scope="row">1</th><td>+2</td><td>4</td><td>2</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">2</th><td>+2</td><td>5</td><td>3</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">3</th><td>+2</td><td>6</td><td>3</td><td>1</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">4</th><td>+2</td><td>7</td><td>3</td><td>2</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">5</th><td>+3</td><td>9</td><td>3</td><td>2</td><td>1</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">6</th><td>+3</td><td>10</td><td>3</td><td>2</td><td>2</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">7</th><td>+3</td><td>11</td><td>3</td><td>2</td><td>2</td><td>1</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">8</th><td>+3</td><td>12</td><td>3</td><td>2</td><td>2</td><td>2</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">9</th><td>+4</td><td>14</td><td>3</td><td>2</td><td>2</td><td>2</td><td>1</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">10</th><td>+4</td><td>15</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">11</th><td>+4</td><td>16</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">12</th><td>+4</td><td>16</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td class="slot-zero">–</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">13</th><td>+5</td><td>17</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">14</th><td>+5</td><td>18</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td><td class="slot-zero">–</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">15</th><td>+5</td><td>19</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td><td>1</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">16</th><td>+5</td><td>21</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td><td>1</td><td class="slot-zero">–</td></tr>
+<tr><th scope="row">17</th><td>+6</td><td>22</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><th scope="row">18</th><td>+6</td><td>23</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><th scope="row">19</th><td>+6</td><td>24</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><th scope="row">20</th><td>+6</td><td>25</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td></tr>
+</tbody></table></div>
+<aside class="slot-aside" aria-label="About this progression">
+<div class="slot-reserve"><p class="slot-reserve-label">Proposed reserve</p><strong>17</strong><p id="slot-base-note">base spell slots<br>at character level 20</p><hr><p><b>New spell levels:</b><br>same unlock levels</p></div>
+<div id="slot-prepared-note" class="slot-prepared-note"><p><b>Prepared Spells</b></p><p>Wizard progression only—not shared by every full caster. The table shows base slots, before recovery or additional slots.</p></div>
+</aside></div>
+<div class="slot-notes"><h3>Notes</h3><ul>
+<li>1st-level slots: two at character level 1; three from level 2 onward.</li>
+<li>2nd–5th-level slots: one when unlocked; a second at the next character level; then capped at two.</li>
+<li>6th–9th-level slots: one when unlocked, with a second 6th-level slot at character level 19 and a second 7th-level slot at character level 20.</li>
+<li>New spell levels unlock every other character level, through 9th-level spells at character level 17.</li>
+<li><b>To confirm:</b> multiclassing and interactions with slot-recovery or slot-creation features.</li>
+</ul></div>
+</div></details>
+<div id="spells" class="spell-list-start" tabindex="-1"></div>
 <div id="empty" class="empty">No spells match these filters.</div>
 </main>
-<footer class="footer">Spell Balance · Local, self-contained HTML · No text is collapsed or loaded from a server.</footer>
+<footer class="footer">Spell Balance · Self-contained HTML · All spell text is expanded; the optional Spell Slots proposal is collapsible. No content is loaded from a server.</footer>
 <script>
 const cards = [...document.querySelectorAll('.spell-card')];
 const search = document.getElementById('search');
@@ -32,6 +153,42 @@ const search = document.getElementById('search');
   history.replaceState(null, '', `#${jump.value}`);
 });
 applyFilters();
+// The optional rules proposal is independent from spell search and filters.
+(() => {
+  const section = document.getElementById('spell-slots');
+  const spellStart = document.getElementById('spells');
+  const toolbar = document.querySelector('.toolbar');
+  const setScrollOffset = () => {
+    const offset = `${Math.ceil(toolbar.getBoundingClientRect().height) + 16}px`;
+    section.style.scrollMarginTop = offset;
+    spellStart.style.scrollMarginTop = offset;
+  };
+  setScrollOffset();
+  if ('ResizeObserver' in window) new ResizeObserver(setScrollOffset).observe(toolbar);
+  else window.addEventListener('resize', setScrollOffset);
+  function revealSlots() {
+    if (window.location.hash !== '#spell-slots') return;
+    section.open = true;
+    requestAnimationFrame(() => section.scrollIntoView({block:'start'}));
+  }
+  window.addEventListener('hashchange', revealSlots);
+  document.querySelectorAll('a[href="#spell-slots"]').forEach(link => {
+    link.addEventListener('click', () => {
+      section.open = true;
+      if (window.location.hash === '#spell-slots') revealSlots();
+    });
+  });
+  revealSlots();
+  let beforePrint;
+  window.addEventListener('beforeprint', () => {
+    beforePrint = section.open;
+    section.open = true;
+  });
+  window.addEventListener('afterprint', () => {
+    if (typeof beforePrint === 'boolean') section.open = beforePrint;
+    beforePrint = undefined;
+  });
+})();
 </script>
 </body>
 </html>
