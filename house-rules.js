@@ -4,7 +4,7 @@
 (() => {
   'use strict';
   const root=new URL('.',document.currentScript.src);
-  const revision='reader-20261017-1';
+  const revision='reader-20261017-d20-2';
   const style=document.createElement('link');
   style.rel='stylesheet'; style.href=new URL('spell-reader.css?v='+revision,root).href;
   document.head.append(style);

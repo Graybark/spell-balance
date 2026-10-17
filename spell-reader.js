@@ -1,6 +1,6 @@
 /* Sidebar reader and per-spell tabs. No new spell rules are defined here.
  * Original edition nodes and sourced discussion notes are kept, not replaced.
- * The Abjuration icon is traced from the user-supplied artwork in favicon.svg.
+ * Branding uses the mockup d20; abjuration.svg preserves the supplied school artwork.
  */
 (() => {
   'use strict';
@@ -16,7 +16,8 @@
   const toolbar = document.querySelector('.toolbar');
   const root = document.getElementById('spells');
   const emptyState = document.getElementById('empty');
-  const icon = new URL('favicon.svg?v=abjuration-reader-1', document.currentScript.src).href;
+  const icon = new URL('abjuration.svg?v=abjuration-reader-1', document.currentScript.src).href;
+  const brandIconUrl = new URL('favicon.svg?v=d20-brand-1', document.currentScript.src).href;
   if (!root || !rulesBox || !classBox || !cards.length) throw new Error('Spell reader: missing page controls.');
   const make = (tag, cls, text) => {
     const node = document.createElement(tag);
@@ -47,7 +48,7 @@
   let pendingNavigation = false;
   let useHash = true;
   const favicon = document.querySelector('link[rel="icon"]');
-  if (favicon) favicon.href = icon;
+  if (favicon) favicon.href = brandIconUrl;
 
   // A compact header, retaining overview counts without another banner.
   const hero = document.querySelector('.hero-inner');
@@ -56,7 +57,7 @@
   const counts = hero.querySelector('.counts');
   const brand = make('a','reader-brand');
   brand.href = '#spells';
-  const brandIcon = make('img'); brandIcon.src = icon; brandIcon.alt = ''; brandIcon.width = 52; brandIcon.height = 52;
+  const brandIcon = make('img'); brandIcon.src = brandIconUrl; brandIcon.alt = ''; brandIcon.width = 52; brandIcon.height = 52;
   const brandText = make('div'); brandText.append(heading, make('small','', 'D&D spell reference'));
   brand.append(brandIcon, brandText);
   const stats = make('details','reader-stats'); stats.append(make('summary','', 'Overview'), counts);
