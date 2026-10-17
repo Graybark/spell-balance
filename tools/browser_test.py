@@ -30,7 +30,7 @@ async def run(filename):
         await page.wait_for_function('document.styleSheets.length > 0')
         await page.wait_for_timeout(1500)
         assert await page.locator('.hero,.notice').count()==0
-        assert await page.locator('.site-header h1').inner_text()=='Spell Balance'
+        assert await page.locator('.site-header h1').inner_text()=='Spellwright'
         assert await page.locator('table.slot-table tbody tr').count()==100
         assert not await page.locator('html.enhanced').count()
         before=await page.locator('.site-header').bounding_box()
@@ -131,7 +131,7 @@ async def run(filename):
         failed=await browser.new_page(viewport={'width':1280,'height':1000})
         await failed.route('**/assets/app.*.js',lambda route:route.abort())
         await failed.goto(url+'#spell-fireball')
-        assert await failed.locator('.site-header h1').inner_text()=='Spell Balance'
+        assert await failed.locator('.site-header h1').inner_text()=='Spellwright'
         assert await failed.locator('.hero,.notice').count()==0
         assert await failed.locator('.spell-card:visible h2').inner_text()=='Fireball'
         await failed.locator('label[for="spell-fireball-info-why"]').click()
