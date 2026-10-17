@@ -1,0 +1,9 @@
+# Publish only the built reference and its browser assets.
+exclude:
+  - data
+  - src
+  - tools
+  - requirements-build.txt
+  - requirements-test.txt
+  - README.md
+  - static-refactor-input.tar.gz

@@ -1,0 +1,120 @@
+/* Interaction only. Layout, editions, house rules, class rows and icons are static. */
+(() => {
+  'use strict';
+  const doc = document;
+  const controls = Object.fromEntries(['search','spell-class','level','label','jump','house-rules-toggle','clear','reset'].map(id => [id, doc.getElementById(id)]));
+  const cards = [...doc.querySelectorAll('.spell-card')];
+  const links = new Map([...doc.querySelectorAll('.sidebar li')].map(li => [li.dataset.spell, li]));
+  const entries = cards.map(card => ({card, item: links.get(card.id),
+    haystack: card.textContent.toLocaleLowerCase(),
+    classes: new Set(card.dataset.classes.split(' ')), categories: new Set(card.dataset.categories.split(' '))}));
+  const byId = new Map(entries.map(entry => [entry.card.id, entry]));
+  const empty = doc.getElementById('empty'), menu = doc.getElementById('spell-menu'), slots = doc.getElementById('spell-slots');
+  const mobile = matchMedia('(max-width:800px)');
+  let active = null, searchTimer;
+  const isHouse = () => controls['house-rules-toggle'].checked;
+  function setURL(push = false, hash) {
+    const url = new URL(location.href);
+    for (const [key,id] of [['q','search'],['class','spell-class'],['level','level'],['label','label']]) {
+      const value = controls[id].value.trim();
+      if (value) url.searchParams.set(key,value); else url.searchParams.delete(key);
+    }
+    if (isHouse()) url.searchParams.delete('rules'); else url.searchParams.set('rules','official');
+    const caster = doc.querySelector('input[name="caster"]:checked').value;
+    if (caster === 'wizard') url.searchParams.delete('caster'); else url.searchParams.set('caster',caster);
+    if (hash !== undefined) url.hash = hash;
+    try { if (push) history.pushState(null,'',url); else history.replaceState(null,'',url); }
+    catch (_) { /* Plain file URLs may not permit history rewriting. */ }
+  }
+  function choose(entry, navigate = false) {
+    if (active) {active.card.classList.remove('is-active'); active.item.querySelector('a').removeAttribute('aria-current');}
+    active=entry;
+    if (!active) return;
+    active.card.classList.add('is-active'); active.item.querySelector('a').setAttribute('aria-current','true');
+    if (navigate) {
+      if (mobile.matches) menu.open=false;
+      active.card.querySelector('h2').focus({preventScroll:true});
+      active.card.scrollIntoView({block:'start'});
+    }
+    if (!mobile.matches) requestAnimationFrame(() => {
+      if (!active) return;
+      const nav=menu.querySelector('nav'), r=active.item.getBoundingClientRect(), n=nav.getBoundingClientRect();
+      if(r.top<n.top || r.bottom>n.bottom) nav.scrollTop+=r.top-n.top-60;
+    });
+  }
+  function filter(preferHash = false, navigate = false) {
+    doc.documentElement.dataset.rules = isHouse() ? 'house':'official';
+    const q=controls.search.value.trim().toLocaleLowerCase(), cl=controls['spell-class'].value, lv=controls.level.value, cat=controls.label.value;
+    const matches=[];
+    for (const entry of entries) {
+      const {card}=entry;
+      const level = isHouse() ? card.dataset.levelHouse:card.dataset.levelOfficial;
+      const match=(!q || entry.haystack.includes(q)) && (!cl || entry.classes.has(cl)) && (!lv || lv===level) && (!cat || entry.categories.has(cat));
+      entry.item.hidden=!match; if(match) matches.push(entry);
+    }
+    const requested=byId.get(location.hash.slice(1));
+    const selected=preferHash && matches.includes(requested) ? requested : matches.includes(active) ? active : matches[0] || null;
+    empty.hidden=matches.length>0;
+    doc.getElementById('visible-count').textContent=matches.length+' spells';
+    doc.getElementById('sidebar-count').textContent='('+matches.length+')';
+    choose(selected,navigate);
+    if(requested && active && requested!==active) setURL(false,active.card.id);
+  }
+  function restore(navigate=false) {
+    clearTimeout(searchTimer);
+    const p=new URLSearchParams(location.search);
+    controls.search.value=p.get('q')||'';
+    for(const [key,id] of [['class','spell-class'],['level','level'],['label','label']]) {
+      const c=controls[id], wanted=(p.get(key)||'').toLowerCase();
+      c.value=[...c.options].some(o=>o.value===wanted)?wanted:'';
+    }
+    controls['house-rules-toggle'].checked=p.get('rules')!=='official';
+    const caster=p.get('caster')||'wizard';
+    const selected=[...doc.querySelectorAll('input[name="caster"]')].find(i=>i.value===caster)||doc.getElementById('caster-wizard');
+    selected.checked=true;
+    filter(true,navigate);
+    if(location.hash==='#spell-slots') slots.open=true;
+  }
+  function clear() {
+    clearTimeout(searchTimer);
+    ['search','spell-class','level','label'].forEach(id=>controls[id].value='');
+    setURL();filter();
+  }
+  controls.search.addEventListener('input',()=>{
+    clearTimeout(searchTimer); searchTimer=setTimeout(()=>{setURL();filter();},100);
+  });
+  ['spell-class','level','label','house-rules-toggle'].forEach(id=>controls[id].addEventListener('change',()=>{clearTimeout(searchTimer);setURL();filter();}));
+  controls.clear.addEventListener('click',clear);controls.reset.addEventListener('click',clear);
+  controls.jump.addEventListener('change',()=>{
+    const entry=byId.get(controls.jump.value);if(!entry)return;
+    ['search','spell-class','level','label'].forEach(id=>controls[id].value='');
+    setURL(true,entry.card.id);filter(true,true);controls.jump.value='';
+  });
+  doc.addEventListener('click',event=>{
+    const a=event.target.closest('a');
+    if(!a || event.button!==0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)return;
+    if(a.dataset.filterClass){
+      event.preventDefault();controls['spell-class'].value=a.dataset.filterClass;setURL();filter();return;
+    }
+    const href=a.getAttribute('href');
+    if(href==='#spell-slots')slots.open=true;
+    if(!href?.startsWith('#spell-'))return;
+    const entry=byId.get(href.slice(1));if(!entry)return;
+    event.preventDefault();
+    if(entry.item.hidden){['search','spell-class','level','label'].forEach(id=>controls[id].value='');filter();}
+    setURL(true,entry.card.id);choose(entry,true);
+  });
+  doc.querySelectorAll('input[name="caster"]').forEach(input=>input.addEventListener('change',()=>setURL()));
+  window.addEventListener('popstate',()=>restore(true));
+  window.addEventListener('hashchange',()=>{if(location.hash==='#spell-slots')slots.open=true;else filter(true,true);});
+  function setOffsets(){const toolbar=doc.querySelector('.toolbar');const h=matchMedia('(max-width:700px)').matches?0:toolbar.getBoundingClientRect().height;doc.documentElement.style.setProperty('--top',Math.ceil(h+12)+'px');}
+  setOffsets();if('ResizeObserver'in window)new ResizeObserver(setOffsets).observe(doc.querySelector('.toolbar'));else window.addEventListener('resize',setOffsets);
+  mobile.addEventListener('change',()=>{menu.open=!mobile.matches;});
+  // Restore state and select the existing card before enabling interactions.
+  restore();doc.documentElement.classList.add('enhanced');
+  doc.querySelectorAll('.toolbar [disabled]').forEach(control=>{control.disabled=false;});
+  if(mobile.matches)menu.open=false;
+  let printState;
+  window.addEventListener('beforeprint',()=>{printState=slots.open;slots.open=true;});
+  window.addEventListener('afterprint',()=>{if(typeof printState==='boolean')slots.open=printState;});
+})();
