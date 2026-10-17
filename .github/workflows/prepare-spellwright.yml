@@ -1,0 +1,79 @@
+name: Prepare Spellwright branding
+on:
+  push:
+    branches: [maintenance/spellwright-branding-20261017]
+    paths: [.github/workflows/prepare-spellwright.yml]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      REFERENCE_ROOT: ${{ github.repository == 'Graybark/Doldrum' && 'Spell Balance' || '.' }}
+      REFERENCE_OUTPUT: ${{ github.repository == 'Graybark/Doldrum' && 'Spell Balance.html' || 'index.html' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Change only branding and its regression assertions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, os
+          root=Path(os.environ['REFERENCE_ROOT'])
+          expected={'tools/build.py':'23afcc5c1c1fc59f49cf4dcccdcc69dda793065d','tools/verify.py':'1455648b487ef8d291c407347666a2be9b783968','tools/browser_test.py':'0bfc93e532788161dc5b0298c4b47caa8bff58df'}
+          replacements={'<h1>Spell Balance</h1>':'<h1>Spellwright</h1>','<small>D&amp;D spell reference</small>':'<small>D&amp;D Spell Reference &amp; House Rules</small>','<title>Spell Balance — 2014 &amp; 2024</title>':'<title>Spellwright — D&amp;D Spell Reference &amp; House Rules</title>','content="Spell Balance:':'content="Spellwright:','<footer class="site-footer">Spell Balance ·':'<footer class="site-footer">Spellwright ·'}
+          def rename(text):
+              for before,after in replacements.items():
+                  assert text.count(before)==1,before
+                  text=text.replace(before,after)
+              return text
+          original=(root/os.environ['REFERENCE_OUTPUT']).read_text(encoding='utf-8')
+          Path('/tmp/expected-spellwright.html').write_text(rename(original),encoding='utf-8')
+          for name,sha in expected.items():
+              p=root/name; raw=p.read_bytes()
+              assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==sha, 'Source changed: '+name
+              text=raw.decode()
+              if name=='tools/build.py': text=rename(text)
+              else:
+                  text=text.replace("=='Spell Balance'", "=='Spellwright'")
+                  if name=='tools/verify.py':
+                      anchor="    assert page.select_one('.site-header .brand h1').get_text()=='Spellwright'"
+                      assert anchor in text
+                      text=text.replace(anchor,anchor+"\n    assert page.select_one('.site-header .brand small').get_text()=='D&D Spell Reference & House Rules'\n    assert page.title.get_text()=='Spellwright — D&D Spell Reference & House Rules'")
+              p.write_text(text,encoding='utf-8')
+          PY
+      - name: Build and validate the static page
+        run: |
+          cd "$REFERENCE_ROOT"
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python -m playwright install --with-deps chromium
+          python tools/build.py --output "$REFERENCE_OUTPUT"
+          cmp "$REFERENCE_OUTPUT" /tmp/expected-spellwright.html
+          python tools/build.py --output "$REFERENCE_OUTPUT" --check
+          python tools/verify.py "$REFERENCE_OUTPUT"
+          node --check src/app.js
+          python tools/browser_test.py --output "$REFERENCE_OUTPUT"
+      - name: Save browser validation
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: spellwright-branding-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 3
+      - name: Commit only the four validated files to the maintenance branch
+        run: |
+          python - <<'PY'
+          import os, subprocess
+          prefix='' if os.environ['REFERENCE_ROOT']=='.' else os.environ['REFERENCE_ROOT']+'/'
+          allowed={prefix+p for p in ['tools/build.py','tools/verify.py','tools/browser_test.py',os.environ['REFERENCE_OUTPUT']]}
+          changed=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())
+          assert changed==allowed,changed
+          subprocess.run(['git','diff','--check'],check=True)
+          subprocess.run(['git','add','--',*sorted(allowed)],check=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Use Spellwright branding and the requested reference subtitle'
+          git push origin HEAD:maintenance/spellwright-branding-20261017
