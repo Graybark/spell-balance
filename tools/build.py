@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from html import escape
 import argparse, copy, hashlib, json, re
 ROOT=Path(__file__).resolve().parents[1]
-SCHOOLS={'Abjuration':'abjuration.svg',**{s:s.lower()+'.png' for s in ['Conjuration','Divination','Enchantment','Evocation','Illusion','Necromancy','Transmutation']}}
+SCHOOLS={s:s.lower()+'.svg' for s in ['Abjuration','Conjuration','Divination','Enchantment','Evocation','Illusion','Necromancy','Transmutation']}
 CLASS_NAMES=['Bard','Cleric','Druid','Paladin','Ranger','Sorcerer','Warlock','Wizard']
 def esc(x): return escape(str(x),quote=True)
 def load(name): return json.loads((ROOT/'data'/f'{name}.json').read_text(encoding='utf-8'))
@@ -86,13 +86,13 @@ def build(output, check=False):
                 hv['body']=hv['body'].replace(before,after)
         school=s['school']; icon=SCHOOLS[school]; cats=s['categories']+(['house-rule'] if h else [])
         member=' '.join(norm(c) for c in v['classes'].split(','))
-        school_icon=f'<img src="{icon}" width="26" height="26" alt="" loading="lazy" decoding="async">'
+        school_icon=f'<img src="{icon}" width="26" height="26" alt="" draggable="false" loading="lazy" decoding="async">'
         sidebar.append(f'<li data-spell="{id}"><a href="#{id}" class="spell-link">{school_icon}<span><strong>{esc(s["name"])}</strong><small>{level_html(s)} · {school}</small></span>'+('<span class="house-dot" title="House-rule version available"></span>' if h else '')+'</a></li>')
         tags=''.join(f'<span class="{esc(t["class"])}">{esc(t["text"])}</span>' for t in s['tags'])
         if h: tags='<span class="tag tag-house"><span data-mode="house">House Rule</span><span data-mode="official">House Rule available</span></span>'+tags
         if re.search(r'\bConcentration\b',v['metadata'].get('duration',''),re.I): tags+='<span class="tag">Concentration</span>'
         if re.search(r'\britual\b',v['metadata'].get('casting time',''),re.I): tags+='<span class="tag">Ritual</span>'
-        head=f'<header class="spell-heading"><div class="title-main"><div class="title-line"><h2 tabindex="-1">{esc(s["name"])}</h2><div class="heading-tags">{tags}</div></div><p class="eyebrow">{level_html(s)} · {school}</p></div><div class="heading-aside"><a class="permalink" href="#{id}" aria-label="Link to {esc(s["name"])}">#</a><img class="school-emblem" src="{icon}" width="82" height="78" alt="{school}" decoding="async" loading="lazy"></div></header>'
+        head=f'<header class="spell-heading"><div class="title-main"><div class="title-line"><h2 tabindex="-1">{esc(s["name"])}</h2><div class="heading-tags">{tags}</div></div><p class="eyebrow">{level_html(s)} · {school}</p></div><div class="heading-aside"><a class="permalink" href="#{id}" aria-label="Link to {esc(s["name"])}">#</a><img class="school-emblem" draggable="false" src="{icon}" width="82" height="78" alt="{school}" decoding="async" loading="lazy"></div></header>'
         meta=metadata(v,s['official_level'],school)
         primary=body(v)
         if h:
