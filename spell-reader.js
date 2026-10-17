@@ -1,6 +1,6 @@
 /* Sidebar reader and per-spell tabs. No new spell rules are defined here.
  * Original edition nodes and sourced discussion notes are kept, not replaced.
- * Branding uses the mockup d20; abjuration.svg preserves the supplied school artwork.
+ * Branding keeps the mockup d20; school emblems use the supplied school artwork.
  */
 (() => {
   'use strict';
@@ -16,7 +16,18 @@
   const toolbar = document.querySelector('.toolbar');
   const root = document.getElementById('spells');
   const emptyState = document.getElementById('empty');
-  const icon = new URL('abjuration.svg?v=abjuration-reader-1', document.currentScript.src).href;
+  const schoolIconFiles = Object.freeze({
+    Abjuration: 'abjuration.svg?v=abjuration-reader-1',
+    Conjuration: 'conjuration.png?v=schools-1',
+    Enchantment: 'enchantment.png?v=schools-1',
+    Illusion: 'illusion.png?v=schools-1',
+    Necromancy: 'necromancy.png?v=schools-1',
+    Evocation: 'evocation.png?v=schools-1',
+    Divination: 'divination.png?v=schools-1',
+    Transmutation: 'transmutation.png?v=schools-1'
+  });
+  const schoolIcons = new Map(Object.entries(schoolIconFiles).map(([school, file]) =>
+    [school, new URL(file, document.currentScript.src).href]));
   const brandIconUrl = new URL('favicon.svg?v=d20-brand-1', document.currentScript.src).href;
   if (!root || !rulesBox || !classBox || !cards.length) throw new Error('Spell reader: missing page controls.');
   const make = (tag, cls, text) => {
@@ -133,8 +144,11 @@
     main.replaceChildren(titleline,eyebrow);
     const aside=make('div','reader-heading-aside');
     if(permalink) aside.append(permalink);
-    const emblem=make('img','reader-school-emblem'); emblem.src=icon; emblem.alt='Abjuration'; emblem.title='Abjuration'; emblem.width=82; emblem.height=78;
-    emblem.hidden=school!=='Abjuration'; aside.append(emblem); heading.append(aside);
+    const emblem=make('img','reader-school-emblem');
+    const schoolIcon=schoolIcons.get(school);
+    if(schoolIcon) emblem.src=schoolIcon;
+    emblem.alt=school; emblem.title=school; emblem.width=82; emblem.height=78;
+    emblem.hidden=!schoolIcon; aside.append(emblem); heading.append(aside);
     const meta=make('dl','reader-meta');
     const spellPane=make('div','reader-pane reader-current');
     const comparePane=make('div','reader-pane reader-compare');
@@ -162,7 +176,7 @@
     Object.assign(entry,{meta,spellPane,infoTabs,emblem,tags,title,mainKey:'spell'});
     const li=make('li');
     const link=make('a'); link.href='#'+card.id;
-    if(school==='Abjuration') { const image=make('img'); image.src=icon; image.alt=''; image.width=26; image.height=26; link.append(image); }
+    if(schoolIcon) { const image=make('img'); image.src=schoolIcon; image.alt=''; image.width=26; image.height=26; link.append(image); }
     const label=make('span'); const subtitle=make('small'); label.append(make('strong','',name),subtitle); link.append(label);
     if(custom) { const dot=make('span','reader-house-dot'); dot.title='House-rule version available'; link.append(dot); }
     li.append(link); sideList.append(li);
@@ -244,7 +258,11 @@
     entry.tags.querySelectorAll('.reader-flag').forEach(node=>node.remove());
     if(/\bConcentration\b/i.test(metadata.get('duration')||'')) entry.tags.append(make('span','tag reader-flag','Concentration'));
     if(/\britual\b/i.test(metadata.get('casting time')||'')) entry.tags.append(make('span','tag reader-flag','Ritual'));
-    entry.emblem.hidden=school!=='Abjuration';
+    const schoolIcon=schoolIcons.get(school);
+    if(schoolIcon) entry.emblem.src=schoolIcon;
+    else entry.emblem.removeAttribute('src');
+    entry.emblem.alt=school; entry.emblem.title=school;
+    entry.emblem.hidden=!schoolIcon;
     entry.card.classList.toggle('reader-house-active',isHouse);
     const footer=make('footer','reader-footer');
     const availability=make('div','reader-availability'); availability.append(make('span','', 'Available for:'));
