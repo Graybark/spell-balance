@@ -25,7 +25,9 @@ def main():
     assert len(page.select('.spell-card'))==len(data)==391
     ids=[x['id'] for x in page.select('[id]')]
     assert len(set(ids))==len(ids), [x for x,n in Counter(ids).items() if n>1]
-    assert page.select_one('.site-header .brand h1').get_text()=='Spell Balance'
+    assert page.select_one('.site-header .brand h1').get_text()=='Spellwright'
+    assert page.select_one('.site-header .brand small').get_text()=='D&D Spell Reference & House Rules'
+    assert page.title.get_text()=='Spellwright — D&D Spell Reference & House Rules'
     assert not page.select('.hero,.notice,.reader-source-store')
     assert 'Every spell is open on this page' not in raw
     scripts=page.select('script[src]'); assert len(scripts)==1 and scripts[0].has_attr('defer') and scripts[0].parent==page.head

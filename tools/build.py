@@ -137,17 +137,17 @@ def build(output, check=False):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta name="description" content="Spell Balance: 2014 and 2024 spell reference, house-rule versions, class filters and full-caster spell slots.">
-<title>Spell Balance — 2014 &amp; 2024</title>
+<meta name="description" content="Spellwright: 2014 and 2024 spell reference, house-rule versions, class filters and full-caster spell slots.">
+<title>Spellwright — D&amp;D Spell Reference &amp; House Rules</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg?v=d20-brand-1">
 <!-- State only; the complete layout and rules are already static HTML. -->
 <script>try{document.documentElement.dataset.rules=new URLSearchParams(location.search).get('rules')==='official'?'official':'house'}catch(e){}</script>
 '''+f'<link rel="stylesheet" href="assets/{cssname}">\n<script defer src="assets/{jsname}"></script>\n</head>\n<body>\n'
-    page+='<a class="skip-link" href="#spells">Skip to spells</a><header class="site-header"><div class="header-inner"><a class="brand" href="#spells"><img src="favicon.svg?v=d20-brand-1" width="52" height="52" alt=""><div><h1>Spell Balance</h1><small>D&amp;D spell reference</small></div></a><nav class="section-nav" aria-label="Page sections"><a href="#spell-slots">Spell Slots</a><a href="#spells">Browse spells</a></nav><details class="overview"><summary>Overview</summary><div class="counts">'+''.join('<span>'+esc(x)+'</span>' for x in overview)+f'<span>{len(house)} house rules</span></div></details></div></header>'
+    page+='<a class="skip-link" href="#spells">Skip to spells</a><header class="site-header"><div class="header-inner"><a class="brand" href="#spells"><img src="favicon.svg?v=d20-brand-1" width="52" height="52" alt=""><div><h1>Spellwright</h1><small>D&amp;D Spell Reference &amp; House Rules</small></div></a><nav class="section-nav" aria-label="Page sections"><a href="#spell-slots">Spell Slots</a><a href="#spells">Browse spells</a></nav><details class="overview"><summary>Overview</summary><div class="counts">'+''.join('<span>'+esc(x)+'</span>' for x in overview)+f'<span>{len(house)} house rules</span></div></details></div></header>'
     page+='<nav class="toolbar" aria-label="Find spells"><div class="toolbar-inner">'+toolbar+'</div></nav>'
     page+='<main class="content"><details id="spell-slots" class="slot-section"><summary>Spell Slots (Full Casters)</summary>'+tabs('caster','Full caster class',class_defs)+'</details>'
     page+='<div class="reader-layout" id="spells"><aside class="sidebar" aria-label="Spell navigation"><details id="spell-menu" open><summary>Spells <span id="sidebar-count">(391)</span></summary><nav aria-label="Spell list"><ul>'+''.join(sidebar)+'</ul></nav></details></aside><div class="reader-detail"><div id="empty" hidden><p>No spells match these filters.</p><button id="reset" type="button">Clear filters</button></div>'+''.join(cards)+'</div></div></main>'
-    page+='<footer class="site-footer">Spell Balance · 2014 &amp; 2024 editions · House-rule versions are marked in purple.</footer></body></html>\n'
+    page+='<footer class="site-footer">Spellwright · 2014 &amp; 2024 editions · House-rule versions are marked in purple.</footer></body></html>\n'
     return page
 if __name__=='__main__':
     parser=argparse.ArgumentParser(); parser.add_argument('--output',default='index.html'); parser.add_argument('--check',action='store_true'); args=parser.parse_args()
