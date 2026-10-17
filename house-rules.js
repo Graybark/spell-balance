@@ -301,3 +301,50 @@
   window.addEventListener('popstate', restoreClassFilter);
   restoreClassFilter();
 })();
+
+/* Wizard preparation and class-list placement approved 17 October 2026.
+ * Levels 1-13 are unchanged; the later progression finishes at 22.
+ * Keep the existing class-list nodes/text intact for edition accuracy and filtering.
+ */
+(() => {
+  'use strict';
+  const wizardPrepared = [4,5,6,7,9,10,11,12,14,15,16,16,17,17,18,18,19,20,21,22];
+  const table = document.querySelector('.slot-table[data-caster="wizard"]');
+  if (!table || table.tBodies[0].rows.length !== wizardPrepared.length) {
+    throw new Error('Wizard preparation: expected 20 class-table rows.');
+  }
+  const rows = [...table.tBodies[0].rows];
+  if (!rows.every(row => row.cells.length === 14)) {
+    throw new Error('Wizard preparation: unexpected class-table columns.');
+  }
+  rows.forEach((row, i) => {
+    const cell = row.cells[row.cells.length - 10];
+    cell.textContent = wizardPrepared[i];
+    cell.title = 'Wizard prepared-spell progression; 22 at class level 20.';
+  });
+
+  const style = document.createElement('style');
+  style.id = 'spell-availability-styles';
+  style.textContent = `
+    .spell-availability { display:flex; flex-wrap:wrap; align-items:baseline; gap:5px 9px; margin-top:20px; padding-top:11px; border-top:1px solid var(--line,#d6deeb); font: .8rem/1.5 system-ui,sans-serif; }
+    .spell-availability-label { font-weight:600; color:#43536a; }
+    .spell-availability > .classes { margin:0; color:#5f6e86; overflow-wrap:anywhere; }
+    @media print { .spell-availability { break-inside:avoid; } }
+  `;
+  document.head.append(style);
+  document.querySelectorAll('.version > .classes').forEach(classList => {
+    const version = classList.parentElement;
+    const footer = document.createElement('footer');
+    footer.className = 'spell-availability';
+    footer.setAttribute('aria-label', 'Spell class availability');
+    const label = document.createElement('span');
+    label.className = 'spell-availability-label';
+    label.textContent = 'Available for:';
+    footer.append(label, classList);
+    version.append(footer);
+  });
+  // Moving the same nodes preserves the class filter's membership map.
+  // Refresh text-search order after placing availability after the rules text.
+  haystacks.splice(0, haystacks.length, ...cards.map(card => card.textContent.toLocaleLowerCase()));
+  applyFilters();
+})();
