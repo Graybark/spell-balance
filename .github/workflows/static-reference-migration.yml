@@ -2,18 +2,13 @@ name: Build static reference migration
 on:
   push:
     branches: [refactor/static-first]
-    paths:
-      - static-refactor-input.tar.gz
-      - Spell Balance/static-refactor-input.tar.gz
+    paths: ['_rebuild/**', '.github/workflows/static-reference-migration.yml', 'tools/**', 'src/**']
 permissions:
   contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      REFERENCE_DIR: ${{ github.repository == 'Graybark/Doldrum' && 'Spell Balance' || '.' }}
-      REFERENCE_HTML: ${{ github.repository == 'Graybark/Doldrum' && 'Spell Balance.html' || 'index.html' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,25 +16,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - name: Unpack the reviewed website source files
-        working-directory: ${{ env.REFERENCE_DIR }}
-        run: tar -xzf static-refactor-input.tar.gz
+      - name: Unpack reviewed website source on the first run only
+        run: |
+          if [ ! -f tools/build.py ]; then
+            cat _rebuild/source.1 _rebuild/source.2 _rebuild/source.3 _rebuild/source.4 _rebuild/source.5 > /tmp/static-reference.tar.gz
+            test "$(git hash-object /tmp/static-reference.tar.gz)" = '777d6bef29e80b6e0324d66700d4ed3a14edb9df'
+            python -c 'import tarfile; tarfile.open("/tmp/static-reference.tar.gz").extractall(".", filter="data")'
+          fi
       - name: Install pinned build and test tools
-        working-directory: ${{ env.REFERENCE_DIR }}
         run: |
           python -m pip install -r requirements-build.txt -r requirements-test.txt
           python -m playwright install --with-deps chromium
       - name: Import existing content and build the static page
-        working-directory: ${{ env.REFERENCE_DIR }}
         run: |
-          python tools/migrate_legacy.py "$REFERENCE_HTML"
-          python tools/build.py --output "$REFERENCE_HTML"
-          python tools/verify.py "$REFERENCE_HTML"
-          python tools/build.py --output "$REFERENCE_HTML" --check
+          python tools/migrate_legacy.py index.html
+          python tools/build.py
+          python tools/verify.py
+          python tools/build.py --check
           node --check src/app.js
       - name: Test real HTTP first paint, slow scripts, failures, filters and content
-        working-directory: ${{ env.REFERENCE_DIR }}
-        run: python tools/browser_test.py --output "$REFERENCE_HTML"
+        run: python tools/browser_test.py
       - name: Save website validation evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -48,11 +44,10 @@ jobs:
           path: /tmp/spell-balance-validation
           retention-days: 7
       - name: Commit validated output on the isolated migration branch only
-        working-directory: ${{ env.REFERENCE_DIR }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- "$REFERENCE_HTML" data src assets tools requirements-build.txt requirements-test.txt README.md _config.yml
+          git add -- index.html data src assets tools requirements-build.txt requirements-test.txt README.md _config.yml
           git diff --cached --check
           if ! git diff --cached --quiet; then
             git commit -m 'Build validated static-first reference and explicit source data'
