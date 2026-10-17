@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           ref: refactor/static-first
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.13'
       - name: Unpack reviewed website source on the first run only
@@ -23,6 +23,20 @@ jobs:
             test "$(git hash-object /tmp/static-reference.tar.gz)" = '777d6bef29e80b6e0324d66700d4ed3a14edb9df'
             python -c 'import tarfile; tarfile.open("/tmp/static-reference.tar.gz").extractall(".", filter="data")'
           fi
+      - name: Finalize reviewed first-paint test and semantic header
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('tools/browser_test.py'); s=p.read_text()
+          s=s.replace('import argparse,asyncio,json,os','import argparse,asyncio,base64,json,os')
+          before="        await page.screenshot(path=str(REPORT/'before-javascript.png'))"
+          after="        # Capture first paint without waiting for document.fonts.ready while deferred JS is held.\n        cdp=await page.context.new_cdp_session(page)\n        shot=await cdp.send('Page.captureScreenshot',{'format':'png'})\n        (REPORT/'before-javascript.png').write_bytes(base64.b64decode(shot['data']))\n        await cdp.detach()"
+          if before in s: s=s.replace(before,after)
+          p.write_text(s)
+          p=Path('tools/build.py');s=p.read_text()
+          s=s.replace('<span><h1>Spell Balance</h1><small>D&amp;D spell reference</small></span>','<div><h1>Spell Balance</h1><small>D&amp;D spell reference</small></div>')
+          p.write_text(s)
+          PY
       - name: Install pinned build and test tools
         run: |
           python -m pip install -r requirements-build.txt -r requirements-test.txt
@@ -38,7 +52,7 @@ jobs:
         run: python tools/browser_test.py
       - name: Save website validation evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: static-reference-validation
           path: /tmp/spell-balance-validation
