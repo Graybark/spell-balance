@@ -214,3 +214,90 @@
     requestAnimationFrame(() => anchoredSpell.scrollIntoView({ block: 'start' }));
   }
 })();
+
+/* Class filtering uses the 2024 class lists already printed in the document.
+ * It is independent of the full-caster table tabs (?caster=) and combines with
+ * the existing text, level, category, and house-rule spell controls.
+ */
+(() => {
+  'use strict';
+  if (document.getElementById('spell-class')) return;
+  const searchControl = document.getElementById('search');
+  const jumpControl = document.getElementById('jump');
+  const toolbar = document.querySelector('.toolbar-inner');
+  if (!searchControl || !jumpControl || !toolbar || typeof applyFilters !== 'function') {
+    throw new Error('Class filter: missing existing spell controls.');
+  }
+
+  // Normalize two transcription variants for matching only. Do not alter the
+  // visible original text: Locate Object has "Wiza rd"; Mind Sliver "VVizard".
+  const normalizeClass = name => name.trim().toLowerCase().replace(/\s+/g, '').replace(/^vvizard$/, 'wizard');
+  const membership = new Map(cards.map(card => {
+    const source = card.querySelector('.version-2024 .classes');
+    if (!source || !source.textContent.trim()) throw new Error('Class filter: missing class list for ' + card.id);
+    return [card, new Set(source.textContent.split(',').map(normalizeClass).filter(Boolean))];
+  }));
+  const classIds = [...new Set([...membership.values()].flatMap(names => [...names]))].sort();
+  const control = document.createElement('div');
+  control.className = 'control class-filter-control';
+  const label = document.createElement('label');
+  label.htmlFor = 'spell-class';
+  label.textContent = 'Class';
+  const select = document.createElement('select');
+  select.id = 'spell-class';
+  select.title = 'Uses the class lists shown in the 2024 spell entries; subclass and other bonus spell access are not added.';
+  select.add(new Option('All classes', ''));
+  classIds.forEach(id => select.add(new Option(id[0].toUpperCase() + id.slice(1), id)));
+  control.append(label, select);
+  searchControl.closest('.control').after(control);
+
+  const style = document.createElement('style');
+  style.id = 'class-filter-styles';
+  style.textContent = `
+    .toolbar-inner { grid-template-columns:minmax(180px,1.4fr) minmax(110px,.85fr) minmax(140px,.95fr) minmax(120px,.9fr) minmax(150px,1.15fr) auto; }
+    .toolbar-inner .control { min-width:0; }
+    @media(max-width:1120px) { .toolbar-inner { grid-template-columns:repeat(3,minmax(0,1fr)); } .toolbar-inner .rules-controls { grid-column:auto; flex-direction:column; align-items:flex-start; gap:4px; } }
+    @media(max-width:700px) { .toolbar-inner { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  `;
+  document.head.append(style);
+
+  // Retain the existing filtering logic, then intersect with the selected
+  // class. Rebind the one listener that held the old function by reference.
+  const applyExistingFilters = applyFilters;
+  function applyCombinedFilters() {
+    applyExistingFilters();
+    let shown = 0;
+    cards.forEach(card => {
+      if (select.value && !membership.get(card).has(select.value)) card.hidden = true;
+      if (!card.hidden) shown++;
+    });
+    document.getElementById('visible-count').textContent = `${shown} shown`;
+    document.getElementById('empty').style.display = shown ? 'none' : 'block';
+  }
+  searchControl.removeEventListener('input', applyExistingFilters);
+  applyFilters = applyCombinedFilters;
+  searchControl.addEventListener('input', applyCombinedFilters);
+  select.addEventListener('change', () => {
+    const url = new URL(window.location.href);
+    if (select.value) url.searchParams.set('class', select.value);
+    else url.searchParams.delete('class');
+    history.replaceState(null, '', url);
+    applyCombinedFilters();
+  });
+  function restoreClassFilter() {
+    const requested = normalizeClass(new URLSearchParams(window.location.search).get('class') || '');
+    select.value = classIds.includes(requested) ? requested : '';
+    applyCombinedFilters();
+  }
+  // "Jump to spell" already clears search/category/level; clear Class before
+  // that handler runs so even an off-list target is visible when scrolled to.
+  jumpControl.addEventListener('change', () => {
+    if (!jumpControl.value || !document.getElementById(jumpControl.value)) return;
+    select.value = '';
+    const url = new URL(window.location.href);
+    url.searchParams.delete('class');
+    history.replaceState(null, '', url);
+  }, true);
+  window.addEventListener('popstate', restoreClassFilter);
+  restoreClassFilter();
+})();
