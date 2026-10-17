@@ -1,0 +1,56 @@
+name: Prepare school SVG correction
+on:
+  push:
+    branches: [maintenance/school-svg-icons-20261017]
+    paths: [.github/workflows/prepare-school-svg.yml]
+permissions:
+  contents: read
+jobs:
+  prepare:
+    if: github.repository == 'Graybark/spell-balance'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: maintenance/school-svg-icons-20261017
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Install the existing validation dependencies
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python -m playwright install --with-deps chromium
+      - name: Apply the approved vectors at build time
+        run: python .github/prepare_school_svg.py
+      - name: Validate static output, unchanged rules and browser behavior
+        run: |
+          python tools/build.py --check
+          python tools/verify.py
+          node --check src/app.js
+          python tools/browser_test.py
+      - name: Commit generated reference files to this maintenance branch only
+        run: |
+          git add -- index.html src/app.css tools/build.py tools/verify.py tools/browser_test.py assets/*.css conjuration.svg divination.svg enchantment.svg evocation.svg illusion.svg necromancy.svg transmutation.svg
+          python - <<'PY'
+          import subprocess
+          changed=subprocess.check_output(['git','diff','--cached','--name-only'],text=True).splitlines()
+          allowed={'index.html','src/app.css','tools/build.py','tools/verify.py','tools/browser_test.py','conjuration.svg','divination.svg','enchantment.svg','evocation.svg','illusion.svg','necromancy.svg','transmutation.svg'}
+          assert changed and all(p in allowed or (p.startswith('assets/app.') and p.endswith('.css')) for p in changed),changed
+          PY
+          git diff --cached --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Replace school PNG thumbnails with transparent vector artwork'
+          git push origin HEAD:refs/heads/maintenance/school-svg-icons-20261017
+          git ls-tree -r HEAD > /tmp/spell-balance-validation/tree.txt
+          tar -cf /tmp/spell-balance-validation/reference-result.tar index.html assets src tools data *.svg README.md requirements-build.txt requirements-test.txt _config.yml
+      - name: Save tested output and screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: school-svg-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 3
