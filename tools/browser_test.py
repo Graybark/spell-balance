@@ -56,9 +56,25 @@ async def run(filename):
         assert 'pointing finger' in await page.locator('#spell-fireball [data-panel="2014"]:visible').inner_text()
         await page.locator('label[for="spell-fireball-info-spell"]').click()
         # Icons are static on every entry; the School metadata field is text only.
-        expected={'Abjuration':'abjuration.svg','Conjuration':'conjuration.png','Divination':'divination.png','Enchantment':'enchantment.png','Evocation':'evocation.png','Illusion':'illusion.png','Necromancy':'necromancy.png','Transmutation':'transmutation.png'}
+        expected={'Abjuration':'abjuration.svg','Conjuration':'conjuration.svg','Divination':'divination.svg','Enchantment':'enchantment.svg','Evocation':'evocation.svg','Illusion':'illusion.svg','Necromancy':'necromancy.svg','Transmutation':'transmutation.svg'}
         all_icons=await page.locator('.spell-card').evaluate_all('(cs)=>cs.map(c=>[c.dataset.school,c.querySelector(".school-emblem").getAttribute("src")])')
         assert len(all_icons)==391 and all(expected[s]==f for s,f in all_icons)
+        # School artwork must remain vector-only, transparent, and non-interactive.
+        await page.evaluate("""async files => {
+          for (const file of files) {
+            const image = new Image(); image.src=file; await image.decode();
+            const canvas=document.createElement('canvas');canvas.width=128;canvas.height=128;
+            const ctx=canvas.getContext('2d');ctx.drawImage(image,0,0,128,128);
+            for (const [x,y] of [[0,0],[127,0],[0,127],[127,127]]) {
+              if(ctx.getImageData(x,y,1,1).data[3]!==0) throw new Error(file+' has an opaque background');
+            }
+          }
+        }""",list(expected.values()))
+        assert await page.locator('.school-emblem,.spell-link > img').evaluate_all("es=>es.every(e=>getComputedStyle(e).pointerEvents==='none' && e.getAttribute('draggable')==='false')")
+        badge=page.locator('#spell-fireball .school-emblem')
+        box=await badge.bounding_box()
+        await page.mouse.move(box['x']+box['width']/2,box['y']+box['height']/2)
+        assert await page.evaluate("p=>document.elementFromPoint(p.x,p.y).tagName!=='IMG'",{'x':box['x']+box['width']/2,'y':box['y']+box['height']/2})
         assert await page.locator('.spell-meta img').count()==0
         assert 'favicon.svg' in await page.locator('.brand img').get_attribute('src')
         classes=json.loads((ROOT/'data/classes.json').read_text())

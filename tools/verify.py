@@ -10,6 +10,18 @@ def main():
     filename=sys.argv[1] if len(sys.argv)>1 else 'index.html'
     raw=(ROOT/filename).read_text(encoding='utf-8'); page=BeautifulSoup(raw,'html.parser')
     data=json.loads((ROOT/'data/catalog.json').read_text()); tables=json.loads((ROOT/'data/classes.json').read_text())
+    # Match Abjuration: real path-only SVG assets, never embedded raster images.
+    import xml.etree.ElementTree as ET
+    school_files={s['school']:s['school'].lower()+'.svg' for s in data}
+    for school,file in school_files.items():
+        vector=ET.fromstring((ROOT/file).read_text())
+        assert vector.attrib['aria-label']==school
+        assert {e.tag.rsplit('}',1)[-1] for e in vector.iter()}=={'svg','title','path'}
+        assert not any(k.endswith('href') for e in vector.iter() for k in e.attrib)
+    for card in page.select('.spell-card'):
+        want=school_files[card['data-school']]
+        assert card.select_one('.school-emblem')['src']==want
+        assert page.select_one(f'.sidebar a[href="#{card["id"]}"] img')['src']==want
     assert len(page.select('.spell-card'))==len(data)==391
     ids=[x['id'] for x in page.select('[id]')]
     assert len(set(ids))==len(ids), [x for x,n in Counter(ids).items() if n>1]
