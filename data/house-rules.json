@@ -1,0 +1,34 @@
+{
+  "spell-fireball": {
+    "level": 3,
+    "summary": "Base damage: 8d6 → 6d6. The +1d6 increase per higher-level slot is unchanged.",
+    "replacements": [
+      [
+        "taking 8d6 Fire damage",
+        "taking 6d6 Fire damage"
+      ]
+    ],
+    "highlight": "6d6"
+  },
+  "spell-forcecage": {
+    "level": 9,
+    "summary": "Spell level: 7 → 9. All other effects and requirements are unchanged.",
+    "replacements": []
+  },
+  "spell-melf-s-acid-arrow": {
+    "level": 1,
+    "summary": "Spell level: 2 → 1. Base damage is unchanged; upcasting now scales from level 1.",
+    "replacements": [
+      [
+        "for each spell slot level above 2.",
+        "for each spell slot level above 1."
+      ]
+    ],
+    "highlight": "1"
+  },
+  "spell-wall-of-force": {
+    "level": 7,
+    "summary": "Spell level: 5 → 7. All other effects and requirements are unchanged.",
+    "replacements": []
+  }
+}
