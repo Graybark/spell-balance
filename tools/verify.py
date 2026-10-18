@@ -24,6 +24,10 @@ def main():
         assert page.select_one(f'.sidebar a[href="#{card["id"]}"] img')['src']==want
     assert len(page.select('.spell-card'))==len(data)==391
     assert not page.select('.permalink'), 'Spell-card permalink controls must remain removed.'
+    assert not page.select('details#spell-slots, #spell-slots > summary')
+    assert page.select_one('section#spell-slots[aria-labelledby=spell-slots-heading]')
+    assert page.select_one('.section-nav a[href="#spell-slots"]')
+    assert page.select_one('#spell-slots .back-to-spells[href="#spells"]')
     for record in data:
         assert page.find(id=record['id']) is not None
         assert page.select_one(f'.sidebar a[href="#{record["id"]}"]') is not None
