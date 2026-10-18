@@ -1,0 +1,71 @@
+name: Validate header-only Spell Slots
+on:
+  push:
+    branches: [maintenance/header-only-spell-slots-20261018]
+    paths: [.github/workflows/prepare-slot-view.yml, .github/prepare-slot-view.py, tools/slots_view_test.py]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Install existing build and test dependencies
+        run: python -m pip install -r requirements-build.txt -r requirements-test.txt
+      - name: Snapshot existing spell cards and class tables
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import hashlib,json
+          soup=BeautifulSoup(Path('index.html').read_text(),'html.parser')
+          nodes=soup.select('.spell-card,table.slot-table')
+          assert len(nodes)==396
+          Path('/tmp/slot-view-preserved.json').write_text(json.dumps([hashlib.sha256(str(n).encode()).hexdigest() for n in nodes]))
+          PY
+      - name: Apply the approved navigation change and regenerate the static page
+        run: |
+          python .github/prepare-slot-view.py
+          python tools/build.py
+          python tools/build.py --check
+          python tools/verify.py
+          node --check src/app.js
+          python - <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import hashlib,json
+          soup=BeautifulSoup(Path('index.html').read_text(),'html.parser')
+          actual=[hashlib.sha256(str(n).encode()).hexdigest() for n in soup.select('.spell-card,table.slot-table')]
+          assert actual==json.loads(Path('/tmp/slot-view-preserved.json').read_text()),'Unexpected content changes.'
+          PY
+      - name: Test first paint, mobile menu, table navigation and script-free fallback
+        run: |
+          python -m playwright install --with-deps chromium
+          python tools/browser_test.py
+      - name: Commit only tested sources and generated output on this branch
+        run: |
+          test "$GITHUB_REF_NAME" = maintenance/header-only-spell-slots-20261018
+          python - <<'PY'
+          import subprocess,re
+          changed=subprocess.check_output(['git','diff','--name-only'],text=True).splitlines()
+          assert set(changed)=={'index.html','src/app.js','src/app.css','tools/build.py','tools/browser_test.py','tools/verify.py'},changed
+          new=subprocess.check_output(['git','ls-files','--others','--exclude-standard'],text=True).splitlines()
+          assert len(new)==2 and all(re.fullmatch(r'assets/app\.[0-9a-f]{12}\.(js|css)',p) for p in new),new
+          PY
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- index.html src tools assets
+          git commit -m "Open full-caster tables only through the header link; preserve spell-reader state"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - name: Save browser regression report and screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: header-only-slots-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 3
