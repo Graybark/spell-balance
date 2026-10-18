@@ -1,0 +1,82 @@
+name: Prepare spell-card permalink removal
+on:
+  push:
+    branches: [maintenance/remove-spell-permalinks-20261018]
+    paths: [.github/workflows/prepare-remove-spell-permalinks.yml]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      REFERENCE_DIR: .
+      REFERENCE_HTML: index.html
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Remove only the visible link and add regression assertions
+        run: |
+          cd "$REFERENCE_DIR"
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, os, re
+          path=Path('tools/build.py')
+          original=path.read_bytes()
+          sha=hashlib.sha1(b'blob '+str(len(original)).encode()+b'\0'+original).hexdigest()
+          assert sha=='b926b284e7609464d53b242daa721501c8facba0', 'Build source changed; stop without overwriting.'
+          source=original.decode()
+          control='<a class="permalink" href="#{id}" aria-label="Link to {esc(s["name"])}">#</a>'
+          assert source.count(control)==1
+          path.write_text(source.replace(control,''),encoding='utf-8')
+          verify=Path('tools/verify.py')
+          text=verify.read_text(encoding='utf-8')
+          marker="    assert len(page.select('.spell-card'))==len(data)==391\n"
+          assert text.count(marker)==1
+          checks="    assert not page.select('.permalink'), 'Spell-card permalink controls must remain removed.'\n    for record in data:\n        assert page.find(id=record['id']) is not None\n        assert page.select_one(f'.sidebar a[href=\"#{record[\"id\"]}\"]') is not None\n"
+          verify.write_text(text.replace(marker,marker+checks),encoding='utf-8')
+          html=Path(os.environ['REFERENCE_HTML']).read_text(encoding='utf-8')
+          pattern=r'<a class="permalink" href="#spell-[^"]+" aria-label="[^"]*">#</a>'
+          assert len(re.findall(pattern,html))==391
+          Path('/tmp/expected-reference.html').write_text(re.sub(pattern,'',html),encoding='utf-8')
+          PY
+      - name: Build and verify that nothing else in the page changed
+        run: |
+          cd "$REFERENCE_DIR"
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python tools/build.py --output "$REFERENCE_HTML"
+          cmp "$REFERENCE_HTML" /tmp/expected-reference.html
+          python tools/build.py --output "$REFERENCE_HTML" --check
+          python tools/verify.py "$REFERENCE_HTML"
+          node --check src/app.js
+      - name: Test navigation, history, tabs and first paint
+        run: |
+          cd "$REFERENCE_DIR"
+          python -m playwright install --with-deps chromium
+          python tools/browser_test.py --output "$REFERENCE_HTML"
+      - name: Commit only the three validated reference files
+        run: |
+          test "$GITHUB_REF_NAME" = maintenance/remove-spell-permalinks-20261018
+          python - <<'PY'
+          from pathlib import Path
+          import os, subprocess
+          root=Path(os.environ['REFERENCE_DIR'])
+          expected={str(root/p) for p in [os.environ['REFERENCE_HTML'],'tools/build.py','tools/verify.py']}
+          actual=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())
+          assert actual==expected, (actual,expected)
+          PY
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$REFERENCE_DIR/$REFERENCE_HTML" "$REFERENCE_DIR/tools/build.py" "$REFERENCE_DIR/tools/verify.py"
+          git commit -m "Remove visible permalink controls from spell cards; retain navigation anchors"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - name: Save browser validation
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: permalink-removal-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 3
