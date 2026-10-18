@@ -40,6 +40,21 @@
   });
   let active = null, searchTimer;
   const isHouse = () => controls['house-rules-toggle'].checked;
+  // Class tables are a separate in-page view reached from the header, not a disclosure.
+  // Keep the existing reader, filters and phone-menu preference intact when switching views.
+  function syncView(navigate = false) {
+    const showingSlots = location.hash === '#spell-slots';
+    doc.documentElement.dataset.view = showingSlots ? 'slots' : 'spells';
+    doc.querySelectorAll('.section-nav a').forEach(link => {
+      const selected = (link.getAttribute('href') === '#spell-slots') === showingSlots;
+      if (selected) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
+    });
+    setOffsets();
+    if (navigate && showingSlots) {
+      slots.querySelector('h2').focus({preventScroll:true});
+      slots.scrollIntoView({block:'start'});
+    }
+  }
   function setURL(push = false, hash) {
     const url = new URL(location.href);
     for (const [key,id] of [['q','search'],['class','spell-class'],['level','level'],['label','label']]) {
@@ -52,17 +67,18 @@
     if (hash !== undefined) url.hash = hash;
     try { if (push) history.pushState(null,'',url); else history.replaceState(null,'',url); }
     catch (_) { /* Plain file URLs may not permit history rewriting. */ }
+    syncView();
   }
   function choose(entry, navigate = false) {
     if (active) {active.card.classList.remove('is-active'); active.item.querySelector('a').removeAttribute('aria-current');}
     active=entry;
     if (!active) return;
     active.card.classList.add('is-active'); active.item.querySelector('a').setAttribute('aria-current','true');
-    if (navigate) {
+    if (navigate && location.hash !== '#spell-slots') {
       active.card.querySelector('h2').focus({preventScroll:true});
       active.card.scrollIntoView({block:'start'});
     }
-    if (!mobile.matches) requestAnimationFrame(() => {
+    if (!mobile.matches && location.hash !== '#spell-slots') requestAnimationFrame(() => {
       if (!active) return;
       const nav=menu.querySelector('nav'), r=active.item.getBoundingClientRect(), n=nav.getBoundingClientRect();
       if(r.top<n.top || r.bottom>n.bottom) nav.scrollTop+=r.top-n.top-60;
@@ -99,7 +115,7 @@
     const selected=[...doc.querySelectorAll('input[name="caster"]')].find(i=>i.value===caster)||doc.getElementById('caster-wizard');
     selected.checked=true;
     filter(true,navigate);
-    if(location.hash==='#spell-slots') slots.open=true;
+    syncView(navigate);
   }
   function clear() {
     clearTimeout(searchTimer);
@@ -123,7 +139,14 @@
       event.preventDefault();controls['spell-class'].value=a.dataset.filterClass;setURL();filter();return;
     }
     const href=a.getAttribute('href');
-    if(href==='#spell-slots')slots.open=true;
+    if(href==='#spell-slots') {
+      event.preventDefault();clearTimeout(searchTimer);setURL(true,'spell-slots');syncView(true);return;
+    }
+    if(href==='#spells' && location.hash==='#spell-slots') {
+      event.preventDefault();setURL(true,active ? active.card.id : 'spells');
+      if(active)choose(active,true);else doc.getElementById('spells').scrollIntoView({block:'start'});
+      return;
+    }
     if(!href?.startsWith('#spell-'))return;
     const entry=byId.get(href.slice(1));if(!entry)return;
     event.preventDefault();
@@ -132,13 +155,10 @@
   });
   doc.querySelectorAll('input[name="caster"]').forEach(input=>input.addEventListener('change',()=>setURL()));
   window.addEventListener('popstate',()=>restore(true));
-  window.addEventListener('hashchange',()=>{if(location.hash==='#spell-slots')slots.open=true;else filter(true,true);});
+  window.addEventListener('hashchange',()=>{syncView(true);if(location.hash!=='#spell-slots')filter(true,true);});
   function setOffsets(){const toolbar=doc.querySelector('.toolbar');const h=matchMedia('(max-width:700px)').matches?0:toolbar.getBoundingClientRect().height;doc.documentElement.style.setProperty('--top',Math.ceil(h+12)+'px');}
   setOffsets();if('ResizeObserver'in window)new ResizeObserver(setOffsets).observe(doc.querySelector('.toolbar'));else window.addEventListener('resize',setOffsets);
   // Restore state and select the existing card before enabling interactions.
   restore();doc.documentElement.classList.add('enhanced');
   doc.querySelectorAll('.toolbar [disabled]').forEach(control=>{control.disabled=false;});
-  let printState;
-  window.addEventListener('beforeprint',()=>{printState=slots.open;slots.open=true;});
-  window.addEventListener('afterprint',()=>{if(typeof printState==='boolean')slots.open=printState;});
 })();

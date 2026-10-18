@@ -7,6 +7,7 @@ from functools import partial
 from threading import Thread
 import argparse,asyncio,base64,json,os
 from playwright.async_api import async_playwright
+from slots_view_test import check_slots_view
 ROOT=Path(__file__).resolve().parents[1]
 REPORT=Path(os.environ.get('REFERENCE_TEST_OUTPUT','/tmp/spell-balance-validation'))
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -179,7 +180,8 @@ async def run(filename):
             await page.screenshot(path=str(REPORT/f'fireball-{width}.png'))
         await page.set_viewport_size({'width':1280,'height':1000})
         await page.goto(url+'?caster=bard#spell-slots');await page.wait_for_selector('html.enhanced')
-        assert await page.locator('#spell-slots').get_attribute('open') is not None
+        assert await page.locator('#spell-slots').is_visible()
+        assert not await page.locator('#spells').is_visible()
         assert await page.locator('#caster-bard').is_checked()
         await page.locator('#caster-bard').focus();await page.keyboard.press('ArrowRight')
         assert await page.locator('#caster-cleric').is_checked()
@@ -192,7 +194,7 @@ async def run(filename):
         assert 'pointing finger' in await nojs.locator('#spell-fireball [data-panel="2014"]:visible').inner_text()
         await nojs.locator('.sidebar a[href="#spell-shield"]').click()
         assert await nojs.locator('.spell-card:visible h2').inner_text()=='Shield'
-        await nojs.locator('#spell-slots > summary').click()
+        await nojs.locator('.section-nav a[href="#spell-slots"]').click()
         await nojs.locator('label[for="caster-bard"]').click()
         assert await nojs.locator('table[data-caster="bard"]').is_visible()
         await nojs.screenshot(path=str(REPORT/'no-javascript.png'));await context.close()
@@ -207,10 +209,11 @@ async def run(filename):
         assert await failed.locator('#spell-fireball .why').is_visible()
         await failed.screenshot(path=str(REPORT/'failed-javascript.png'))
         await check_mobile_menu(browser,url)
+        await check_slots_view(browser,url,REPORT)
         await browser.close()
     server.shutdown()
     assert not errors,errors
-    report={'result':'PASS','transport':'real local HTTP in CI','delayed_script_header_unchanged':True,'script_delay_ms':1500,'no_legacy_header':True,'script_failure_readable':True,'no_javascript_navigation_and_tabs':True,'history_and_filter_restore':True,'responsive_widths':[1440,1280,768,390,360],'mobile_menu_below_spell':True,'mobile_menu_preference_persists':True,'desktop_sidebar_preserved':True,'school_icons':391,'class_rows':100,'javascript_errors':errors}
+    report={'result':'PASS','transport':'real local HTTP in CI','delayed_script_header_unchanged':True,'script_delay_ms':1500,'no_legacy_header':True,'script_failure_readable':True,'no_javascript_navigation_and_tabs':True,'history_and_filter_restore':True,'responsive_widths':[1440,1280,768,390,360],'mobile_menu_below_spell':True,'mobile_menu_preference_persists':True,'desktop_sidebar_preserved':True,'header_only_spell_slots':True,'slot_view_native_fallback':True,'slot_view_preserves_reader_state':True,'school_icons':391,'class_rows':100,'javascript_errors':errors}
     (REPORT/'report.json').write_text(json.dumps(report,indent=2));print(json.dumps(report))
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--output',default='index.html');args=parser.parse_args();asyncio.run(run(args.output))
