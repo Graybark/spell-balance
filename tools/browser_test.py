@@ -11,6 +11,75 @@ ROOT=Path(__file__).resolve().parents[1]
 REPORT=Path(os.environ.get('REFERENCE_TEST_OUTPUT','/tmp/spell-balance-validation'))
 class QuietHandler(SimpleHTTPRequestHandler):
     def log_message(self,*args): pass
+async def check_mobile_menu(browser,url):
+    """Phone list stays below the card and changes state only on user disclosure input."""
+    errors=[]
+    context=await browser.new_context(viewport={'width':390,'height':900})
+    page=await context.new_page()
+    page.on('pageerror',lambda e:errors.append(str(e)))
+    await page.goto(url+'#spell-fireball');await page.wait_for_selector('html.enhanced')
+    async def state(want):
+        await page.wait_for_function('(want)=>document.getElementById("spell-menu").open===want',arg=want)
+    async def below():
+        card=await page.locator('.spell-card:visible').bounding_box()
+        nav=await page.locator('.sidebar').bounding_box()
+        assert nav['y']>=card['y']+card['height'],(card,nav)
+        assert await page.evaluate('!!(document.querySelector(".reader-detail").compareDocumentPosition(document.querySelector(".sidebar")) & Node.DOCUMENT_POSITION_FOLLOWING)')
+    await state(False);await below()
+    await page.locator('#spell-menu > summary').click();await state(True)
+    await page.wait_for_function('localStorage.getItem("spellwright.mobileSpellMenu")==="open"')
+    await page.locator('.sidebar a[href="#spell-shield"]').click()
+    assert await page.locator('.spell-card:visible h2').inner_text()=='Shield'
+    await state(True);await below()
+    await page.select_option('#jump','spell-fireball');await state(True)
+    await page.go_back();await state(True)
+    await page.go_forward();await state(True)
+    await page.select_option('#spell-class','wizard');await state(True)
+    await page.uncheck('#house-rules-toggle');await state(True)
+    await page.check('#house-rules-toggle');await page.click('#clear');await state(True)
+    await page.reload();await page.wait_for_selector('html.enhanced');await state(True)
+    await page.locator('#spell-menu > summary').focus();await page.keyboard.press('Enter');await state(False)
+    await page.wait_for_function('localStorage.getItem("spellwright.mobileSpellMenu")==="closed"')
+    await page.select_option('#jump','spell-alarm');await state(False)
+    await page.reload();await page.wait_for_selector('html.enhanced');await state(False)
+    # Desktop stays on the left, without losing the phone preference.
+    await page.set_viewport_size({'width':1280,'height':900});await state(True)
+    await page.evaluate('scrollTo(0,0)')
+    card=await page.locator('.spell-card:visible').bounding_box();nav=await page.locator('.sidebar').bounding_box()
+    assert nav['x']+nav['width']<=card['x'] and abs(nav['y']-card['y'])<2,(nav,card)
+    assert await page.evaluate('localStorage.getItem("spellwright.mobileSpellMenu")')=='closed'
+    await page.set_viewport_size({'width':390,'height':900});await state(False);await below()
+    await page.locator('#spell-menu > summary').click();await state(True)
+    await page.set_viewport_size({'width':1280,'height':900});await state(True)
+    await page.set_viewport_size({'width':768,'height':900});await state(True);await below()
+    for width in (390,360):
+        await page.set_viewport_size({'width':width,'height':900});await below()
+        w=await page.evaluate('[document.documentElement.clientWidth,document.documentElement.scrollWidth]')
+        assert w[1]<=w[0]+1,w
+    await page.select_option('#jump','spell-fireball');await state(True)
+    await page.locator('.reader-layout').screenshot(path=str(REPORT/'mobile-menu-open.png'))
+    again=await context.new_page();await again.goto(url+'#spell-shield');await again.wait_for_selector('html.enhanced')
+    assert await again.locator('#spell-menu').evaluate('(m)=>m.open')
+    await context.close()
+    # Denied storage still leaves a usable menu with in-memory state.
+    blocked=await browser.new_context(viewport={'width':390,'height':900})
+    await blocked.add_init_script('Object.defineProperty(window,"localStorage",{get(){throw new DOMException("Storage blocked","SecurityError")}})')
+    p=await blocked.new_page();p.on('pageerror',lambda e:errors.append(str(e)))
+    await p.goto(url+'#spell-fireball');await p.wait_for_selector('html.enhanced')
+    await p.locator('#spell-menu > summary').click()
+    await p.locator('.sidebar a[href="#spell-shield"]').click()
+    assert await p.locator('#spell-menu').evaluate('(m)=>m.open')
+    await blocked.close()
+    # Content-first order and native behavior also work without scripts.
+    plain=await browser.new_context(java_script_enabled=False,viewport={'width':390,'height':900})
+    p=await plain.new_page();await p.goto(url+'#spell-fireball')
+    card=await p.locator('.spell-card:visible').bounding_box();nav=await p.locator('.sidebar').bounding_box()
+    assert nav['y']>=card['y']+card['height']
+    await p.locator('.sidebar a[href="#spell-shield"]').click()
+    assert await p.locator('#spell-menu').evaluate('(m)=>m.open')
+    await plain.close()
+    assert not errors,errors
+
 async def run(filename):
     REPORT.mkdir(parents=True,exist_ok=True)
     server=ThreadingHTTPServer(('127.0.0.1',0),partial(QuietHandler,directory=str(ROOT)))
@@ -137,10 +206,11 @@ async def run(filename):
         await failed.locator('label[for="spell-fireball-info-why"]').click()
         assert await failed.locator('#spell-fireball .why').is_visible()
         await failed.screenshot(path=str(REPORT/'failed-javascript.png'))
+        await check_mobile_menu(browser,url)
         await browser.close()
     server.shutdown()
     assert not errors,errors
-    report={'result':'PASS','transport':'real local HTTP in CI','delayed_script_header_unchanged':True,'script_delay_ms':1500,'no_legacy_header':True,'script_failure_readable':True,'no_javascript_navigation_and_tabs':True,'history_and_filter_restore':True,'responsive_widths':[1440,1280,768,390,360],'school_icons':391,'class_rows':100,'javascript_errors':errors}
+    report={'result':'PASS','transport':'real local HTTP in CI','delayed_script_header_unchanged':True,'script_delay_ms':1500,'no_legacy_header':True,'script_failure_readable':True,'no_javascript_navigation_and_tabs':True,'history_and_filter_restore':True,'responsive_widths':[1440,1280,768,390,360],'mobile_menu_below_spell':True,'mobile_menu_preference_persists':True,'desktop_sidebar_preserved':True,'school_icons':391,'class_rows':100,'javascript_errors':errors}
     (REPORT/'report.json').write_text(json.dumps(report,indent=2));print(json.dumps(report))
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--output',default='index.html');args=parser.parse_args();asyncio.run(run(args.output))

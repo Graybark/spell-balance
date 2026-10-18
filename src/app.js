@@ -11,6 +11,33 @@
   const byId = new Map(entries.map(entry => [entry.card.id, entry]));
   const empty = doc.getElementById('empty'), menu = doc.getElementById('spell-menu'), slots = doc.getElementById('spell-slots');
   const mobile = matchMedia('(max-width:800px)');
+  // Keep the phone list's explicit disclosure preference across navigation and reloads.
+  // Track the applied layout separately: native toggle events can arrive after a resize.
+  const menuStorageKey = 'spellwright.mobileSpellMenu';
+  let menuIsMobile = mobile.matches;
+  let mobileMenuOpen = false, desktopMenuOpen = menu.open;
+  try {
+    const saved = localStorage.getItem(menuStorageKey);
+    if (saved === 'open' || saved === 'closed') mobileMenuOpen = saved === 'open';
+  } catch (_) { /* Storage can be blocked; the in-memory preference still works. */ }
+  function rememberMenuState() {
+    if (menuIsMobile) {
+      if (menu.open === mobileMenuOpen) return;
+      mobileMenuOpen = menu.open;
+      try { localStorage.setItem(menuStorageKey, mobileMenuOpen ? 'open' : 'closed'); }
+      catch (_) { /* Keep the user's state for this page even when persistence fails. */ }
+    } else {
+      desktopMenuOpen = menu.open;
+    }
+  }
+  menu.open = menuIsMobile ? mobileMenuOpen : desktopMenuOpen;
+  menu.addEventListener('toggle', rememberMenuState);
+  mobile.addEventListener('change', () => {
+    // Save the old layout's actual disclosure state, including a pending user toggle.
+    rememberMenuState();
+    menuIsMobile = mobile.matches;
+    menu.open = menuIsMobile ? mobileMenuOpen : desktopMenuOpen;
+  });
   let active = null, searchTimer;
   const isHouse = () => controls['house-rules-toggle'].checked;
   function setURL(push = false, hash) {
@@ -32,7 +59,6 @@
     if (!active) return;
     active.card.classList.add('is-active'); active.item.querySelector('a').setAttribute('aria-current','true');
     if (navigate) {
-      if (mobile.matches) menu.open=false;
       active.card.querySelector('h2').focus({preventScroll:true});
       active.card.scrollIntoView({block:'start'});
     }
@@ -109,11 +135,9 @@
   window.addEventListener('hashchange',()=>{if(location.hash==='#spell-slots')slots.open=true;else filter(true,true);});
   function setOffsets(){const toolbar=doc.querySelector('.toolbar');const h=matchMedia('(max-width:700px)').matches?0:toolbar.getBoundingClientRect().height;doc.documentElement.style.setProperty('--top',Math.ceil(h+12)+'px');}
   setOffsets();if('ResizeObserver'in window)new ResizeObserver(setOffsets).observe(doc.querySelector('.toolbar'));else window.addEventListener('resize',setOffsets);
-  mobile.addEventListener('change',()=>{menu.open=!mobile.matches;});
   // Restore state and select the existing card before enabling interactions.
   restore();doc.documentElement.classList.add('enhanced');
   doc.querySelectorAll('.toolbar [disabled]').forEach(control=>{control.disabled=false;});
-  if(mobile.matches)menu.open=false;
   let printState;
   window.addEventListener('beforeprint',()=>{printState=slots.open;slots.open=true;});
   window.addEventListener('afterprint',()=>{if(typeof printState==='boolean')slots.open=printState;});
