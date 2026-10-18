@@ -23,6 +23,10 @@ def main():
         assert card.select_one('.school-emblem')['src']==want
         assert page.select_one(f'.sidebar a[href="#{card["id"]}"] img')['src']==want
     assert len(page.select('.spell-card'))==len(data)==391
+    assert not page.select('.permalink'), 'Spell-card permalink controls must remain removed.'
+    for record in data:
+        assert page.find(id=record['id']) is not None
+        assert page.select_one(f'.sidebar a[href="#{record["id"]}"]') is not None
     ids=[x['id'] for x in page.select('[id]')]
     assert len(set(ids))==len(ids), [x for x,n in Counter(ids).items() if n>1]
     assert page.select_one('.site-header .brand h1').get_text()=='Spellwright'

@@ -92,7 +92,7 @@ def build(output, check=False):
         if h: tags='<span class="tag tag-house"><span data-mode="house">House Rule</span><span data-mode="official">House Rule available</span></span>'+tags
         if re.search(r'\bConcentration\b',v['metadata'].get('duration',''),re.I): tags+='<span class="tag">Concentration</span>'
         if re.search(r'\britual\b',v['metadata'].get('casting time',''),re.I): tags+='<span class="tag">Ritual</span>'
-        head=f'<header class="spell-heading"><div class="title-main"><div class="title-line"><h2 tabindex="-1">{esc(s["name"])}</h2><div class="heading-tags">{tags}</div></div><p class="eyebrow">{level_html(s)} · {school}</p></div><div class="heading-aside"><a class="permalink" href="#{id}" aria-label="Link to {esc(s["name"])}">#</a><img class="school-emblem" draggable="false" src="{icon}" width="82" height="78" alt="{school}" decoding="async" loading="lazy"></div></header>'
+        head=f'<header class="spell-heading"><div class="title-main"><div class="title-line"><h2 tabindex="-1">{esc(s["name"])}</h2><div class="heading-tags">{tags}</div></div><p class="eyebrow">{level_html(s)} · {school}</p></div><div class="heading-aside"><img class="school-emblem" draggable="false" src="{icon}" width="82" height="78" alt="{school}" decoding="async" loading="lazy"></div></header>'
         meta=metadata(v,s['official_level'],school)
         primary=body(v)
         if h:
