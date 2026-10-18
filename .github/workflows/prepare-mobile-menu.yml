@@ -1,0 +1,52 @@
+name: Validate mobile spell menu
+on:
+  push:
+    branches: [maintenance/mobile-spell-menu-20261018]
+    paths: [.github/workflows/prepare-mobile-menu.yml, .github/prepare-mobile-menu.py, .github/mobile-menu-regression.txt]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Apply only the approved mobile changes
+        run: python .github/prepare-mobile-menu.py
+      - name: Build and check all preserved content
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python tools/build.py
+          python tools/build.py --check
+          python tools/verify.py
+          node --check src/app.js
+      - name: Test loading, mobile state, navigation, responsive layout and storage failure
+        run: |
+          python -m playwright install --with-deps chromium
+          python tools/browser_test.py
+      - name: Commit only validated sources and generated assets on this branch
+        run: |
+          test "$GITHUB_REF_NAME" = maintenance/mobile-spell-menu-20261018
+          python - <<'PY'
+          import subprocess,re
+          changed=subprocess.check_output(['git','diff','--name-only'],text=True).splitlines()
+          assert set(changed)=={'index.html','src/app.js','src/app.css','tools/build.py','tools/browser_test.py'},changed
+          extra=subprocess.check_output(['git','ls-files','--others','--exclude-standard'],text=True).splitlines()
+          assert len(extra)==2 and all(re.fullmatch(r'assets/app\.[0-9a-f]{12}\.(css|js)',p) for p in extra),extra
+          PY
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- index.html src/app.js src/app.css tools/build.py tools/browser_test.py assets
+          git commit -m "Place mobile spell list below details and preserve its chosen disclosure state"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - name: Save test report and screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: mobile-menu-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 3
