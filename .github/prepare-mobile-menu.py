@@ -13,19 +13,16 @@ def replace_once(text,before,after):
 
 p=root/'src/app.js';s=p.read_text(encoding='utf-8')
 state="""  // Keep the phone list's explicit disclosure preference across navigation and reloads.
-  // Desktop disclosure state is independent; rotating/resizing must not overwrite it.
+  // Track the applied layout separately: native toggle events can arrive after a resize.
   const menuStorageKey = 'spellwright.mobileSpellMenu';
+  let menuIsMobile = mobile.matches;
   let mobileMenuOpen = false, desktopMenuOpen = menu.open;
   try {
     const saved = localStorage.getItem(menuStorageKey);
     if (saved === 'open' || saved === 'closed') mobileMenuOpen = saved === 'open';
   } catch (_) { /* Storage can be blocked; the in-memory preference still works. */ }
-  function restoreMenuState() {
-    menu.open = mobile.matches ? mobileMenuOpen : desktopMenuOpen;
-  }
-  restoreMenuState();
-  menu.addEventListener('toggle', () => {
-    if (mobile.matches) {
+  function rememberMenuState() {
+    if (menuIsMobile) {
       if (menu.open === mobileMenuOpen) return;
       mobileMenuOpen = menu.open;
       try { localStorage.setItem(menuStorageKey, mobileMenuOpen ? 'open' : 'closed'); }
@@ -33,8 +30,15 @@ state="""  // Keep the phone list's explicit disclosure preference across naviga
     } else {
       desktopMenuOpen = menu.open;
     }
+  }
+  menu.open = menuIsMobile ? mobileMenuOpen : desktopMenuOpen;
+  menu.addEventListener('toggle', rememberMenuState);
+  mobile.addEventListener('change', () => {
+    // Save the old layout's actual disclosure state, including a pending user toggle.
+    rememberMenuState();
+    menuIsMobile = mobile.matches;
+    menu.open = menuIsMobile ? mobileMenuOpen : desktopMenuOpen;
   });
-  mobile.addEventListener('change', restoreMenuState);
 """
 s=replace_once(s,"  const mobile = matchMedia('(max-width:800px)');\n","  const mobile = matchMedia('(max-width:800px)');\n"+state)
 s=replace_once(s,'      if (mobile.matches) menu.open=false;\n','')
