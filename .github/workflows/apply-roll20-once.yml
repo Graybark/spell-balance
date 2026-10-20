@@ -1,0 +1,142 @@
+name: Apply verified Roll20 transcription corrections
+on:
+  push:
+    paths: ['.github/workflows/apply-roll20-once.yml']
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      REFERENCE_TEST_OUTPUT: /tmp/roll20-validation
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install validation dependencies
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python -m playwright install --with-deps chromium
+      - name: Apply exact reviewed edits to unchanged source
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import base64,copy,hashlib,json,zlib
+          def sha(b):return hashlib.sha256(b).hexdigest()
+          def blob(b):return hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          p=Path('data/catalog.json');raw=p.read_bytes()
+          assert blob(raw)=='a34fa1d8b68d12ea911ab51a73d8512ad790baff', 'Catalog changed since review; stop.'
+          css=Path('src/app.css');cssraw=css.read_bytes()
+          assert blob(cssraw)=='84e8ec6d9da0f10e409e57156108fb554d1c0df8', 'CSS changed since review; stop.'
+          payload=zlib.decompress(base64.b64decode(Path('.github/roll20-reviewed.b64').read_bytes()))
+          assert sha(payload)=='4a571c839b567b4a2e4e1a6b30b36b0f8c669c813a7f09c196aad325f0f4444e', 'Reviewed patch damaged; stop.'
+          package=json.loads(payload);original=json.loads(raw);data=copy.deepcopy(original)
+          assert len(package['patches'])==82
+          for index,year,field,diffs in package['patches']:
+              v=data[index]['versions'][year]
+              obj,key=(v['metadata'],field.split('/')[1]) if field.startswith('metadata/') else (v,field)
+              for start,end,text in reversed(diffs):obj[key]=obj[key][:start]+text+obj[key][end:]
+          changed=[];old_tables=0;new_tables=0
+          for old,new in zip(original,data):
+              assert {k:v for k,v in old.items() if k!='versions'}=={k:v for k,v in new.items() if k!='versions'}
+              for year,v in new['versions'].items():
+                  before=old['versions'][year]
+                  assert sha(before['body'].encode())==before['body_sha256']
+                  for key in before:
+                      if key not in ('body','metadata','body_sha256'):assert before[key]==v[key]
+                  if before['body']!=v['body'] or before['metadata']!=v['metadata']:changed.append((new['name'],year))
+                  v['body_sha256']=sha(v['body'].encode())
+                  soup=BeautifulSoup(v['body'],'html.parser')
+                  assert not soup.select('p p,p table,p div,p ul,ul>p')
+                  old_tables+=len(BeautifulSoup(before['body'],'html.parser').select('table'))
+                  new_tables+=len(soup.select('table'))
+          result=(json.dumps(data,ensure_ascii=False,indent=2)+'\n').encode()
+          assert sha(result)=='65d9d6faaf551a23695ef8b2fc79e8501788f7032d5060347c12049297fcea4d'
+          assert len(data)==391 and len(changed)==81 and len({n for n,y in changed})==75
+          assert new_tables-old_tables==15
+          p.write_bytes(result);css.write_bytes(cssraw+package['css_append'].encode())
+          assert sha(css.read_bytes())=='0931836d11f3e67136feb7b13e59aa4f80ca195728d94c7602ed4ef581e64464'
+          Path('data/source-verification.json').write_text(json.dumps(package['verification'],ensure_ascii=False,indent=2)+'\n')
+          out=Path('/tmp/roll20-validation');out.mkdir(exist_ok=True)
+          (out/'source-verification.json').write_bytes(Path('data/source-verification.json').read_bytes())
+          print('90 of 91 audited groups resolved; 75 spells / 81 edition records corrected; 15 tables restored.')
+          print('2014 Elemental Weapon remains To confirm. Existing errata and all four house-rule choices preserved.')
+          PY
+      - name: Rebuild and run the full release validation
+        run: |
+          python tools/build.py
+          python tools/verify.py
+          python tools/build.py --check
+          python tools/browser_test.py
+      - name: Check every restored table layout and relocated summon text
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from functools import partial
+          from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
+          from threading import Thread
+          from playwright.sync_api import sync_playwright
+          import hashlib,json
+          b=Path('index.html').read_bytes()
+          assert hashlib.sha256(b).hexdigest()=='e79754de6d852b3fffcb1cd4b81dacdd771b8c2e0f3ba8beb76c8daf1f4822ad'
+          catalog={x['id']:x for x in json.loads(Path('data/catalog.json').read_text())}
+          beast=catalog['spell-summon-beast']['versions']['2024']['body']
+          aberration=catalog['spell-summon-aberration']['versions']['2024']['body']
+          assert 'Air, Land, or Water.' in beast and 'The creature resembles an animal' in beast
+          assert 'resembles an animal' not in aberration and 'spell-text-after' not in aberration
+          assert 'at least 1 Hit Point' in aberration
+          assert 'damage increases by 1d8' in catalog['spell-conjure-elemental']['versions']['2024']['body']
+          assert '30 + 10 for each spell level above 4' in catalog['spell-giant-insect']['versions']['2024']['body']
+          server=ThreadingHTTPServer(('127.0.0.1',0),partial(SimpleHTTPRequestHandler,directory=str(Path.cwd())))
+          Thread(target=server.serve_forever,daemon=True).start()
+          cases=[('animate-objects','2014',[5]),('control-weather','2014',[5,6,5]),('control-weather','2024',[5,6,5]),('creation','2014',[5]),('creation','2024',[5]),('reincarnate','2014',[14]),('scrying','2014',[3,3]),('scrying','2024',[3,3]),('teleport','2014',[7])]
+          with sync_playwright() as p:
+              browser=p.chromium.launch()
+              for width in (1280,390,320):
+                  page=browser.new_page(viewport={'width':width,'height':1000})
+                  page.goto(f'http://127.0.0.1:{server.server_port}/index.html')
+                  page.wait_for_selector('html.enhanced')
+                  for name,year,rows in cases:
+                      sid='spell-'+name
+                      page.select_option('#jump',sid)
+                      page.locator(f'label[for="{sid}-info-compare"]').click()
+                      page.locator(f'label[for="{sid}-editions-{year}"]').click()
+                      tables=page.locator(f'#{sid} .spell-data-wrap:visible table')
+                      assert tables.count()==len(rows),(sid,year)
+                      for i,count in enumerate(rows):
+                          t=tables.nth(i)
+                          assert t.locator('tbody tr').count()==count
+                          assert t.locator('thead th[scope=col]').count()>=2
+                          assert t.locator('tbody th[scope=row]').count()==count
+                      assert page.evaluate('document.documentElement.scrollWidth <= innerWidth+1'),(sid,year,width)
+                      if name in ('animate-objects','scrying','control-weather','teleport'):
+                          page.locator(f'#{sid}').screenshot(path=f'/tmp/roll20-validation/{name}-{year}-{width}.png')
+                      if name=='scrying' and year=='2024':
+                          assert tables.nth(1).locator('tbody tr').nth(1).locator('td').inner_text()=='−4'
+                  page.close()
+              browser.close()
+          server.shutdown()
+          print('All 15 restored tables pass at 1280, 390 and 320 pixels; summon placement and retained errata pass.')
+          PY
+      - name: Commit only verified reference sources and generated output
+        run: |
+          git diff --exit-code -- data/house-rules.json data/classes.json data/overview.json src/app.js tools
+          git add data/catalog.json data/source-verification.json src/app.css index.html assets
+          git diff --cached --stat
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Resolve 90 audited transcription issues against matching Roll20 editions; preserve errata and house rules'
+          git push origin HEAD:main
+          git rev-parse HEAD | tee /tmp/roll20-validation/commit.txt
+          tar -czf /tmp/roll20-validation/reference.tar.gz data src tools assets index.html *.svg requirements-*.txt README.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: roll20-validation
+          path: /tmp/roll20-validation
+          retention-days: 7
