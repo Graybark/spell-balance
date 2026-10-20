@@ -1,0 +1,67 @@
+name: Validate Lightning Bolt and Wall of Force house rules
+on:
+  push:
+    branches: [house-rules/lightning-wall-20261020]
+    paths: [.github/workflows/lightning-wall.yml, .github/prepare-lightning-wall.py, tools/house_rules_test.py]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Snapshot unrelated spells and apply only the approved changes
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python - <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import hashlib,json
+          page=BeautifulSoup(Path('index.html').read_text(),'html.parser')
+          unchanged={c['id']:hashlib.sha256(str(c).encode()).hexdigest() for c in page.select('.spell-card') if c['id'] not in ('spell-lightning-bolt','spell-wall-of-force')}
+          assert len(unchanged)==389
+          Path('/tmp/unchanged-spells.json').write_text(json.dumps(unchanged))
+          PY
+          python .github/prepare-lightning-wall.py
+          python tools/build.py
+          python tools/build.py --check
+          python tools/verify.py
+          python - <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import hashlib,json
+          page=BeautifulSoup(Path('index.html').read_text(),'html.parser')
+          unchanged={c['id']:hashlib.sha256(str(c).encode()).hexdigest() for c in page.select('.spell-card') if c['id'] not in ('spell-lightning-bolt','spell-wall-of-force')}
+          assert unchanged==json.loads(Path('/tmp/unchanged-spells.json').read_text()), 'An unrelated spell card changed.'
+          PY
+      - name: Test original editions, exact replacement text, filters, highlights and mobile layouts
+        run: |
+          python -m playwright install --with-deps chromium
+          python tools/browser_test.py
+      - name: Commit only validated rule sources, build support, tests and generated HTML
+        run: |
+          test "$GITHUB_REF_NAME" = house-rules/lightning-wall-20261020
+          git diff --exit-code -- data/catalog.json data/classes.json data/source-verification.json src assets
+          python - <<'PY'
+          import subprocess
+          changed=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())
+          assert changed=={'data/house-rules.json','tools/build.py','tools/verify.py','tools/browser_test.py','index.html'},changed
+          assert not subprocess.check_output(['git','ls-files','--others','--exclude-standard'],text=True).strip()
+          PY
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- data/house-rules.json tools/build.py tools/verify.py tools/browser_test.py tools/house_rules_test.py index.html
+          git commit -m "Set Lightning Bolt to 6d6; replace level-5 Wall of Force effect with approved escape reaction"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - name: Save regression results and screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lightning-wall-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 3
