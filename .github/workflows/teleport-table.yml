@@ -1,0 +1,104 @@
+name: Validate Teleport outcome table
+on:
+  push:
+    branches: [maintenance/teleport-outcome-table-20261020]
+    paths: [.github/workflows/teleport-table.yml]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      REFERENCE_TEST_OUTPUT: /tmp/teleport-validation
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Apply source-guarded formatting change
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python .github/teleport-table.py
+          python tools/build.py
+          python tools/verify.py
+          python tools/build.py --check
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          expected={'data/catalog.json':'64dbbab3ce86fbdefcbdedf37798a0a58d419729','src/app.css':'5b696c346448084492a253ef5d1f6096c098cfb9','tools/verify.py':'eabeee2efd447b1a11c8d4d07d88b7b1c22b1149','index.html':'8e4553db3d3ebc33307c770b98ff7df34447bb2d','assets/app.414661b830a5.css':'5b696c346448084492a253ef5d1f6096c098cfb9'}
+          for name,sha in expected.items():
+              b=Path(name).read_bytes()
+              assert hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()==sha,name
+          PY
+      - name: Run full browser regressions
+        run: |
+          python -m playwright install --with-deps chromium
+          python tools/browser_test.py
+      - name: Verify table display in both 2024 views and preserve 2014
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from functools import partial
+          from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
+          from threading import Thread
+          from playwright.sync_api import sync_playwright
+          import json
+          server=ThreadingHTTPServer(('127.0.0.1',0),partial(SimpleHTTPRequestHandler,directory=str(Path.cwd())))
+          Thread(target=server.serve_forever,daemon=True).start()
+          report=Path('/tmp/teleport-validation');report.mkdir(exist_ok=True)
+          checks=[]
+          with sync_playwright() as p:
+              b=p.chromium.launch()
+              for width in (1120,390,320):
+                  page=b.new_page(viewport={'width':width,'height':1000})
+                  page.goto(f'http://127.0.0.1:{server.server_port}/index.html#spell-teleport')
+                  page.wait_for_selector('html.enhanced')
+                  table=page.locator('.teleport-outcome-table:visible')
+                  assert table.count()==1 and table.locator('tbody tr').count()==6
+                  page.mouse.move(0,0)
+                  assert table.locator('tbody tr').first.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(215, 232, 238)'
+                  assert table.locator('tbody tr').nth(1).evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(241, 247, 249)'
+                  assert table.locator('td').first.evaluate('(e)=>getComputedStyle(e).textAlign')=='center'
+                  assert table.locator('tbody th').first.evaluate('(e)=>getComputedStyle(e).textAlign')=='left'
+                  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+                  if width<800:
+                      wrap=table.locator('..');assert wrap.evaluate('(e)=>e.scrollWidth>e.clientWidth')
+                      wrap.focus();page.keyboard.press('ArrowRight');page.wait_for_timeout(120)
+                      assert wrap.evaluate('(e)=>e.scrollLeft>0')
+                  table.scroll_into_view_if_needed();page.mouse.move(0,0)
+                  page.screenshot(path=str(report/f'teleport-{width}.png'))
+                  page.locator('label[for="spell-teleport-info-compare"]').click()
+                  assert page.locator('.teleport-outcome-table:visible').count()==1
+                  page.locator('label[for="spell-teleport-editions-2014"]').click()
+                  assert page.locator('.teleport-outcome-table:visible').count()==0
+                  assert page.locator('#spell-teleport [data-panel="2014"] tbody tr').count()==7
+                  checks.append({'width':width,'status':'PASS'})
+                  page.close()
+              b.close()
+          server.shutdown()
+          (report/'teleport-checks.json').write_text(json.dumps(checks,indent=2))
+          print('Screenshot-matched rows, colors, alignment, local mobile scrolling and both edition views: PASS')
+          PY
+      - name: Commit only tested reference files on this staging branch
+        run: |
+          test "$GITHUB_REF_NAME" = maintenance/teleport-outcome-table-20261020
+          python - <<'PY'
+          import subprocess
+          changed=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())
+          assert changed=={'data/catalog.json','src/app.css','tools/verify.py','index.html'},changed
+          extra=subprocess.check_output(['git','ls-files','--others','--exclude-standard'],text=True).splitlines()
+          assert extra==['assets/app.414661b830a5.css'],extra
+          PY
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- data/catalog.json src/app.css tools/verify.py index.html assets/app.414661b830a5.css
+          git commit -m 'Render Teleport 2024 outcomes as the supplied five-column table; preserve all rules'
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: teleport-table-validation
+          path: /tmp/teleport-validation
+          retention-days: 3
