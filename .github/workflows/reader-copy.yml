@@ -1,0 +1,63 @@
+name: Validate reader-facing copy
+on:
+  push:
+    branches: [copy/reader-facing-language-20261020]
+    paths: [.github/workflows/reader-copy.yml, .github/reader-copy.py, tools/reader_copy_test.py]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Apply the agreed copy changes to guarded sources
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python .github/reader-copy.py
+          python tools/build.py
+          python tools/build.py --check
+          python tools/verify.py
+          git diff --exit-code -- data/classes.json data/source-verification.json data/overview.json src assets
+      - name: Check tabs, filters, unchanged house rules and responsive copy
+        run: |
+          python -m playwright install --with-deps chromium
+          python tools/browser_test.py
+      - name: Commit only tested copy, build support and generated HTML to staging
+        run: |
+          test "$GITHUB_REF_NAME" = copy/reader-facing-language-20261020
+          python - <<'PY'
+          import subprocess
+          actual=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())
+          expected={'data/catalog.json','data/house-rules.json','tools/build.py','tools/verify.py','tools/browser_test.py','tools/nerf_discussions_test.py','index.html'}
+          assert actual==expected,(actual,expected)
+          assert not subprocess.check_output(['git','ls-files','--others','--exclude-standard'],text=True).strip()
+          PY
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- data/catalog.json data/house-rules.json tools/build.py tools/verify.py tools/browser_test.py tools/nerf_discussions_test.py index.html
+          git commit -m 'Use reader-facing copy and remove stale editorial comparison notes'
+          git push origin "HEAD:$GITHUB_REF_NAME"
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          files=['data/catalog.json','data/house-rules.json','tools/build.py','tools/verify.py','tools/browser_test.py','tools/nerf_discussions_test.py','tools/reader_copy_test.py','index.html']
+          hashes={}
+          for path in files:
+              b=Path(path).read_bytes();hashes[path]=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          Path('/tmp/spellwright-reader-copy/release-files.json').write_text(json.dumps(hashes,indent=2))
+          print(json.dumps(hashes))
+          PY
+      - name: Save validation results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: reader-copy-validation
+          path: |
+            /tmp/spellwright-reader-copy
+            /tmp/spell-balance-validation
+          retention-days: 3
