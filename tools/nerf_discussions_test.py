@@ -12,6 +12,19 @@ SOURCES={
     ],
 }
 def check_discussion_content(page,data,house):
+    lightning=next(s for s in data if s['id']=='spell-lightning-bolt')
+    assert lightning['categories'].count('nerf')==1
+    assert sum(t['class']=='tag tag-nerf' for t in lightning['tags'])==1
+    card=page.find(id='spell-lightning-bolt')
+    pane=card.select_one('[data-panel="discussion"]')
+    assert pane and len(pane.select('.balance-note'))==1
+    assert 'Several replies defend Lightning Bolt' in pane.get_text()
+    assert '2020' in pane.get_text() and '2014 rules' in pane.get_text()
+    assert 'campaign decision' in pane.get_text()
+    assert len(pane.select('a[href]'))==2
+    assert card.select_one('[data-panel="why"]')
+    assert house['spell-lightning-bolt']['replacements']==[['taking 8d6 Lightning damage','taking 6d6 Lightning damage']]
+    assert len(house)==5
     for id,(name,level) in TARGETS.items():
         records=[record for record in data if record['id']==id]
         assert len(records)==1
@@ -41,8 +54,8 @@ async def check_discussion_browser(browser,url,report):
         await p.goto(url+'?label=nerf#spell-simulacrum')
         await p.wait_for_selector('html.enhanced')
         assert await p.locator('#label').input_value()=='nerf'
-        assert await p.locator('#visible-count').inner_text()=='10 spells'
-        assert await p.locator('.sidebar li:not([hidden])').count()==10
+        assert await p.locator('#visible-count').inner_text()=='11 spells'
+        assert await p.locator('.sidebar li:not([hidden])').count()==11
         if width<=800:
             await p.locator('#spell-menu > summary').click()
             await p.wait_for_function('document.getElementById("spell-menu").open')
@@ -75,6 +88,7 @@ async def check_discussion_browser(browser,url,report):
         assert await p.locator('#visible-count').inner_text()=='5 spells'
         for id in TARGETS: assert await p.locator(f'.sidebar li[data-spell="{id}"]').evaluate('(e)=>e.hidden')
         await context.close()
+    await check_lightning_discussion_browser(browser,url,report)
     plain=await browser.new_context(java_script_enabled=False,viewport={'width':390,'height':1000})
     p=await plain.new_page()
     for id in TARGETS:
@@ -82,4 +96,50 @@ async def check_discussion_browser(browser,url,report):
         await p.locator(f'label[for="{id}-info-discussion"]').click()
         assert await p.locator(f'#{id} .balance-note').is_visible()
     await plain.close()
+    assert not errors,errors
+
+async def check_lightning_discussion_browser(browser,url,report):
+    from playwright.async_api import expect
+    sources=[
+        'https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/75512-fireball-and-lightning-bolt',
+        'https://roll20.net/compendium/dnd5e/Spells:Lightning%20Bolt?expansion=32231',
+    ]
+    errors=[]
+    for width in (1280,390):
+        for javascript in (True,False):
+            context=await browser.new_context(viewport={'width':width,'height':1000},java_script_enabled=javascript)
+            p=await context.new_page()
+            p.on('pageerror',lambda e:errors.append(str(e)))
+            await p.goto(url+'?label=nerf#spell-lightning-bolt')
+            if javascript:
+                await p.wait_for_selector('html.enhanced')
+                await expect(p.locator('#visible-count')).to_have_text('11 spells')
+                assert await p.locator('.sidebar li[data-spell="spell-lightning-bolt"]').evaluate('(e)=>!e.hidden')
+            card=p.locator('#spell-lightning-bolt')
+            await expect(card).to_be_visible()
+            await expect(card.locator('.tag-house')).to_be_visible()
+            await expect(card.locator('.tag-nerf')).to_be_visible()
+            house=card.locator('[data-panel="spell"] [data-mode="house"]')
+            assert 'taking 6d6 Lightning damage' in await house.inner_text()
+            await p.locator('label[for="spell-lightning-bolt-info-discussion"]').click()
+            pane=card.locator('[data-panel="discussion"]')
+            await expect(pane).to_be_visible()
+            assert await pane.locator('.balance-note').count()==1
+            for source in sources:
+                assert await pane.locator('a').evaluate_all('(links,u)=>links.some(a=>a.getAttribute("href")===u)',source)
+            assert 'Several replies defend Lightning Bolt' in await pane.inner_text()
+            if javascript: await card.screenshot(path=str(report/f'lightning-discussion-{width}.png'))
+            size=await p.evaluate('[document.documentElement.clientWidth,document.documentElement.scrollWidth]')
+            assert size[1]<=size[0]+1,(width,size)
+            await p.locator('label[for="spell-lightning-bolt-info-why"]').click()
+            assert '8d6 → 6d6' in await card.locator('.why').inner_text()
+            await p.locator('label[for="spell-lightning-bolt-info-compare"]').click()
+            for year in ('2024','2014'):
+                await p.locator(f'label[for="spell-lightning-bolt-editions-{year}"]').click()
+                assert '8d6' in await card.locator(f'[data-panel="{year}"] .original-body').inner_text()
+            if javascript:
+                await p.select_option('#label','house-rule')
+                await expect(p.locator('#visible-count')).to_have_text('5 spells')
+                assert await p.locator('.sidebar li[data-spell="spell-lightning-bolt"]').evaluate('(e)=>!e.hidden')
+            await context.close()
     assert not errors,errors

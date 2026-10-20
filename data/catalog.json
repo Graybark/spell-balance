@@ -9735,8 +9735,15 @@
     "name": "Lightning Bolt",
     "official_level": 3,
     "school": "Evocation",
-    "categories": [],
-    "tags": [],
+    "categories": [
+      "nerf"
+    ],
+    "tags": [
+      {
+        "text": "Nerf",
+        "class": "tag tag-nerf"
+      }
+    ],
     "versions": {
       "2024": {
         "type": "Level 3 · Evocation",
@@ -9770,7 +9777,11 @@
     "notes": [
       "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (100-foot line) → Self</p>"
     ],
-    "discussion": []
+    "discussion": [
+      "<p class=\"balance-note\"><strong>Balance discussion (disputed):</strong> A 2020 D&D Beyond thread questions Fireball and Lightning Bolt's damage relative to a level-3 slot and discusses changing Lightning Bolt's damage or targeting. Several replies defend Lightning Bolt: its narrow line makes catching multiple enemies difficult, unlike Fireball's wider area. The discussion does not establish agreement that Lightning Bolt needs a nerf. <a href=\"https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/75512-fireball-and-lightning-bolt\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion: Fireball and Lightning Bolt (2020)</a></p>",
+      "<p><strong>Edition context:</strong> The linked discussion concerns the 2014 rules. The 2024 spell still deals 8d6 Lightning damage in a 100-foot-long, 5-foot-wide Line, with +1d6 per higher-level slot. Those shared features make the older discussion relevant to the damage comparison, but it is not a 2024-specific consensus. <a href=\"https://roll20.net/compendium/dnd5e/Spells:Lightning%20Bolt?expansion=32231\" rel=\"noopener noreferrer\" target=\"_blank\">2024 spell reference</a></p>",
+      "<p><strong>Recorded house rule:</strong> This reference uses the approved 6d6 base damage, matching Fireball's reduction; the +1d6 increase per higher-level slot is unchanged. That exact reduction is a campaign decision, not a claim that the linked commenters agreed on it. See <em>Why this version?</em> for the recorded change.</p>"
+    ]
   },
   {
     "id": "spell-locate-animals-or-plants",
