@@ -71,5 +71,23 @@ def main():
     assert 'taking 6d6 Fire damage' in f.select_one('[data-panel=spell] [data-mode=house]').get_text()
     assert 'taking 8d6 Fire damage' in f.select_one('[data-panel="2024"]').get_text()
     assert len(page.select('.balance-note'))==17
+    # The supplied 2024 Teleport reference must remain a semantic table, not a list.
+    teleport=page.find(id='spell-teleport')
+    outcome_tables=teleport.select('.teleport-outcome-table')
+    assert len(outcome_tables)==2, 'Teleport table must exist in Spell and Compare 2024.'
+    expected_rows=[
+        ['Permanent circle','–','–','–','01–00'],
+        ['Linked object','–','–','–','01–00'],
+        ['Very familiar','01–05','06–13','14–24','25–00'],
+        ['Seen casually','01–33','34–43','44–53','54–00'],
+        ['Viewed once or described','01–43','44–53','54–73','74–00'],
+        ['False destination','01–50','51–00','–','–'],
+    ]
+    for table in outcome_tables:
+        assert table.caption.get_text()=='Teleportation Outcome'
+        assert [c.get_text() for c in table.select('thead th[scope=col]')]==['Familiarity','Mishap','Similar Area','Off Target','On Target']
+        assert [[c.get_text() for c in row.find_all(['th','td'],recursive=False)] for row in table.select('tbody tr')]==expected_rows
+        assert len(table.select('tbody th[scope=row]'))==6
+    assert not teleport.select('[data-panel="2014"] .teleport-outcome-table')
     print(json.dumps({'result':'PASS','original_edition_records':782,'spell_cards':391,'discussion_notes':17,'class_rows':100,'static_header':True,'static_tables':True,'unique_ids':len(ids),'one_deferred_script':True}))
 if __name__=='__main__':main()
