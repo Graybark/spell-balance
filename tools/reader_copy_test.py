@@ -1,6 +1,6 @@
 """Regression checks for reader-facing copy rather than maintenance instructions."""
 import re
-HOUSE_IDS=('spell-fireball','spell-forcecage','spell-melf-s-acid-arrow','spell-wall-of-force','spell-lightning-bolt')
+HOUSE_IDS=('spell-fireball','spell-forcecage','spell-melf-s-acid-arrow','spell-lightning-bolt','spell-wall-of-force')
 OLD_COPY=('Fields to check:','Revision identified:','Official errata applied:',
           'Why this version?','Recorded house rule:','approved 6d6',
           'supplied for this comparison','supplied replacement effect',
