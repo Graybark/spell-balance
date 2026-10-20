@@ -1,0 +1,79 @@
+name: Validate Clone and Simulacrum discussions
+on:
+  push:
+    branches: [discussion/clone-simulacrum-nerf-20261020]
+    paths: [.github/workflows/nerf-discussions.yml, .github/prepare-nerf-discussions.py, tools/nerf_discussions_test.py]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Apply only the approved discussion additions
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python - <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import hashlib,json
+          page=BeautifulSoup(Path('index.html').read_text(),'html.parser')
+          expected={c['id']:hashlib.sha256(str(c).encode()).hexdigest() for c in page.select('.spell-card') if c['id'] not in ('spell-clone','spell-simulacrum')}
+          assert len(expected)==389
+          Path('/tmp/unchanged-spells.json').write_text(json.dumps(expected))
+          PY
+          python .github/prepare-nerf-discussions.py
+          python tools/build.py
+          python tools/build.py --check
+          python tools/verify.py
+          python - <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import hashlib,json
+          page=BeautifulSoup(Path('index.html').read_text(),'html.parser')
+          actual={c['id']:hashlib.sha256(str(c).encode()).hexdigest() for c in page.select('.spell-card') if c['id'] not in ('spell-clone','spell-simulacrum')}
+          assert actual==json.loads(Path('/tmp/unchanged-spells.json').read_text()),'An unrelated spell changed.'
+          PY
+      - name: Test existing behavior and the new discussion tabs and filters
+        run: |
+          python -m playwright install --with-deps chromium
+          python tools/browser_test.py
+      - name: Commit only validated sources and generated HTML on staging
+        run: |
+          test "$GITHUB_REF_NAME" = discussion/clone-simulacrum-nerf-20261020
+          python - <<'PY'
+          import subprocess
+          changed=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())
+          expected={'data/catalog.json','data/overview.json','tools/verify.py','tools/browser_test.py','index.html'}
+          assert changed==expected,(changed,expected)
+          assert not subprocess.check_output(['git','ls-files','--others','--exclude-standard'],text=True).strip()
+          PY
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- data/catalog.json data/overview.json tools/verify.py tools/browser_test.py index.html
+          git commit -m 'Add sourced Simulacrum and Clone Nerf discussions, not mechanical house rules'
+          git push origin "HEAD:$GITHUB_REF_NAME"
+          mkdir -p /tmp/spell-balance-validation
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          files=['data/catalog.json','data/overview.json','tools/verify.py','tools/browser_test.py','tools/nerf_discussions_test.py','index.html']
+          hashes={}
+          for name in files:
+              b=Path(name).read_bytes()
+              hashes[name]=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          Path('/tmp/spell-balance-validation/release-files.json').write_text(json.dumps(hashes,indent=2))
+          print(json.dumps(hashes))
+          PY
+      - name: Save regression results and screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: nerf-discussions-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 3
