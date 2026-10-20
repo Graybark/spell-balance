@@ -8,6 +8,7 @@ from threading import Thread
 import argparse,asyncio,base64,json,os
 from playwright.async_api import async_playwright
 from slots_view_test import check_slots_view
+from nerf_discussions_test import check_discussion_browser
 ROOT=Path(__file__).resolve().parents[1]
 REPORT=Path(os.environ.get('REFERENCE_TEST_OUTPUT','/tmp/spell-balance-validation'))
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -212,6 +213,7 @@ async def run(filename):
         await check_rule_browser(browser,url,REPORT)
         await check_mobile_menu(browser,url)
         await check_slots_view(browser,url,REPORT)
+        await check_discussion_browser(browser,url,REPORT)
         await browser.close()
     server.shutdown()
     assert not errors,errors

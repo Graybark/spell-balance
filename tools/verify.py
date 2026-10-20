@@ -70,7 +70,11 @@ def main():
     f=page.find(id='spell-fireball')
     assert 'taking 6d6 Fire damage' in f.select_one('[data-panel=spell] [data-mode=house]').get_text()
     assert 'taking 8d6 Fire damage' in f.select_one('[data-panel="2024"]').get_text()
-    assert len(page.select('.balance-note'))==17
+    discussion_count=sum(bool(record['discussion']) for record in data)
+    assert len(page.select('.balance-note'))==discussion_count
+    assert f'{discussion_count} balance discussions' in json.loads((ROOT/'data/overview.json').read_text())
+    from nerf_discussions_test import check_discussion_content
+    check_discussion_content(page, data, json.loads((ROOT/'data/house-rules.json').read_text()))
     from house_rules_test import check_rule_content
     check_rule_content(page, data, json.loads((ROOT/'data/house-rules.json').read_text()))
     # User-supplied PHB 2014 screenshot confirms additive, not asterisk, bonuses.
@@ -96,5 +100,5 @@ def main():
         assert [[c.get_text() for c in row.find_all(['th','td'],recursive=False)] for row in table.select('tbody tr')]==expected_rows
         assert len(table.select('tbody th[scope=row]'))==6
     assert not teleport.select('[data-panel="2014"] .teleport-outcome-table')
-    print(json.dumps({'result':'PASS','original_edition_records':782,'spell_cards':391,'discussion_notes':17,'class_rows':100,'static_header':True,'static_tables':True,'unique_ids':len(ids),'one_deferred_script':True}))
+    print(json.dumps({'result':'PASS','original_edition_records':782,'spell_cards':391,'discussion_notes':discussion_count,'class_rows':100,'static_header':True,'static_tables':True,'unique_ids':len(ids),'one_deferred_script':True}))
 if __name__=='__main__':main()
