@@ -35,3 +35,10 @@ html:not(.enhanced):has(#spell-slots:target) .reader-layout,
 html.enhanced[data-view=slots] .toolbar,
 html.enhanced[data-view=slots] .reader-layout{display:none}
 @media print{.back-to-spells{display:none}.slot-section{break-after:auto}}
+
+/* Source-preserving spell-data tables restored by editorial review. */
+.spell-data-table{width:100%;border-collapse:collapse;margin:12px 0;font-variant-numeric:tabular-nums}
+.spell-data-table caption{text-align:left;font-weight:700;margin-bottom:6px}
+.spell-data-table th,.spell-data-table td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+.spell-data-table thead{background:#f1f7f9}
+.spell-data-table tbody th{font-weight:600;width:22%}
