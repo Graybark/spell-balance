@@ -71,6 +71,11 @@ def main():
     assert 'taking 6d6 Fire damage' in f.select_one('[data-panel=spell] [data-mode=house]').get_text()
     assert 'taking 8d6 Fire damage' in f.select_one('[data-panel="2024"]').get_text()
     assert len(page.select('.balance-note'))==17
+    # User-supplied PHB 2014 screenshot confirms additive, not asterisk, bonuses.
+    elemental=page.find(id='spell-elemental-weapon').select_one('[data-panel="2014"] .original-body').get_text()
+    for phrase in ['has a +1 bonus to attack rolls','attack rolls increases to +2','the bonus increases to +3']:
+        assert phrase in elemental, 'Elemental Weapon 2014 attack bonus regression: '+phrase
+    assert '*1' not in elemental and '*2' not in elemental
     # The supplied 2024 Teleport reference must remain a semantic table, not a list.
     teleport=page.find(id='spell-teleport')
     outcome_tables=teleport.select('.teleport-outcome-table')

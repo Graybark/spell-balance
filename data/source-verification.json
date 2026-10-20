@@ -1,10 +1,10 @@
 {
   "review_date": "2026-10-20",
-  "scope": "Remaining transcription audit: edition-matched Roll20 spell definitions and linked creature stat blocks. Existing rules, errata and house-rule choices preserved. This is not a blanket certification of all 391 spells.",
-  "resolved_groups": 90,
-  "remaining_groups": 1,
-  "spells_changed": 75,
-  "edition_records_changed": 81,
+  "scope": "Remaining transcription audit: edition-matched Roll20 spell definitions and linked creature stat blocks, plus the user-supplied legacy Elemental Weapon screenshot (Player's Handbook, 2014, p. 237). Existing rules, errata and house-rule choices preserved. This closes the recorded audit findings; it is not a blanket certification of all 391 spells.",
+  "resolved_groups": 91,
+  "remaining_groups": 0,
+  "spells_changed": 76,
+  "edition_records_changed": 82,
   "tables_restored": 15,
   "entries": [
     {
@@ -1072,18 +1072,23 @@
       "sources": [
         "https://roll20.net/compendium/dnd5e/Spells:Word%20of%20Recall?expansion=32231"
       ]
-    }
-  ],
-  "remaining": [
+    },
     {
-      "id": "F128",
       "spell": "Elemental Weapon",
       "edition": "2014",
-      "status": "To confirm",
-      "details": "The two attack-bonus symbols are transcribed as *1 and *2. The legacy Roll20 entry redirects to the Player’s Handbook marketplace, so the 2014 text was not source-confirmed. No change made.",
-      "source_attempt": "https://roll20.net/compendium/dnd5e/Elemental%20Weapon"
+      "resolved_audit_ids": [
+        "F128"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [],
+      "source_type": "user-supplied screenshot",
+      "source_details": "Elemental Weapon — Legacy; Player's Handbook (2014), p. 237. Screenshot supplied in this conversation on 2026-10-20.",
+      "correction": "Changed *1 to +1 and *2 to +2 in attack bonuses. The +3 bonus, damage dice, casting details and all other wording are unchanged."
     }
   ],
+  "remaining": [],
   "preserved_errata": [
     {
       "spell": "Conjure Elemental",
