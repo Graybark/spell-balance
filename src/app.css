@@ -49,3 +49,16 @@ html.enhanced[data-view=slots] .reader-layout{display:none}
 .spell-data-wrap .spell-data-table tbody th{width:auto}
 .spell-data-wrap .spell-data-table:has(tr>:nth-child(5)){min-width:580px}
 @media print{.spell-data-wrap{overflow:visible}.spell-data-wrap .spell-data-table:has(tr>:nth-child(5)){min-width:0}.spell-data-table tr{break-inside:avoid}}
+
+/* Teleport 2024: match the user-supplied Teleportation Outcome table only. */
+.spell-data-wrap .teleport-outcome-table{table-layout:fixed;color:#222;font-size:14px;line-height:1.45}
+.teleport-outcome-table .familiarity-col{width:32%}
+.teleport-outcome-table caption{color:#111;font-size:16px;font-weight:700;margin-bottom:14px}
+.teleport-outcome-table th,.teleport-outcome-table td{padding:10px 15px;border:1px solid #edeae8;text-align:center;vertical-align:middle}
+.teleport-outcome-table thead{background:#fdfdfd}
+.teleport-outcome-table thead th{border-bottom:2px solid #d0cac5;white-space:nowrap}
+.teleport-outcome-table th:first-child{text-align:left}
+.teleport-outcome-table tbody th{font-weight:400}
+.teleport-outcome-table tbody tr:nth-child(odd){background:#d7e8ee}
+.teleport-outcome-table tbody tr:nth-child(even){background:#f1f7f9}
+@media (hover:hover){.teleport-outcome-table tbody tr:hover{background:#cde2ea}}
