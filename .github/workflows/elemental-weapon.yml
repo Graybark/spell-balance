@@ -1,0 +1,51 @@
+name: Validate Elemental Weapon 2014
+on:
+  push:
+    branches: [maintenance/elemental-weapon-2014-20261020]
+    paths: [.github/workflows/elemental-weapon.yml, .github/elemental-weapon.py]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Apply only the screenshot-confirmed correction
+        run: |
+          python .github/elemental-weapon.py
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python tools/build.py
+          cmp index.html /tmp/expected-elemental-weapon.html
+          python tools/verify.py
+          python tools/build.py --check
+      - name: Run existing browser regressions
+        run: |
+          python -m playwright install --with-deps chromium
+          python tools/browser_test.py
+      - name: Commit only validated data, generated HTML and regression assertions
+        run: |
+          test "$GITHUB_REF_NAME" = maintenance/elemental-weapon-2014-20261020
+          python - <<'PY'
+          import subprocess
+          changed=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())
+          assert changed=={'data/catalog.json','data/source-verification.json','tools/verify.py','index.html'},changed
+          assert not subprocess.check_output(['git','ls-files','--others','--exclude-standard'],text=True).strip()
+          PY
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- data/catalog.json data/source-verification.json tools/verify.py index.html
+          git commit -m 'Correct Elemental Weapon 2014 bonus signs from supplied PHB screenshot; close F128'
+          git push origin "HEAD:$GITHUB_REF_NAME"
+          git ls-tree -r HEAD -- data/catalog.json data/source-verification.json tools/verify.py index.html
+      - name: Save browser validation
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: elemental-weapon-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 3
