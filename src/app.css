@@ -42,3 +42,10 @@ html.enhanced[data-view=slots] .reader-layout{display:none}
 .spell-data-table th,.spell-data-table td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
 .spell-data-table thead{background:#f1f7f9}
 .spell-data-table tbody th{font-weight:600;width:22%}
+
+/* Restored multi-column spell tables scroll locally, never the whole page. */
+.spell-data-wrap{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;margin:12px 0}
+.spell-data-wrap .spell-data-table{margin:0;overflow-wrap:normal}
+.spell-data-wrap .spell-data-table tbody th{width:auto}
+.spell-data-wrap .spell-data-table:has(tr>:nth-child(5)){min-width:580px}
+@media print{.spell-data-wrap{overflow:visible}.spell-data-wrap .spell-data-table:has(tr>:nth-child(5)){min-width:0}.spell-data-table tr{break-inside:avoid}}

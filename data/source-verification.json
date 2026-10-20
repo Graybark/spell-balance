@@ -1,0 +1,1104 @@
+{
+  "review_date": "2026-10-20",
+  "scope": "Remaining transcription audit: edition-matched Roll20 spell definitions and linked creature stat blocks. Existing rules, errata and house-rule choices preserved. This is not a blanket certification of all 391 spells.",
+  "resolved_groups": 90,
+  "remaining_groups": 1,
+  "spells_changed": 75,
+  "edition_records_changed": 81,
+  "tables_restored": 15,
+  "entries": [
+    {
+      "spell": "Acid Splash",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F001"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Acid%20Splash"
+      ]
+    },
+    {
+      "spell": "Animate Objects",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F008"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Animate%20Objects"
+      ]
+    },
+    {
+      "spell": "Antilife Shell",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F010"
+      ],
+      "fields": [
+        "metadata/components"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Antilife%20Shell"
+      ]
+    },
+    {
+      "spell": "Antimagic Field",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F011"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Antimagic%20Field"
+      ]
+    },
+    {
+      "spell": "Banishment",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F026"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Banishment"
+      ]
+    },
+    {
+      "spell": "Banishment",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F027"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Banishment?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Bigby's Hand",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F032"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Bigby%27s%20Hand"
+      ]
+    },
+    {
+      "spell": "Bigby's Hand",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F033"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Bigby%27s%20Hand?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Blade Barrier",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F035"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Blade%20Barrier?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Blink",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F039"
+      ],
+      "fields": [
+        "metadata/duration"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Blink?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Call Lightning",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F042"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Call%20Lightning?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Chain Lightning",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F044"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Chain%20Lightning?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Chill Touch",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F045"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Chill%20Touch?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Clairvoyance",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F049",
+        "F050"
+      ],
+      "fields": [
+        "body",
+        "metadata/duration"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Clairvoyance?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Conjure Elemental",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F067"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Conjure%20Elemental?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Control Weather",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F076"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Control%20Weather"
+      ]
+    },
+    {
+      "spell": "Control Weather",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F077"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Control%20Weather?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Counterspell",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F080"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Counterspell"
+      ]
+    },
+    {
+      "spell": "Create Undead",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F085"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Create%20Undead?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Creation",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F087"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Creation"
+      ]
+    },
+    {
+      "spell": "Creation",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F089"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Creation?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Cure Wounds",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F091"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Cure%20Wounds"
+      ]
+    },
+    {
+      "spell": "Detect Thoughts",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F098"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Detect%20Thoughts?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Disintegrate",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F100",
+        "F101"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Disintegrate?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Dispel Evil and Good",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F107"
+      ],
+      "fields": [
+        "metadata/duration"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Dispel%20Evil%20and%20Good?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Divination",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F109"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Divination?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Drawmij's Instant Summons",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F118"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Drawmij%27s%20Instant%20Summons?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Druidcraft",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F122"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Druidcraft?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Earthquake",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F125"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Earthquake?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Gate",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F161"
+      ],
+      "fields": [
+        "metadata/duration"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Gate?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Gentle Repose",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F163"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Gentle%20Repose?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Giant Insect",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F164"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Monsters%3AGiant%20Insect?expansion=33335&from_listings=true"
+      ]
+    },
+    {
+      "spell": "Haste",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F176"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Haste"
+      ]
+    },
+    {
+      "spell": "Hunger of Hadar",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F185"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Hunger%20of%20Hadar?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Ice Knife",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F187"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Ice%20Knife?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Incendiary Cloud",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F192"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Incendiary%20Cloud?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Legend Lore",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F204"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Legend%20Lore?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Magic Weapon",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F217"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Magic%20Weapon"
+      ]
+    },
+    {
+      "spell": "Mass Suggestion",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F220"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Mass%20Suggestion"
+      ]
+    },
+    {
+      "spell": "Mass Suggestion",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F222"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Mass%20Suggestion?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Meld into Stone",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F224"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Meld%20into%20Stone?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Minor Illusion",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F227"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Minor%20Illusion?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Mirror Image",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F232"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Mirror%20Image?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Modify Memory",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F236"
+      ],
+      "fields": [
+        "metadata/duration"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Modify%20Memory?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Otiluke's Freezing Sphere",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F245",
+        "F246"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Otiluke%27s%20Freezing%20Sphere?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Pass Without Trace",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F247"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Pass%20Without%20Trace"
+      ]
+    },
+    {
+      "spell": "Planar Ally",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F254"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Planar%20Ally?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Planar Binding",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F257"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Planar%20Binding?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Poison Spray",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F260"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Poison%20Spray"
+      ]
+    },
+    {
+      "spell": "Produce Flame",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F268"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Produce%20Flame?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Reincarnate",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F276"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Reincarnate"
+      ]
+    },
+    {
+      "spell": "Reverse Gravity",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F279"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Reverse%20Gravity?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Rope Trick",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F280"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Rope%20Trick?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Sacred Flame",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F281"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Sacred%20Flame?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Scrying",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F283"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Scrying"
+      ]
+    },
+    {
+      "spell": "Scrying",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F285",
+        "F286"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Scrying?expansion=32231"
+      ]
+    },
+    {
+      "spell": "See Invisibility",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F289"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:See%20Invisibility?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Shield of Faith",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F293"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Shield%20of%20Faith"
+      ]
+    },
+    {
+      "spell": "Sleep",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F300"
+      ],
+      "fields": [
+        "metadata/duration"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Sleep?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Sorcerous Burst",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F302"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Sorcerous%20Burst?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Spare the Dying",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F303"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Spare%20the%20Dying?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Starry Wisp",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F312"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Starry%20Wisp?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Summon Aberration",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F317",
+        "F318"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Monsters:Aberrant%20Spirit?expansion=32231",
+        "https://roll20.net/compendium/dnd5e/Spells:Summon%20Aberration?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Summon Beast",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F319",
+        "F321"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Monsters:Bestial%20Spirit?expansion=32231",
+        "https://roll20.net/compendium/dnd5e/Spells:Summon%20Beast?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Summon Celestial",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F322"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Monsters:Celestial%20Spirit?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Summon Construct",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F325"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Monsters:Construct%20Spirit?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Summon Dragon",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F327"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Monsters:Draconic%20Spirit?expansion=32231",
+        "https://roll20.net/compendium/dnd5e/Spells:Summon%20Dragon?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Summon Elemental",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F331"
+      ],
+      "fields": [
+        "metadata/duration"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Summon%20Elemental?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Summon Fey",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F332"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Monsters:Fey%20Spirit?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Summon Fiend",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F334",
+        "F336"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Monsters:Fiendish%20Spirit?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Sunbeam",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F340"
+      ],
+      "fields": [
+        "metadata/duration"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Sunbeam?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Symbol",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F344",
+        "F345",
+        "F346"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Symbol?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Teleport",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F349"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Teleport"
+      ]
+    },
+    {
+      "spell": "Thunderclap",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F353"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Thunderclap?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Transport Via Plants",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F355"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Transport%20Via%20Plants?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Vicious Mockery",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F365"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Vicious%20Mockery?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Wall of Force",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F368"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Wall%20of%20Force?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Wall of Ice",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F373"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Wall%20of%20Ice?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Warding Bond",
+      "edition": "2014",
+      "resolved_audit_ids": [
+        "F377"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Warding%20Bond"
+      ]
+    },
+    {
+      "spell": "Weird",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F381"
+      ],
+      "fields": [
+        "metadata/duration"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Weird?expansion=32231"
+      ]
+    },
+    {
+      "spell": "Word of Recall",
+      "edition": "2024",
+      "resolved_audit_ids": [
+        "F386"
+      ],
+      "fields": [
+        "body"
+      ],
+      "sources": [
+        "https://roll20.net/compendium/dnd5e/Spells:Word%20of%20Recall?expansion=32231"
+      ]
+    }
+  ],
+  "remaining": [
+    {
+      "id": "F128",
+      "spell": "Elemental Weapon",
+      "edition": "2014",
+      "status": "To confirm",
+      "details": "The two attack-bonus symbols are transcribed as *1 and *2. The legacy Roll20 entry redirects to the Player’s Handbook marketplace, so the 2014 text was not source-confirmed. No change made.",
+      "source_attempt": "https://roll20.net/compendium/dnd5e/Elemental%20Weapon"
+    }
+  ],
+  "preserved_errata": [
+    {
+      "spell": "Conjure Elemental",
+      "detail": "Retained 1d8 higher-slot damage increase; Roll20 still displays 2d8."
+    },
+    {
+      "spell": "Giant Insect",
+      "detail": "Retained HP 30 + 10 for each spell level above 4; Roll20 VTT instructions still use 10 times the spell level."
+    }
+  ],
+  "errata_source": "https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf",
+  "house_rules_unchanged": [
+    "Fireball",
+    "Forcecage",
+    "Melf’s Acid Arrow",
+    "Wall of Force"
+  ]
+}
