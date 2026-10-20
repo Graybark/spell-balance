@@ -27,7 +27,8 @@ def check_reader_copy(page):
         assert not any(bad in t for bad in ('V.}','immedi-','Components•','fect','Renamed from Nystuls','upto'))
     absent=page.select('[data-panel="2014"] .original-version:not([data-original])')
     assert len(absent)==30
-    assert all(n.get_text(' ',strip=True)=='No 2014 Player’s Handbook version is available for comparison.' for n in absent)
+    assert all(n.select_one('.absent-copy').get_text(' ',strip=True)=='No 2014 Player’s Handbook version is available for comparison.' for n in absent)
+    assert all(n.select_one('.absent-title').get_text()=='No 2014 PHB entry' for n in absent)
     lightning=page.find(id='spell-lightning-bolt').select_one('[data-panel="discussion"]')
     t=lightning.get_text(' ',strip=True)
     assert 'House-rule version:' in t and 'matching Fireball’s house-rule damage' in t
