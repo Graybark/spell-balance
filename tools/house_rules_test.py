@@ -45,7 +45,8 @@ async def check_rule_browser(browser,url,report):
         p.on('pageerror',lambda e:errors.append(str(e)))
         await p.goto(url+'?label=house-rule#spell-lightning-bolt')
         await p.wait_for_selector('html.enhanced')
-        assert await p.locator('.sidebar li:visible').count()==5
+        # Count matching entries even when the phone disclosure is closed.
+        assert await p.locator('.sidebar li:not([hidden])').count()==5
         assert await p.locator('.spell-card:visible h2').inner_text()=='Lightning Bolt'
         assert 'taking 6d6 Lightning damage' in await p.locator('#spell-lightning-bolt [data-panel=spell] [data-mode=house]').inner_text()
         assert await p.locator('#spell-lightning-bolt .spell-body mark.house-change:visible').inner_text()=='6d6'
@@ -55,11 +56,13 @@ async def check_rule_browser(browser,url,report):
             await p.locator(f'label[for="spell-lightning-bolt-editions-{year}"]').click()
             assert '8d6' in await p.locator(f'#spell-lightning-bolt [data-panel="{year}"] .original-body').inner_text()
         await p.select_option('#jump','spell-wall-of-force')
+        # Jump intentionally clears filters; restore the category for this filter test.
+        await p.select_option('#label','house-rule')
         walltext=await p.locator('#spell-wall-of-force [data-panel=spell] [data-mode=house] .spell-text').inner_text()
         assert clean(walltext)==WALL_TEXT
         assert 'Dexterity save' in await p.locator('#spell-wall-of-force [data-mode=house] .spell-meta').inner_text()
         await p.select_option('#level','5')
-        assert await p.locator('.sidebar li:visible').count()==1
+        assert await p.locator('.sidebar li:not([hidden])').count()==1
         assert await p.locator('.spell-card:visible h2').inner_text()=='Wall of Force'
         await p.reload();await p.wait_for_selector('html.enhanced')
         assert clean(await p.locator('#spell-wall-of-force [data-panel=spell] [data-mode=house] .spell-text').inner_text())==WALL_TEXT
@@ -73,7 +76,7 @@ async def check_rule_browser(browser,url,report):
         await p.check('#house-rules-toggle');await p.select_option('#level','7')
         assert await p.locator('#empty').is_visible()
         await p.select_option('#level','');await p.select_option('#spell-class','sorcerer')
-        assert set(await p.locator('.sidebar li:visible strong').all_text_contents())=={'Fireball','Lightning Bolt'}
+        assert set(await p.locator('.sidebar li:not([hidden]) strong').all_text_contents())=={'Fireball','Lightning Bolt'}
         await context.close()
     context=await browser.new_context(java_script_enabled=False,viewport={'width':390,'height':1000})
     p=await context.new_page()
