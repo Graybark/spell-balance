@@ -56,8 +56,12 @@ def body(v,house=None):
         if h and re.search(r'Higher.Level|At Higher Levels',h.get_text(),re.I): p['class']=p.get('class',[])+['upcast']
     html=str(s)
     if house:
-        if house.get('highlight')=='6d6': html=html.replace('taking 6d6 Fire damage','taking <mark class="house-change">6d6</mark> Fire damage')
+        if house.get('highlight')=='6d6': html=html.replace('taking 6d6 ','taking <mark class="house-change">6d6</mark> ')
         if house.get('highlight')=='1': html=html.replace('for each spell slot level above 1.','for each spell slot level above <mark class="house-change">1</mark>.')
+        for phrase in house.get('highlight_phrases',[]):
+            rendered=escape(phrase,quote=False)
+            assert html.count(rendered)==1, 'Ambiguous house-rule highlight'
+            html=html.replace(rendered,'<mark class="house-change">'+rendered+'</mark>')
     return '<div class="spell-body">'+html+'</div>'+footer(v,bool(house))
 def version(v,year):
     if v['absent']: return '<div class="original-version">'+v['body']+'</div>'
@@ -81,6 +85,11 @@ def build(output, check=False):
     for s in catalog:
         id=s['id']; h=house.get(id); v=s['versions']['2024']; hv=copy.deepcopy(v)
         if h:
+            # Full-effect overrides keep user-supplied wording separate from official editions.
+            if 'body_override' in h:
+                assert not h['replacements'], f'Use a full effect or substitutions, not both: {id}'
+                assert isinstance(h['body_override'],str) and h['body_override'].strip()
+                hv['body']=h['body_override']
             for before,after in h['replacements']:
                 assert hv['body'].count(before)==1, f'Ambiguous override for {id}'
                 hv['body']=hv['body'].replace(before,after)
