@@ -109,7 +109,7 @@ def build(output, check=False):
             primary='<div data-mode="house">'+body(hv,h)+'</div><div data-mode="official">'+primary+'</div>'
         compare=tabs(id+'-editions','Original editions',[('2024','2024',version(v,'2024')),('2014','2014',version(s['versions']['2014'],'2014'))])+''.join(s['notes'])
         defs=[('spell','Spell',primary)]
-        if h: defs.append(('why','Why this version?','<div class="why"><h3>House-rule change</h3><p>'+esc(h['summary'])+'</p><p>This is the recorded change to the 2024 version. The original editions remain available in Compare versions.</p></div>'))
+        if h: defs.append(('why','House-rule changes','<div class="why"><h3>House-rule changes</h3><p>'+esc(h['summary'])+'</p><p>See <strong>Compare versions</strong> for the standard 2024 spell and its 2014 counterpart.</p></div>'))
         defs.append(('compare','Compare versions',compare))
         if s['discussion']: defs.append(('discussion','Discussion',''.join(s['discussion'])))
         cards.append(f'<article class="spell-card" id="{id}" data-name="{esc(s["name"].lower())}" data-school="{school}" data-level-official="{s["official_level"]}" data-level-house="{current(s)}" data-categories="{esc(" ".join(cats))}" data-classes="{esc(member)}">'+head+meta+tabs(id+'-info','Spell information',defs)+'</article>')
@@ -139,7 +139,7 @@ def build(output, check=False):
     toolbar+=select('level','Level',[('','All levels')]+[(str(i),'Cantrip' if not i else f'Level {i}') for i in range(10)])
     toolbar+=select('label','Category',[('','All spells'),('house-rule','House Rule'),('new','New to PHB'),('redesigned','Redesigned'),('revised','Revised'),('buff','Buff'),('nerf','Nerf'),('material-cost','Material Cost')])
     toolbar+=select('jump','Jump to spell',[('','Choose a spell')]+[(s['id'],s['name']) for s in catalog])
-    toolbar+='<div class="rules-controls"><label class="rules-label"><input id="house-rules-toggle" type="checkbox" checked disabled>House-rule spells</label><div class="results"><span id="visible-count" role="status" aria-live="polite">391 spells</span><button type="button" id="clear" disabled>Clear</button></div></div>'
+    toolbar+='<div class="rules-controls"><label class="rules-label"><input id="house-rules-toggle" type="checkbox" checked disabled>Use house-rule versions</label><div class="results"><span id="visible-count" role="status" aria-live="polite">391 spells</span><button type="button" id="clear" disabled>Clear</button></div></div>'
     page='''<!doctype html>
 <html lang="en" data-rules="house">
 <head>

@@ -44,7 +44,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Conjuration → Evocation</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Conjuration to Evocation.</p>"
     ],
     "discussion": []
   },
@@ -133,8 +133,7 @@
       }
     },
     "notes": [
-      "<p class=\"revised-note\"><strong>Revision identified:</strong> The 2014 alarm triggers for a Tiny or larger creature; the 2024 text says any creature.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual</p>"
+      "<p class=\"revised-note\"><strong>2024 changes:</strong> The 2014 alarm triggers for a Tiny or larger creature; the 2024 text says any creature.</p>"
     ],
     "discussion": []
   },
@@ -276,9 +275,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -326,8 +323,8 @@
       }
     },
     "notes": [
-      "<p class=\"errata-note\"><strong>Official errata applied:</strong> Replaces the final paragraph: Temporary Hit Points come from the first form, vanish when the spell ends, and losing them no longer ends the transformation. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: Concentration, up to 24 hours → 24 hours</p>"
+      "<p class=\"errata-note\"><strong>Official errata:</strong> Temporary Hit Points come from the first form, vanish when the spell ends, and losing them does not end the transformation. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The spell lasts 24 hours without Concentration.</p>"
     ],
     "discussion": []
   },
@@ -457,9 +454,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (10-foot radius) → Self; Components: V → VS</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -499,9 +494,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (10-foot-radius sphere) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -548,9 +541,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 hour → hour</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -726,8 +717,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -779,8 +770,7 @@
       }
     },
     "notes": [
-      "<p class=\"revised-note\"><strong>Revision identified:</strong> Casting changes from an action to a Bonus Action. The 2024 text also states that the spell ends when you have no Temporary Hit Points.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Bonus Action</p>"
+      "<p class=\"revised-note\"><strong>2024 changes:</strong> Casting changes from an action to a Bonus Action. The 2024 text also states that the spell ends when you have no Temporary Hit Points.</p>"
     ],
     "discussion": []
   },
@@ -821,9 +811,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (10-foot radius) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -871,7 +859,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: Special → Until dispelled</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The listed duration changes from Special to Until dispelled.</p>"
     ],
     "discussion": []
   },
@@ -924,9 +912,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -966,9 +952,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (30-foot radius) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -1008,9 +992,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (30-foot radius) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -1058,7 +1040,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Abjuration; Range: Self (30-foot radius) → Self</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -1194,7 +1176,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Abjuration → Conjuration; Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting a creature with a Melee weapon or an Unarmed Strike</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Abjuration to Conjuration. The Bonus Action is taken immediately after hitting a creature with a Melee weapon or an Unarmed Strike.</p>"
     ],
     "discussion": []
   },
@@ -1243,7 +1225,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 60 feet → 30 feet</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 60 feet to 30 feet.</p>"
     ],
     "discussion": []
   },
@@ -1293,7 +1275,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> The AC floor rises from 16 to 17.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Bonus Action; Duration: Concentration, up to 1 hour → 1 hour</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from an Action to a Bonus Action. The spell lasts 1 hour without Concentration.</p>"
     ],
     "discussion": []
   },
@@ -1381,9 +1363,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -1431,8 +1411,7 @@
       }
     },
     "notes": [
-      "<p class=\"review-note\"><strong>Redesign summary:</strong> Renamed from Feeblemind. Damage rises from 4d6 to 10d12; the old reduction of Intelligence and Charisma to 1 is replaced by a ban on spellcasting and Magic actions.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from Feeblemind; Range: 150 fect → 150 feet</p>"
+      "<p class=\"review-note\"><strong>Redesign summary:</strong> Renamed from Feeblemind. Damage rises from 4d6 to 10d12; the old reduction of Intelligence and Charisma to 1 is replaced by a ban on spellcasting and Magic actions.</p>"
     ],
     "discussion": []
   },
@@ -1623,7 +1602,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces resistance to weapon bludgeoning, piercing, and slashing with a 1d4 penalty to attacks against the caster.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: 1 round → Concentration, up to 1 minute</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The spell now requires Concentration, for up to 1 minute.</p>"
     ],
     "discussion": []
   },
@@ -1771,7 +1750,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting a creature with a Melee weapon or an Unarmed Strike; Duration: Concentration, up to 1 minute → 1 minute</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The Bonus Action is taken immediately after hitting a creature with a Melee weapon or an Unarmed Strike. The spell lasts 1 minute without Concentration.</p>"
     ],
     "discussion": []
   },
@@ -1820,7 +1799,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Necromancy → Transmutation; Range: 30 feet → 120 feet</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Necromancy to Transmutation. The range changes from 30 feet to 120 feet.</p>"
     ],
     "discussion": []
   },
@@ -1941,9 +1920,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (15-foot cone) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -2114,8 +2091,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -2167,7 +2144,7 @@
       }
     },
     "notes": [
-      "<p class=\"revised-note\"><strong>Revision identified:</strong> The 2014 charm ends if you or companions do anything harmful to the target; the 2024 text specifies damage by you or allies. The 2014 30-foot spacing rule for extra targets is absent from the 2024 upcast text.</p>"
+      "<p class=\"revised-note\"><strong>2024 changes:</strong> The 2014 charm ends if you or companions do anything harmful to the target; the 2024 text specifies damage by you or allies. The 2014 30-foot spacing rule for extra targets is absent from the 2024 upcast text.</p>"
     ],
     "discussion": []
   },
@@ -2217,7 +2194,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Changes from a ranged 1d8 spell attack to a melee 1d10 attack; the old extra effect against Undead is absent.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 120 feet → Touch; Duration: 1 round → Instantaneous</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 120 feet to Touch. The listed duration changes from 1 round to Instantaneous.</p>"
     ],
     "discussion": []
   },
@@ -2364,9 +2341,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (30-foot radius) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -2418,9 +2393,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: Concentration, up to 10 minutes → Concentration, up to V.}</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -2475,7 +2448,7 @@
     "notes": [],
     "discussion": [
       "<p class=\"balance-note\"><strong>Balance discussion (campaign-dependent):</strong> The 2024 spell comments discuss maintaining younger replacement bodies and using Wish to avoid component costs. The balance concern is repeatable protection from permanent death and aging, rather than extra combat damage. This is not unconditional immortality: the clone needs 120 days to mature, its vessel must remain undisturbed for indefinite preservation, the soul must be free and willing, and equipment does not transfer. <a href=\"https://www.dndbeyond.com/spells/2618973-clone\" rel=\"noopener noreferrer\" target=\"_blank\">2024 spell and community comments</a> <a href=\"https://rpg.stackexchange.com/questions/50541/does-the-clone-spell-make-someone-effectively-immortal\" rel=\"noopener noreferrer\" target=\"_blank\">Legacy discussion: immortality and practical limits</a></p>",
-      "<p><strong>Restriction example, not consensus:</strong> TorontoDnD banned Clone in its June 2024 community update, before the revised PHB. This is a documented campaign restriction, not an official change or proof of a general 2024 consensus. The legacy discussion also argues that the long timescale often limits its impact during play. Added for Nerf consideration; no particular Clone house rule has been adopted here. <a href=\"https://www.torontodnd.com/communityupdate/2024-06-14\" rel=\"noopener noreferrer\" target=\"_blank\">June 2024 campaign restriction</a></p>"
+      "<p><strong>Campaign example:</strong> TorontoDnD banned Clone in June 2024, before the revised Player’s Handbook. Other discussions argue that its long preparation time limits its practical impact. Spellwright retains the standard 2024 version. <a href=\"https://www.torontodnd.com/communityupdate/2024-06-14\" rel=\"noopener noreferrer\" target=\"_blank\">June 2024 campaign restriction</a></p>"
     ]
   },
   {
@@ -2611,7 +2584,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces the hit-point pool with a Constitution save against brief Blindness.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (15-foot cone) → Self; Duration: 1 round → Instantaneous</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The listed duration changes from 1 round to Instantaneous.</p>"
     ],
     "discussion": []
   },
@@ -2660,7 +2633,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: 1 round → Instantaneous</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The listed duration changes from 1 round to Instantaneous.</p>"
     ],
     "discussion": []
   },
@@ -2701,9 +2674,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -2743,9 +2714,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -2839,9 +2808,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -2888,9 +2855,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: Concentration, up to 1 minute → Concentration, upto 1 minute</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -2930,9 +2895,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (60-foot cone) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -3028,7 +2991,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces separate summoned Beasts with one movable spectral pack that damages creatures near it.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: Concentration, up to 1 hour → Concentration, up to 10 minutes</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The maximum Concentration duration changes from 1 hour to 10 minutes.</p>"
     ],
     "discussion": []
   },
@@ -3081,9 +3044,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (60-foot cone) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -3132,7 +3093,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces a summoned creature with a movable light cylinder that can heal or deal Radiant damage.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → Action; Duration: Concentration, up to 1 hour → Concentration, up to 10 minutes</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from 1 minute to an Action. The maximum Concentration duration changes from 1 hour to 10 minutes.</p>"
     ],
     "discussion": []
   },
@@ -3182,8 +3143,8 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces a separate Elemental creature with an intangible spirit that damages and restrains nearby creatures.</p>",
-      "<p class=\"errata-note\"><strong>Official errata applied:</strong> Higher-level damage growth changes from 2d8 to 1d8 per slot level above 5. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → Action; Range: 90 feet → 60 feet; Duration: Concentration, up to 1 hour → Concentration, up to 10 minutes; Components: VSM → VS</p>"
+      "<p class=\"errata-note\"><strong>Official errata:</strong> The damage increases by 1d8 for each spell-slot level above 5. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from 1 minute to an Action. The range changes from 90 feet to 60 feet. The maximum Concentration duration changes from 1 hour to 10 minutes. The Material component is removed.</p>"
     ],
     "discussion": []
   },
@@ -3233,8 +3194,8 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces a separately acting Fey creature with a spirit used for a repeatable spell attack and teleport.</p>",
-      "<p class=\"errata-note\"><strong>Official errata applied:</strong> Higher-level damage growth changes from 2d12 to 1d12 per slot level above 6. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → Action; Range: 90 feet → 60 feet; Duration: Concentration, up to 1 hour → Concentration, up to 10 minutes</p>"
+      "<p class=\"errata-note\"><strong>Official errata:</strong> The damage increases by 1d12 for each spell-slot level above 6. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from 1 minute to an Action. The range changes from 90 feet to 60 feet. The maximum Concentration duration changes from 1 hour to 10 minutes.</p>"
     ],
     "discussion": []
   },
@@ -3284,8 +3245,8 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces multiple summoned creatures with an emanation that adds damage to the caster's attacks; its higher-slot damage increases by 1d8 per level after official errata.</p>",
-      "<p class=\"errata-note\"><strong>Official errata applied:</strong> Higher-level damage growth changes from 2d8 to 1d8 per slot level above 4. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → Action; Range: 90 feet → Self; Duration: Concentration, up to 1 hour → Concentration, up to 10 minutes</p>"
+      "<p class=\"errata-note\"><strong>Official errata:</strong> The extra damage increases by 1d8 for each spell-slot level above 4. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from 1 minute to an Action. The range changes from 90 feet to Self. The maximum Concentration duration changes from 1 hour to 10 minutes.</p>"
     ],
     "discussion": []
   },
@@ -3387,8 +3348,8 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces multiple summoned Fey with an emanation that deals Force damage and grants a Bonus Action Disengage.</p>",
-      "<p class=\"errata-note\"><strong>Official errata applied:</strong> Higher-level damage now increases for each slot level above 4, rather than above 5. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 60 feet → Self; Duration: Concentration, up to 1 hour → Concentration, up to 10 minutes; Components: VSM → VS</p>"
+      "<p class=\"errata-note\"><strong>Official errata:</strong> The damage increases for each spell-slot level above 4. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 60 feet to Self. The maximum Concentration duration changes from 1 hour to 10 minutes. The Material component is removed.</p>"
     ],
     "discussion": []
   },
@@ -3436,9 +3397,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -3540,7 +3499,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Abjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -3668,9 +3627,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (5-mile radius) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -3718,7 +3675,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 5 feet → Touch</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 5 feet to Touch.</p>"
     ],
     "discussion": []
   },
@@ -3768,7 +3725,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces automatic disruption of lower-level spells and a caster ability check with a Constitution save by the target; a countered spell slot is retained.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 reaction, which you take when you see a creature within 60 feet of you casting a spell → Reaction, which you take when you see a creature within 60 feet of yourself casting a spell with Verbal, Somatic, or Material components</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The Reaction trigger explicitly specifies a spell with Verbal, Somatic, or Material components.</p>"
     ],
     "discussion": []
   },
@@ -4032,9 +3989,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from Crusader’S Mantle; Duration: Concentration, up to 1 minute → Concentration, upto 1 minute</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -4082,7 +4037,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Abjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -4131,7 +4086,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Illusion</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Illusion.</p>"
     ],
     "discussion": []
   },
@@ -4433,9 +4388,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (30-foot radius) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -4515,9 +4468,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -4557,9 +4508,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -4924,9 +4873,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -4974,7 +4921,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Transmutation; Duration: Concentration, up to 1 minute → 1 minute</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Transmutation. The spell lasts 1 minute without Concentration.</p>"
     ],
     "discussion": []
   },
@@ -5012,8 +4959,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -5104,9 +5051,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 60 feet → 60 feet Components•. V, S</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -5237,8 +5182,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -5289,9 +5234,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -5426,7 +5369,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Transmutation</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Transmutation.</p>"
     ],
     "discussion": []
   },
@@ -5504,8 +5447,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -5693,7 +5636,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting a creature with a weapon</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The Bonus Action is taken immediately after hitting a creature with a weapon.</p>"
     ],
     "discussion": []
   },
@@ -5783,7 +5726,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces disadvantage on certain Perception checks with a -10 penalty to Perception and Passive Perception; creatures already fighting the party automatically resist.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: 1 minute → Concentration, up to 1 minute</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The spell now requires Concentration, for up to 1 minute.</p>"
     ],
     "discussion": []
   },
@@ -5825,7 +5768,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Transmutation → Conjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Transmutation to Conjuration.</p>"
     ],
     "discussion": []
   },
@@ -6088,7 +6031,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: 1 hour → Instantaneous</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The listed duration changes from 1 hour to Instantaneous.</p>"
     ],
     "discussion": []
   },
@@ -6129,9 +6072,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (30-foot cone) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -6179,8 +6120,7 @@
       }
     },
     "notes": [
-      "<p class=\"revised-note\"><strong>Revision identified:</strong> The 2024 Reaction trigger requires you to see the falling creature; that visibility requirement is absent from the 2014 trigger.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 reaction, which you take when you or a creature within 60 feet of you falls → Reaction, which you take when you or a creature you can see within 60 feet of you falls</p>"
+      "<p class=\"revised-note\"><strong>2024 changes:</strong> The 2024 Reaction trigger requires you to see the falling creature; that visibility requirement is absent from the 2014 trigger.</p>"
     ],
     "discussion": []
   },
@@ -6221,9 +6161,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -6275,9 +6213,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 hour → 1 hour or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -6326,7 +6262,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces a chosen animal's stat block with a scaling Otherworldly Steed stat block and creature-type options.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 10 minutes → Action</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from 10 minutes to an Action.</p>"
     ],
     "discussion": []
   },
@@ -6512,7 +6448,7 @@
     },
     "notes": [],
     "discussion": [
-      "<p class=\"balance-note\"><strong>Balance discussion:</strong> Its 8d6 damage over a large area at level 3 is often used as the benchmark for calls to reduce spell damage or narrow its radius. <a href=\"https://www.reddit.com/r/onednd/comments/1aqmadu/\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
+      "<p class=\"balance-note\"><strong>Balance discussion:</strong> The standard 2024 spell deals 8d6 damage over a large area for a level-3 slot. Proposed nerfs include reducing its damage or radius. <a href=\"https://www.reddit.com/r/onednd/comments/1aqmadu/\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
     ]
   },
   {
@@ -6947,9 +6883,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 10 minutes → 10 minutes or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -7007,10 +6941,10 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: 1 hour → Concentration, up to 1 hour</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The spell now requires Concentration, for up to 1 hour.</p>"
     ],
     "discussion": [
-      "<p class=\"balance-note\"><strong>Balance discussion:</strong> Even after its 2024 changes, its strong confinement effect remains a common subject of nerf proposals. <a href=\"https://www.reddit.com/r/onednd/comments/1uuh7h7\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
+      "<p class=\"balance-note\"><strong>Balance discussion:</strong> Even after its 2024 changes, the standard spell’s strong confinement effect remains a subject of proposed nerfs. <a href=\"https://www.reddit.com/r/onednd/comments/1uuh7h7\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
     ]
   },
   {
@@ -7087,8 +7021,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -7181,7 +7115,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces automatic advantage on Charisma checks with a Wisdom save against Charmed; the target knows it was charmed afterward.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self → 10 feet</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from Self to 10 feet.</p>"
     ],
     "discussion": []
   },
@@ -7363,9 +7297,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -7414,8 +7346,8 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces transforming existing insects with summoning one insect that uses a scaling stat block.</p>",
-      "<p class=\"errata-note\"><strong>Official errata applied:</strong> The stat block's HP is 30 + 10 for each spell level above 4, rather than for each spell level. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Transmutation → Conjuration; Range: 30 feet → 60 feet</p>"
+      "<p class=\"errata-note\"><strong>Official errata:</strong> The summoned insect’s Hit Points equal 30 + 10 for each spell-slot level above 4. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Transmutation to Conjuration. The range changes from 30 feet to 60 feet.</p>"
     ],
     "discussion": []
   },
@@ -7457,7 +7389,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Transmutation → Enchantment</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Transmutation to Enchantment.</p>"
     ],
     "discussion": []
   },
@@ -7505,9 +7437,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (10-foot radius) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -7602,7 +7532,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Transmutation → Conjuration; Range: Touch → Self; Duration: Instantaneous → 24 hours</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Transmutation to Conjuration. The range changes from Touch to Self. The listed duration changes from Instantaneous to 24 hours.</p>"
     ],
     "discussion": []
   },
@@ -7652,7 +7582,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Adds 4d8 damage and Grappled on a hit; pull distance rises from 20 to 30 feet, and the spell uses an attack instead of a Dexterity save.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 30 feet → 60 feet</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 30 feet to 60 feet.</p>"
     ],
     "discussion": []
   },
@@ -7873,7 +7803,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 10 minutes → 1 hour</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from 10 minutes to 1 hour.</p>"
     ],
     "discussion": []
   },
@@ -8010,9 +7940,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (60-foot line) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -8060,7 +7988,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting a creature with a Ranged weapon; Duration: Concentration, up to 1 minute → Instantaneous</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The Bonus Action is taken immediately after hitting a creature with a Ranged weapon. Concentration is no longer required; the listed duration is Instantaneous.</p>"
     ],
     "discussion": []
   },
@@ -8114,8 +8042,8 @@
       }
     },
     "notes": [
-      "<p class=\"revised-note\"><strong>Revision identified:</strong> The 2024 ward lets you choose affected creature types, adds Aberrations, and says they can't willingly enter; the 2014 ward affects its listed types by default and says they can't enter.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Abjuration</p>"
+      "<p class=\"revised-note\"><strong>2024 changes:</strong> The 2024 ward lets you choose affected creature types, adds Aberrations, and says they can't willingly enter; the 2014 ward affects its listed types by default and says they can't enter.</p>",
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -8250,9 +8178,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 30 feet → 30 feet .1</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -8300,7 +8226,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Abjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -8349,7 +8275,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Abjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -8430,9 +8356,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 reaction, which you take in response to being damaged by a creature within 60 feet of you that you can see → Reaction, which you take in response to taking damage from a creature that you can see within 60 feet of yourself</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -8485,7 +8409,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from Heroes’ Feast; Range: 30 feet → Self</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 30 feet to Self.</p>"
     ],
     "discussion": []
   },
@@ -8892,8 +8816,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -8991,9 +8915,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -9040,9 +8962,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual; Range: Touch t → Touch</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -9298,8 +9218,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -9351,7 +9271,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Bonus Action</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from an Action to a Bonus Action.</p>"
     ],
     "discussion": []
   },
@@ -9492,7 +9412,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: Instantaneous → Until dispelled</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The listed duration changes from Instantaneous to Until dispelled.</p>"
     ],
     "discussion": []
   },
@@ -9540,9 +9460,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from Leomund’S Tiny Hut; Casting time: 1 minute → 1 minute or Ritual; Range: Self (10-foot-radius hemisphere) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -9590,7 +9508,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Bonus Action</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from an Action to a Bonus Action.</p>"
     ],
     "discussion": []
   },
@@ -9726,7 +9644,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting or missing a target with a ranged attack using a weapon; Duration: Concentration, up to 1 minute → Instantaneous</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The Bonus Action is taken immediately after hitting or missing a target with a ranged attack using a weapon. Concentration is no longer required; the listed duration is Instantaneous.</p>"
     ],
     "discussion": []
   },
@@ -9774,13 +9692,11 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (100-foot line) → Self</p>"
-    ],
+    "notes": [],
     "discussion": [
-      "<p class=\"balance-note\"><strong>Balance discussion (disputed):</strong> A 2020 D&D Beyond thread questions Fireball and Lightning Bolt's damage relative to a level-3 slot and discusses changing Lightning Bolt's damage or targeting. Several replies defend Lightning Bolt: its narrow line makes catching multiple enemies difficult, unlike Fireball's wider area. The discussion does not establish agreement that Lightning Bolt needs a nerf. <a href=\"https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/75512-fireball-and-lightning-bolt\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion: Fireball and Lightning Bolt (2020)</a></p>",
-      "<p><strong>Edition context:</strong> The linked discussion concerns the 2014 rules. The 2024 spell still deals 8d6 Lightning damage in a 100-foot-long, 5-foot-wide Line, with +1d6 per higher-level slot. Those shared features make the older discussion relevant to the damage comparison, but it is not a 2024-specific consensus. <a href=\"https://roll20.net/compendium/dnd5e/Spells:Lightning%20Bolt?expansion=32231\" rel=\"noopener noreferrer\" target=\"_blank\">2024 spell reference</a></p>",
-      "<p><strong>Recorded house rule:</strong> This reference uses the approved 6d6 base damage, matching Fireball's reduction; the +1d6 increase per higher-level slot is unchanged. That exact reduction is a campaign decision, not a claim that the linked commenters agreed on it. See <em>Why this version?</em> for the recorded change.</p>"
+      "<p class=\"balance-note\"><strong>Balance discussion:</strong> Players debate Lightning Bolt’s damage and targeting relative to Fireball. Some favour adjustments, while others argue that its narrow line already makes hitting multiple enemies difficult. <a href=\"https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/75512-fireball-and-lightning-bolt\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion: Fireball and Lightning Bolt (2020)</a></p>",
+      "<p><strong>Edition context:</strong> The linked discussion concerns the 2014 rules. The standard 2024 spell retains the same base damage and area. <a href=\"https://roll20.net/compendium/dnd5e/Spells:Lightning%20Bolt?expansion=32231\" rel=\"noopener noreferrer\" target=\"_blank\">2024 spell reference</a></p>",
+      "<p><strong>House-rule version:</strong> Lightning Bolt deals 6d6 base Lightning damage, matching Fireball’s house-rule damage. The damage increases by 1d6 for each spell-slot level above 3.</p>"
     ]
   },
   {
@@ -9820,9 +9736,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -10210,9 +10124,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -10260,7 +10172,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: Concentration, up to 1 hour → 1 hour</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The spell lasts 1 hour without Concentration.</p>"
     ],
     "discussion": []
   },
@@ -10356,7 +10268,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Conjuration → Abjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Conjuration to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -10405,7 +10317,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Conjuration → Abjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Conjuration to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -10454,7 +10366,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Abjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -10589,9 +10501,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -10640,7 +10550,7 @@
     },
     "notes": [],
     "discussion": [
-      "<p class=\"balance-note\"><strong>Balance discussion:</strong> Its delayed damage is modest for a level 2 slot, and players propose increasing the damage or extending the ongoing effect. <a href=\"https://www.reddit.com/r/onednd/comments/1pdlj96/\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
+      "<p class=\"balance-note\"><strong>Balance discussion:</strong> Players question whether the standard 2024 spell’s delayed damage justifies a level-2 slot. Proposed buffs include increasing the damage or extending the ongoing effect. <a href=\"https://www.reddit.com/r/onednd/comments/1pdlj96/\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
     ]
   },
   {
@@ -10728,8 +10638,7 @@
       }
     },
     "notes": [
-      "<p class=\"revised-note\"><strong>Revision identified:</strong> The Verbal component is removed. The material barriers also change: 2024 says 1 foot of stone, metal, or wood, while 2014 specifies 1 foot of stone, 1 inch of common metal, or 3 feet of wood.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Components: VSM → SM</p>"
+      "<p class=\"revised-note\"><strong>2024 changes:</strong> The Verbal component is removed. The material barriers also change: 2024 says 1 foot of stone, metal, or wood, while 2014 specifies 1 foot of stone, 1 inch of common metal, or 3 feet of wood.</p>"
     ],
     "discussion": []
   },
@@ -10847,8 +10756,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -10889,8 +10798,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -11387,10 +11296,10 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 60 feet → 90 feet</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 60 feet to 90 feet.</p>"
     ],
     "discussion": [
-      "<p class=\"balance-note\"><strong>Balance discussion:</strong> Players argue that its damage and limited utility do not justify a level 7 slot compared with an upcast Bigby's Hand. Proposed buffs include removing Concentration or lowering the spell's level; these are community suggestions, not official changes. <a href=\"https://www.dndbeyond.com/spells/2619118-mordenkainens-sword\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
+      "<p class=\"balance-note\"><strong>Balance discussion:</strong> Players argue that its damage and limited utility do not justify a level 7 slot compared with an upcast Bigby's Hand. Proposed buffs include removing Concentration or lowering the spell's level. <a href=\"https://www.dndbeyond.com/spells/2619118-mordenkainens-sword\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
     ]
   },
   {
@@ -11517,9 +11426,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from Nystuls Magic Aura</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -11607,7 +11514,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from Otiluke’S Resilient Sphere; School: Evocation → Abjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -11660,9 +11567,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from Otto’S Irresistible Dance</p>"
-    ],
+    "notes": [],
     "discussion": [
       "<p class=\"balance-note\"><strong>Balance discussion:</strong> Its 2024 version permits an initial save and leaves the target able to act while dancing, leading players to question its level 6 cost. <a href=\"https://www.reddit.com/r/onednd/comments/1irq7g0/\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
     ]
@@ -11878,9 +11783,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 minute → 1 minute or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -12074,8 +11977,7 @@
       }
     },
     "notes": [
-      "<p class=\"revised-note\"><strong>Revision identified:</strong> The 2024 Enrichment effect adds a limit of one Plant Growth benefit per year; that limit is absent from the 2014 text.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action or 8 hours → Action (Overgrowth) or 8 hours (Enrichment)</p>"
+      "<p class=\"revised-note\"><strong>2024 changes:</strong> The 2024 Enrichment effect adds a limit of one Plant Growth benefit per year; that limit is absent from the 2014 text.</p>"
     ],
     "discussion": []
   },
@@ -12124,7 +12026,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Conjuration → Necromancy; Range: 10 feet → 30 feet</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Conjuration to Necromancy. The range changes from 10 feet to 30 feet.</p>"
     ],
     "discussion": []
   },
@@ -12173,7 +12075,7 @@
       }
     },
     "notes": [
-      "<p class=\"errata-note\"><strong>Official errata applied:</strong> Adds that remaining Temporary Hit Points vanish when the spell ends. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>"
+      "<p class=\"errata-note\"><strong>Official errata:</strong> Any remaining Temporary Hit Points vanish when the spell ends. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>"
     ],
     "discussion": []
   },
@@ -12211,8 +12113,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -12264,7 +12166,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Enchantment; Range: Touch → 60 feet; Components: VS → V</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Enchantment. The range changes from Touch to 60 feet. The Somatic component is removed.</p>"
     ],
     "discussion": []
   },
@@ -12408,7 +12310,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Now grants Short Rest benefits and heals up to five creatures; the old version healed up to six and added the casting modifier.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Abjuration</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Abjuration.</p>"
     ],
     "discussion": []
   },
@@ -12496,9 +12398,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (60-foot cone) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -12593,7 +12493,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Bonus Action</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Casting time changes from an Action to a Bonus Action.</p>"
     ],
     "discussion": []
   },
@@ -12869,9 +12769,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -12965,9 +12863,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -13203,7 +13099,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Transmutation → Necromancy</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Transmutation to Necromancy.</p>"
     ],
     "discussion": []
   },
@@ -13293,7 +13189,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces a one-time 1d4 bonus to a saving throw with 1d4 damage reduction against a chosen damage type, once per turn.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Components: VSM → VS</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The Material component is removed.</p>"
     ],
     "discussion": []
   },
@@ -13429,7 +13325,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Conjuration → Necromancy</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Conjuration to Necromancy.</p>"
     ],
     "discussion": []
   },
@@ -13685,7 +13581,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting a target with a Melee weapon or an Unarmed Strike; Duration: Concentration, up to 1 minute → 1 minute</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The Bonus Action is taken immediately after hitting a target with a Melee weapon or an Unarmed Strike. The spell lasts 1 minute without Concentration.</p>"
     ],
     "discussion": []
   },
@@ -13814,7 +13710,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Divination; Duration: 1 round → Instantaneous</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Divination. The listed duration changes from 1 round to Instantaneous.</p>"
     ],
     "discussion": []
   },
@@ -13915,7 +13811,7 @@
       }
     },
     "notes": [
-      "<p class=\"errata-note\"><strong>Official errata applied:</strong> Replaces the second paragraph: Temporary Hit Points come from the first form, vanish when the spell ends, and losing them no longer ends the spell. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>"
+      "<p class=\"errata-note\"><strong>Official errata:</strong> Temporary Hit Points come from the first form, vanish when the spell ends, and losing them does not end the spell. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>"
     ],
     "discussion": []
   },
@@ -14010,9 +13906,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 reaction, which you take when you are hit by an attack or targeted by the magic missile spell → Reaction, which you take when you are hit by an attack roll or targeted by the Magic Missile spell</p>"
-    ],
+    "notes": [],
     "discussion": [
       "<p class=\"balance-note\"><strong>Balance discussion:</strong> Its +5 AC for a whole round can stack with an already high AC, making it a frequent target for proposed limits. <a href=\"https://www.reddit.com/r/onednd/comments/1edyqw1\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
     ]
@@ -14102,7 +13996,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Touch → Self</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from Touch to Self.</p>"
     ],
     "discussion": []
   },
@@ -14151,7 +14045,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from Branding Smite; School: Evocation → Transmutation; Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting a creature with a Melee weapon or an Unarmed Strike; Range: Self Pa - → Self</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> Renamed from Branding Smite. The school changes from Evocation to Transmutation. The Bonus Action is taken immediately after hitting a creature with a Melee weapon or an Unarmed Strike.</p>"
     ],
     "discussion": []
   },
@@ -14239,9 +14133,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -14341,7 +14233,7 @@
     "notes": [],
     "discussion": [
       "<p class=\"balance-note\"><strong>Balance discussion (2024):</strong> Critics still question the value of an additional creature with a copied character's actions and spellcasting. In a discussion of the revised PHB, a proposed further nerf is to prevent the simulacrum from casting spells or changing shape. Other commenters defend the spell and prefer encounter adjustments or narrative limits. <a href=\"https://www.dndbeyond.com/forums/dungeons-dragons-discussion/streams-video/202653-treantmonk-2024-phb-rebalanced-spells\" rel=\"noopener noreferrer\" target=\"_blank\">2024 balance discussion and proposed restrictions</a></p>",
-      "<p><strong>Edition context:</strong> The 2024 simulacrum already cannot cast Simulacrum or take Short or Long Rests. Do not treat the old direct self-copying chain as an unrestricted 2024 option; claims involving Wish require separate rules interpretation. These are community proposals, not consensus or an adopted house rule. <a href=\"https://roll20.net/compendium/dnd5e/Spells:Simulacrum?expansion=32231\" rel=\"noopener noreferrer\" target=\"_blank\">2024 spell text</a></p>"
+      "<p><strong>2024 rules:</strong> A simulacrum cannot cast Simulacrum or take Short or Long Rests. The suggested restrictions on spellcasting and shapechanging would go beyond those limits. Spellwright retains the standard 2024 version. <a href=\"https://roll20.net/compendium/dnd5e/Spells:Simulacrum?expansion=32231\" rel=\"noopener noreferrer\" target=\"_blank\">2024 spell text</a></p>"
     ]
   },
   {
@@ -14390,7 +14282,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces the hit-point pool with a Wisdom save, then a second save before Unconscious takes effect.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 90 feet → 60 feet; Duration: 1 minute → Concentration, up to minute</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 90 feet to 60 feet. The spell now requires Concentration, for up to 1 minute.</p>"
     ],
     "discussion": []
   },
@@ -14522,8 +14414,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -14575,7 +14467,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Touch → 15 feet</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from Touch to 15 feet.</p>"
     ],
     "discussion": []
   },
@@ -14623,9 +14515,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -14712,9 +14602,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (30-foot radius) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -14868,8 +14756,7 @@
       }
     },
     "notes": [
-      "<p class=\"revised-note\"><strong>Revision identified:</strong> The 2024 text can trigger when the moving Emanation enters a creature's space and when a creature ends its turn inside it; the 2014 text triggers when a creature enters or starts its turn there.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (15-foot radius) → Self</p>"
+      "<p class=\"revised-note\"><strong>2024 changes:</strong> The 2024 text can trigger when the moving Emanation enters a creature's space and when a creature ends its turn inside it; the 2014 text triggers when a creature enters or starts its turn there.</p>"
     ],
     "discussion": [
       "<p class=\"balance-note\"><strong>Balance discussion:</strong> The 2024 moving Emanation can damage enemies when the area enters their spaces, raising concerns about repeated damage through coordinated movement. <a href=\"https://www.dndbeyond.com/forums/dungeons-dragons-discussion/rules-game-mechanics/205138-2024-spirit-guardians\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
@@ -14925,7 +14812,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: 1 minute → Concentration, up to 1 minute</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The spell now requires Concentration, for up to 1 minute.</p>"
     ],
     "discussion": [
       "<p class=\"balance-note\"><strong>Balance discussion:</strong> The 2024 Concentration requirement and 20-foot movement make it harder to justify alongside other Cleric Concentration spells; players call for a mobility buff. <a href=\"https://www.reddit.com/r/onednd/comments/1pdlj96/\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
@@ -14976,7 +14863,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Enchantment; Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting a creature with a Melee weapon or an Unarmed Strike; Duration: Concentration, up to 1 minute → Instantaneous</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Enchantment. The Bonus Action is taken immediately after hitting a creature with a Melee weapon or an Unarmed Strike. Concentration is no longer required; the listed duration is Instantaneous.</p>"
     ],
     "discussion": []
   },
@@ -15014,8 +14901,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15061,8 +14948,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15206,7 +15093,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Abjuration → Transmutation</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Abjuration to Transmutation.</p>"
     ],
     "discussion": []
   },
@@ -15255,7 +15142,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Sight → 1 mile</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from Sight to 1 mile.</p>"
     ],
     "discussion": []
   },
@@ -15345,8 +15232,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15392,8 +15279,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15439,8 +15326,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15486,8 +15373,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15533,8 +15420,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15580,8 +15467,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15627,8 +15514,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15674,8 +15561,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15721,8 +15608,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -15773,9 +15660,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (60-foot line) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -15868,7 +15753,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Touch → Self</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from Touch to Self.</p>"
     ],
     "discussion": []
   },
@@ -15958,8 +15843,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -16005,8 +15890,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -16057,9 +15942,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from Tasha’S Hideous Laughter</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -16147,7 +16030,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Divination</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Divination.</p>"
     ],
     "discussion": []
   },
@@ -16282,9 +16165,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from 'Tenser's Floating Disk; Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -16408,8 +16289,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -16461,7 +16342,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from 'Thunderous Smite; Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting a target with a Melee weapon or an Unarmed Strike; Duration: Concentration, up to 1 minute → Instantaneous</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The Bonus Action is taken immediately after hitting a target with a Melee weapon or an Unarmed Strike. Concentration is no longer required; the listed duration is Instantaneous.</p>"
     ],
     "discussion": []
   },
@@ -16502,9 +16383,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Self (15-foot cube) → Self</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -16581,8 +16460,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -16681,7 +16560,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Duration: 1 round → 1 minute</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The listed duration changes from 1 round to 1 minute.</p>"
     ],
     "discussion": []
   },
@@ -16722,9 +16601,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Renamed from 'Tree Stride</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -16772,8 +16649,7 @@
       }
     },
     "notes": [
-      "<p class=\"errata-note\"><strong>Official errata applied:</strong> Replaces the second sentence of Creature into Creature's second paragraph: remaining Temporary Hit Points vanish when the spell ends, rather than their loss ending the spell. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 30 feet p → 30 feet</p>"
+      "<p class=\"errata-note\"><strong>Official errata:</strong> For Creature into Creature, any remaining Temporary Hit Points vanish when the spell ends. Losing those Temporary Hit Points does not end the spell. <a href=\"https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Read errata</a></p>"
     ],
     "discussion": []
   },
@@ -16922,7 +16798,7 @@
     },
     "notes": [
       "<p class=\"review-note\"><strong>Redesign summary:</strong> Replaces next-turn attack advantage with an immediate weapon attack using the spellcasting ability, with added damage at higher levels.</p>",
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 30 feet → Self; Duration: Concentration, up to 1 round → Instantaneous; Components: S → SM</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 30 feet to Self. Concentration is no longer required; the listed duration is Instantaneous. A Material component is added.</p>"
     ],
     "discussion": []
   },
@@ -16971,7 +16847,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: Sight → 1 mile</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from Sight to 1 mile.</p>"
     ],
     "discussion": []
   },
@@ -17012,9 +16888,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -17147,8 +17021,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -17241,7 +17115,7 @@
     },
     "notes": [],
     "discussion": [
-      "<p class=\"balance-note\"><strong>Balance discussion:</strong> An almost impassable barrier can decide an encounter without an initial saving throw; players discuss ways to make it breakable. <a href=\"https://www.reddit.com/r/onednd/comments/1uuh7h7\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
+      "<p class=\"balance-note\"><strong>Balance discussion:</strong> The standard 2024 spell can confine creatures without an initial saving throw. Proposed nerfs include making the wall breakable. <a href=\"https://www.reddit.com/r/onednd/comments/1uuh7h7\" rel=\"noopener noreferrer\" target=\"_blank\">Community discussion</a></p>"
     ]
   },
   {
@@ -17462,9 +17336,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -17511,9 +17383,7 @@
         "absent": false
       }
     },
-    "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Casting time: 1 action → Action or Ritual</p>"
-    ],
+    "notes": [],
     "discussion": []
   },
   {
@@ -17798,7 +17668,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> Range: 30 feet → 60 feet</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The range changes from 30 feet to 60 feet.</p>"
     ],
     "discussion": []
   },
@@ -17836,8 +17706,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },
@@ -17929,7 +17799,7 @@
       }
     },
     "notes": [
-      "<p class=\"field-signals\"><strong>Fields to check:</strong> School: Evocation → Necromancy; Casting time: 1 bonus action → Bonus Action, which you take immedi- ately after hitting a creature with a Melee weapon or an Unarmed Strike; Duration: Concentration, up to 1 minute → 1 minute</p>"
+      "<p class=\"field-signals\"><strong>2024 changes:</strong> The school changes from Evocation to Necromancy. The Bonus Action is taken immediately after hitting a creature with a Melee weapon or an Unarmed Strike. The spell lasts 1 minute without Concentration.</p>"
     ],
     "discussion": []
   },
@@ -17967,8 +17837,8 @@
         "classes": "",
         "source": "Player’s Handbook",
         "metadata": {},
-        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">This spell appears in the 2024 handbook but has no entry in the 2014 Player’s Handbook supplied for this comparison.</p>",
-        "body_sha256": "4e6bef8dc0fbcfa99c25dcb6e85da679443f4115ace0b96891da5ff2c119a6cc",
+        "body": "<p class=\"absent-title\">No 2014 PHB entry</p><p class=\"absent-copy\">No 2014 Player’s Handbook version is available for comparison.</p>",
+        "body_sha256": "66a7096d05f534478f6085ad46ee3451c80830793db5856a1be373646a4dbca7",
         "absent": true
       }
     },

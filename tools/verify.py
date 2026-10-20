@@ -75,6 +75,8 @@ def main():
     assert f'{discussion_count} balance discussions' in json.loads((ROOT/'data/overview.json').read_text())
     from nerf_discussions_test import check_discussion_content
     check_discussion_content(page, data, json.loads((ROOT/'data/house-rules.json').read_text()))
+    from reader_copy_test import check_reader_copy
+    check_reader_copy(page)
     from house_rules_test import check_rule_content
     check_rule_content(page, data, json.loads((ROOT/'data/house-rules.json').read_text()))
     # User-supplied PHB 2014 screenshot confirms additive, not asterisk, bonuses.

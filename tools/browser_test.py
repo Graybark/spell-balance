@@ -214,6 +214,8 @@ async def run(filename):
         await check_mobile_menu(browser,url)
         await check_slots_view(browser,url,REPORT)
         await check_discussion_browser(browser,url,REPORT)
+        from reader_copy_test import check_reader_copy_browser
+        await check_reader_copy_browser(browser,url,REPORT)
         await browser.close()
     server.shutdown()
     assert not errors,errors
