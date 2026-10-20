@@ -151,8 +151,8 @@ async def run(filename):
         for c in classes['classes']:
             values=await page.locator(f'table[data-caster="{c["id"]}"] tbody tr').evaluate_all('(rows)=>rows.map(r=>Number(r.cells[r.cells.length-10].textContent))')
             assert values==c['prepared']
-        await page.select_option('#label','house-rule');assert await page.locator('.sidebar li:visible').count()==4
-        await page.select_option('#spell-class','wizard');assert await page.locator('.sidebar li:visible').count()==4
+        await page.select_option('#label','house-rule');assert await page.locator('.sidebar li:visible').count()==5
+        await page.select_option('#spell-class','wizard');assert await page.locator('.sidebar li:visible').count()==5
         await page.select_option('#level','9');assert await page.locator('.sidebar li:visible').count()==1
         assert await page.locator('.spell-card:visible h2').inner_text()=='Forcecage'
         await page.uncheck('#house-rules-toggle');assert await page.locator('#empty').is_visible()
@@ -208,6 +208,8 @@ async def run(filename):
         await failed.locator('label[for="spell-fireball-info-why"]').click()
         assert await failed.locator('#spell-fireball .why').is_visible()
         await failed.screenshot(path=str(REPORT/'failed-javascript.png'))
+        from house_rules_test import check_rule_browser
+        await check_rule_browser(browser,url,REPORT)
         await check_mobile_menu(browser,url)
         await check_slots_view(browser,url,REPORT)
         await browser.close()

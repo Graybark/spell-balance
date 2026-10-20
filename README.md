@@ -5,7 +5,7 @@ A static-first reference for the existing 2014/2024 spell catalog and approved h
 ## Architecture
 
 - `data/catalog.json`: the 391 original spell records, their edition text, source attribution, categories and discussion annotations. Original-body checksums make accidental edits fail the build.
-- `data/house-rules.json`: the four explicitly chosen overrides. They are applied **during the build**, never by patching the page on load.
+- `data/house-rules.json`: the explicitly approved house-rule overrides. Each can use exact substitutions or a complete `body_override`; original edition text stays in the catalog. Optional `highlight_phrases` mark new rules in purple. Overrides are applied **during the build**, never by patching the page on load.
 - `data/classes.json`: the shared revised slot progression and each class's features, resources, cantrips and prepared-spell counts. These are rendered into HTML during the build.
 - `tools/build.py`: deterministic HTML generation. `src/app.css` is the single stylesheet; `src/app.js` contains only interaction logic.
 - `index.html` (or `Spell Balance.html` in the private mirror): the complete generated page. The new header, all spell versions and all class rows exist before JavaScript executes.

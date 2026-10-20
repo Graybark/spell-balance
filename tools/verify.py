@@ -65,12 +65,14 @@ def main():
             want=[str(i+1),'+'+str(2+i//4),c['features'][i]]+([str(c['values'][i])] if c.get('resource') else [])+[str(c['cantrips'][i]),str(c['prepared'][i])]+[str(x or '–') for x in tables['slots'][i]]
             got=[cell.get_text() for cell in row.find_all(['th','td'],recursive=False)]
             assert got==want,f'{c["id"]} row {i+1}'
-    for id,level in [('fireball','3'),('forcecage','9'),('melf-s-acid-arrow','1'),('wall-of-force','7')]:
+    for id,level in [('fireball','3'),('forcecage','9'),('melf-s-acid-arrow','1'),('wall-of-force','5'),('lightning-bolt','3')]:
         assert page.find(id='spell-'+id)['data-level-house']==level
     f=page.find(id='spell-fireball')
     assert 'taking 6d6 Fire damage' in f.select_one('[data-panel=spell] [data-mode=house]').get_text()
     assert 'taking 8d6 Fire damage' in f.select_one('[data-panel="2024"]').get_text()
     assert len(page.select('.balance-note'))==17
+    from house_rules_test import check_rule_content
+    check_rule_content(page, data, json.loads((ROOT/'data/house-rules.json').read_text()))
     # User-supplied PHB 2014 screenshot confirms additive, not asterisk, bonuses.
     elemental=page.find(id='spell-elemental-weapon').select_one('[data-panel="2014"] .original-body').get_text()
     for phrase in ['has a +1 bonus to attack rolls','attack rolls increases to +2','the bonus increases to +3']:
