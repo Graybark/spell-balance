@@ -2429,12 +2429,17 @@
     "official_level": 8,
     "school": "Necromancy",
     "categories": [
-      "material-cost"
+      "material-cost",
+      "nerf"
     ],
     "tags": [
       {
         "text": "Material Cost",
         "class": "tag tag-material-cost"
+      },
+      {
+        "text": "Nerf",
+        "class": "tag tag-nerf"
       }
     ],
     "versions": {
@@ -2468,7 +2473,10 @@
       }
     },
     "notes": [],
-    "discussion": []
+    "discussion": [
+      "<p class=\"balance-note\"><strong>Balance discussion (campaign-dependent):</strong> The 2024 spell comments discuss maintaining younger replacement bodies and using Wish to avoid component costs. The balance concern is repeatable protection from permanent death and aging, rather than extra combat damage. This is not unconditional immortality: the clone needs 120 days to mature, its vessel must remain undisturbed for indefinite preservation, the soul must be free and willing, and equipment does not transfer. <a href=\"https://www.dndbeyond.com/spells/2618973-clone\" rel=\"noopener noreferrer\" target=\"_blank\">2024 spell and community comments</a> <a href=\"https://rpg.stackexchange.com/questions/50541/does-the-clone-spell-make-someone-effectively-immortal\" rel=\"noopener noreferrer\" target=\"_blank\">Legacy discussion: immortality and practical limits</a></p>",
+      "<p><strong>Restriction example, not consensus:</strong> TorontoDnD banned Clone in its June 2024 community update, before the revised PHB. This is a documented campaign restriction, not an official change or proof of a general 2024 consensus. The legacy discussion also argues that the long timescale often limits its impact during play. Added for Nerf consideration; no particular Clone house rule has been adopted here. <a href=\"https://www.torontodnd.com/communityupdate/2024-06-14\" rel=\"noopener noreferrer\" target=\"_blank\">June 2024 campaign restriction</a></p>"
+    ]
   },
   {
     "id": "spell-cloudkill",
@@ -14272,7 +14280,8 @@
     "school": "Illusion",
     "categories": [
       "revised",
-      "material-cost"
+      "material-cost",
+      "nerf"
     ],
     "tags": [
       {
@@ -14282,6 +14291,10 @@
       {
         "text": "Material Cost",
         "class": "tag tag-material-cost"
+      },
+      {
+        "text": "Nerf",
+        "class": "tag tag-nerf"
       }
     ],
     "versions": {
@@ -14315,7 +14328,10 @@
       }
     },
     "notes": [],
-    "discussion": []
+    "discussion": [
+      "<p class=\"balance-note\"><strong>Balance discussion (2024):</strong> Critics still question the value of an additional creature with a copied character's actions and spellcasting. In a discussion of the revised PHB, a proposed further nerf is to prevent the simulacrum from casting spells or changing shape. Other commenters defend the spell and prefer encounter adjustments or narrative limits. <a href=\"https://www.dndbeyond.com/forums/dungeons-dragons-discussion/streams-video/202653-treantmonk-2024-phb-rebalanced-spells\" rel=\"noopener noreferrer\" target=\"_blank\">2024 balance discussion and proposed restrictions</a></p>",
+      "<p><strong>Edition context:</strong> The 2024 simulacrum already cannot cast Simulacrum or take Short or Long Rests. Do not treat the old direct self-copying chain as an unrestricted 2024 option; claims involving Wish require separate rules interpretation. These are community proposals, not consensus or an adopted house rule. <a href=\"https://roll20.net/compendium/dnd5e/Spells:Simulacrum?expansion=32231\" rel=\"noopener noreferrer\" target=\"_blank\">2024 spell text</a></p>"
+    ]
   },
   {
     "id": "spell-sleep",
