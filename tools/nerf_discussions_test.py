@@ -18,9 +18,9 @@ def check_discussion_content(page,data,house):
     card=page.find(id='spell-lightning-bolt')
     pane=card.select_one('[data-panel="discussion"]')
     assert pane and len(pane.select('.balance-note'))==1
-    assert 'Several replies defend Lightning Bolt' in pane.get_text()
+    assert 'others argue that its narrow line' in pane.get_text()
     assert '2020' in pane.get_text() and '2014 rules' in pane.get_text()
-    assert 'campaign decision' in pane.get_text()
+    assert 'House-rule version:' in pane.get_text() and '6d6 base Lightning damage' in pane.get_text()
     assert len(pane.select('a[href]'))==2
     assert card.select_one('[data-panel="why"]')
     assert house['spell-lightning-bolt']['replacements']==[['taking 8d6 Lightning damage','taking 6d6 Lightning damage']]
@@ -42,8 +42,8 @@ def check_discussion_content(page,data,house):
         assert card['data-level-official']==card['data-level-house']==str(level)
         assert not card.select('.tag-house, .why')
     assert 'campaign-dependent' in page.find(id='spell-clone').select_one('.balance-note').get_text()
-    assert 'before the revised PHB' in page.find(id='spell-clone').select_one('[data-panel="discussion"]').get_text()
-    assert 'already cannot cast Simulacrum' in page.find(id='spell-simulacrum').select_one('[data-panel="discussion"]').get_text()
+    assert 'before the revised Player’s Handbook' in page.find(id='spell-clone').select_one('[data-panel="discussion"]').get_text()
+    assert 'A simulacrum cannot cast Simulacrum' in page.find(id='spell-simulacrum').select_one('[data-panel="discussion"]').get_text()
 
 async def check_discussion_browser(browser,url,report):
     errors=[]
@@ -127,7 +127,7 @@ async def check_lightning_discussion_browser(browser,url,report):
             assert await pane.locator('.balance-note').count()==1
             for source in sources:
                 assert await pane.locator('a').evaluate_all('(links,u)=>links.some(a=>a.getAttribute("href")===u)',source)
-            assert 'Several replies defend Lightning Bolt' in await pane.inner_text()
+            assert 'others argue that its narrow line' in await pane.inner_text()
             if javascript: await card.screenshot(path=str(report/f'lightning-discussion-{width}.png'))
             size=await p.evaluate('[document.documentElement.clientWidth,document.documentElement.scrollWidth]')
             assert size[1]<=size[0]+1,(width,size)
