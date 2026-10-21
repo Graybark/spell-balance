@@ -2,6 +2,7 @@
 Never edit spell wording, edition metadata, or house-rule overrides.
 """
 import json, re, time, requests, hashlib, unicodedata
+from concurrent.futures import ThreadPoolExecutor
 from bs4 import BeautifulSoup
 from pathlib import Path
 from urllib.parse import quote
@@ -19,7 +20,7 @@ def tokens(x):
 def source_paragraphs(name,year):
     if year=='2024': url='https://roll20.net/compendium/dnd5e/Spells%3A'+quote(name,safe='')+'?expansion=32231'
     else: url='https://roll20.net/compendium/dnd5e/'+quote(name,safe='')
-    res=session.get(url,timeout=18)
+    res=requests.get(url,timeout=15,headers={'User-Agent':'Mozilla/5.0'})
     if res.status_code!=200: return [],'http-'+str(res.status_code)
     soup=BeautifulSoup(res.text,'html.parser')
     # 2024 page__body; 2014 spell description paragraphs are in the document body.
@@ -77,6 +78,12 @@ def update_one(body,paras):
         return None,'text-changed'
     return rebuilt,None
 
+eligible = [(s['name'],year) for s in data for year,v in s['versions'].items()
+            if not v.get('absent') and len(re.findall(r'<p(?:\\s|>)',v['body']))==1
+            and len(tokens(BeautifulSoup(v['body'],'html.parser').get_text(' ',strip=True)))>=90]
+pool=ThreadPoolExecutor(max_workers=6)
+futures={k:pool.submit(source_paragraphs,*k) for k in eligible}
+print('FETCHING',len(futures),'source pages concurrently',flush=True)
 for i,s in enumerate(data):
     for year,v in s['versions'].items():
         if v.get('absent'):continue
@@ -85,7 +92,7 @@ for i,s in enumerate(data):
         if count!=1 or wordcount<90:continue
         record={'spell':s['name'],'edition':year,'words':wordcount}
         try:
-            ps,error=source_paragraphs(s['name'],year)
+            ps,error=futures[(s['name'],year)].result()
             if error: record['result']=error
             else:
                 matched,error=find_paras(ps,BeautifulSoup(v['body'],'html.parser').get_text(' ',strip=True))
@@ -102,6 +109,7 @@ for i,s in enumerate(data):
         results.append(record)
         print(record,flush=True)
         time.sleep(.12)
+pool.shutdown(wait=True)
 catalog.write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 Path('/tmp/roll20-paragraph-audit.json').write_text(json.dumps(results,indent=2))
 print('SUMMARY',len(results),'updated',sum(x['result']=='updated' for x in results),flush=True)
