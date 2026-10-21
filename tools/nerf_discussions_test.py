@@ -70,7 +70,7 @@ async def check_discussion_browser(browser,url,report):
         await p.wait_for_selector('html.enhanced')
         assert await p.locator('#label').input_value()=='nerf'
         assert await p.locator('#visible-count').inner_text()=='12 spells'
-        assert await p.locator('.sidebar li:not([hidden])').count()==11
+        assert await p.locator('.sidebar li:not([hidden])').count()==12
         if width<=800:
             await p.locator('#spell-menu > summary').click()
             await p.wait_for_function('document.getElementById("spell-menu").open')
