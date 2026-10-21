@@ -79,7 +79,7 @@ def update_one(body,paras):
     return rebuilt,None
 
 eligible = [(s['name'],year) for s in data for year,v in s['versions'].items()
-            if not v.get('absent') and len(re.findall(r'<p(?:\\s|>)',v['body']))==1
+            if not v.get('absent') and len(re.findall(r'<p(?:\s|>)',v['body']))==1
             and len(tokens(BeautifulSoup(v['body'],'html.parser').get_text(' ',strip=True)))>=90]
 pool=ThreadPoolExecutor(max_workers=6)
 futures={k:pool.submit(source_paragraphs,*k) for k in eligible}
