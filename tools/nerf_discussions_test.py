@@ -12,6 +12,21 @@ SOURCES={
     ],
 }
 def check_discussion_content(page,data,house):
+    hut=next(s for s in data if s['id']=='spell-leomund-s-tiny-hut')
+    assert hut['categories'].count('nerf')==1 and 'revised' in hut['categories']
+    assert sum(t['class']=='tag tag-nerf' for t in hut['tags'])==1
+    assert len(hut['discussion'])==3
+    assert 'spell-leomund-s-tiny-hut' not in house
+    hut_card=page.find(id='spell-leomund-s-tiny-hut')
+    assert hut_card['data-level-house']==hut_card['data-level-official']=='3'
+    assert hut_card.select_one('.tag-nerf') is not None
+    assert not hut_card.select('.tag-house, .why')
+    hut_pane=hut_card.select_one('[data-panel="discussion"]')
+    assert len(hut_pane.select('.balance-note'))==1 and len(hut_pane.select('a[href]'))==4
+    assert 'damage threshold' in hut_pane.get_text() and 'counterarguments' in hut_pane.get_text()
+    assert '2014 rules' in hut_pane.get_text() and '2024 rules' in hut_pane.get_text()
+    assert len(hut_card.select('[data-panel="2014"] .original-body .spell-text'))==1
+    assert len(hut_card.select('[data-panel="2024"] .original-body .spell-text'))==1
     lightning=next(s for s in data if s['id']=='spell-lightning-bolt')
     assert lightning['categories'].count('nerf')==1
     assert sum(t['class']=='tag tag-nerf' for t in lightning['tags'])==1
@@ -54,7 +69,7 @@ async def check_discussion_browser(browser,url,report):
         await p.goto(url+'?label=nerf#spell-simulacrum')
         await p.wait_for_selector('html.enhanced')
         assert await p.locator('#label').input_value()=='nerf'
-        assert await p.locator('#visible-count').inner_text()=='11 spells'
+        assert await p.locator('#visible-count').inner_text()=='12 spells'
         assert await p.locator('.sidebar li:not([hidden])').count()==11
         if width<=800:
             await p.locator('#spell-menu > summary').click()
@@ -88,6 +103,21 @@ async def check_discussion_browser(browser,url,report):
         assert await p.locator('#visible-count').inner_text()=='5 spells'
         for id in TARGETS: assert await p.locator(f'.sidebar li[data-spell="{id}"]').evaluate('(e)=>e.hidden')
         await context.close()
+    for width in (1280,390):
+        context=await browser.new_context(viewport={'width':width,'height':850})
+        page=await context.new_page()
+        await page.goto(url+'?label=nerf#spell-leomund-s-tiny-hut')
+        await page.wait_for_selector('html.enhanced')
+        assert await page.locator('#visible-count').inner_text()=='12 spells'
+        hut=page.locator('#spell-leomund-s-tiny-hut')
+        assert await hut.is_visible()
+        assert await hut.locator('.tag-nerf').count()==1
+        await page.locator('label[for="spell-leomund-s-tiny-hut-info-discussion"]').click()
+        assert await hut.locator('[data-panel="discussion"]').is_visible()
+        assert await hut.locator('.balance-note a').count()==2
+        assert await hut.locator('[data-panel="discussion"] a').count()==4
+        assert await page.evaluate('document.documentElement.scrollWidth <= document.documentElement.clientWidth+1')
+        await context.close()
     await check_lightning_discussion_browser(browser,url,report)
     plain=await browser.new_context(java_script_enabled=False,viewport={'width':390,'height':1000})
     p=await plain.new_page()
@@ -113,7 +143,7 @@ async def check_lightning_discussion_browser(browser,url,report):
             await p.goto(url+'?label=nerf#spell-lightning-bolt')
             if javascript:
                 await p.wait_for_selector('html.enhanced')
-                await expect(p.locator('#visible-count')).to_have_text('11 spells')
+                await expect(p.locator('#visible-count')).to_have_text('12 spells')
                 assert await p.locator('.sidebar li[data-spell="spell-lightning-bolt"]').evaluate('(e)=>!e.hidden')
             card=p.locator('#spell-lightning-bolt')
             await expect(card).to_be_visible()
