@@ -61,7 +61,7 @@ def update_one(body,paras):
         anchor=' '.join(words[-8:])
         # Search on a normalized shadow string, with a character map back to original.
         shadow=plain(raw)
-        pattern=r'\b'+r'\W+'.join(map(re.escape,words[-8:]))+r'\\b'
+        pattern=r'\b'+r'\W+'.join(map(re.escape,words[-8:]))+r'\b'
         matches=list(re.finditer(pattern,shadow,re.I))
         matches=[a for a in matches if a.end()>left]
         if len(matches)!=1: return None,'ambiguous-boundary'
