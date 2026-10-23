@@ -29,9 +29,9 @@ def check_condition_content(page,data,house):
     for record in data:
         card=page.find(id=record['id'])
         for edition,v in record['versions'].items():
-            pane=card.select_one('[data-panel="'+edition+'"] .original-body .spell-text')
+            pane=card.select_one('[data-panel="'+edition+'"] .original-body')
             if v['absent']:continue
-            assert pane,record['id']+' '+edition
+            assert pane and pane.select_one('.spell-text'),record['id']+' '+edition
             assert normalized(str(pane))==normalized(v['body']),('Spell text changed',record['id'],edition)
             assert all(link['data-edition']==edition for link in pane.select('.condition-link'))
     for id,name in [('spell-hold-person','paralyzed'),('spell-fear','frightened'),('spell-invisibility','invisible'),('spell-hypnotic-pattern','charmed')]:
