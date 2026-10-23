@@ -16,7 +16,7 @@ def text(html): return BeautifulSoup(html,'html.parser').get_text()
 
 CONDITION_NAMES=('blinded','charmed','deafened','exhaustion','frightened','grappled','incapacitated','invisible','paralyzed','petrified','poisoned','prone','restrained','stunned','unconscious')
 CONDITION_PATTERN=re.compile(r'\b('+'|'.join(CONDITION_NAMES)+r')\b',re.I)
-NONCONDITION_INVISIBLE=re.compile(r'^\s+(?:wall|sensor|barrier|sphere|object|disk|disc|hand|servant|eye|dome|force|stalker|platform|structure|weapon|door|item|rune|ward)\b',re.I)
+NONCONDITION_INVISIBLE=re.compile(r'^\s*,?\s*(?:(?:invulnerable|magical|floating)\s+)*(?:wall|sensor|barrier|sphere|object|disk|disc|hand|servant|eye|dome|force|stalker|platform|structure|weapon|door|item|rune|ward|mark)\b',re.I)
 def condition_url(name,edition):
     title=name.title()
     return ('https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#'+title+'%20%5BCondition%5D') if edition=='2024' else ('https://roll20.net/compendium/dnd5e/Conditions#'+title)
@@ -24,7 +24,7 @@ def link_conditions(html,edition):
     """Decorate rendered spell text only. Leave original catalog entries and hashes untouched."""
     soup=BeautifulSoup(html,'html.parser')
     for node in list(soup.find_all(string=CONDITION_PATTERN)):
-        if not isinstance(node,NavigableString) or not node.find_parent(class_='spell-text') or node.find_parent('a'):
+        if not isinstance(node,NavigableString) or not (node.find_parent(class_='spell-text') or node.find_parent(class_='stat-block')) or node.find_parent('a'):
             continue
         raw=str(node); chunks=[]; offset=0; changed=False
         for hit in CONDITION_PATTERN.finditer(raw):

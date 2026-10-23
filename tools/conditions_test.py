@@ -20,7 +20,7 @@ def check_condition_content(page,data,house):
     assert len(links)>400,('Insufficient condition references',len(links))
     assert {'2014','2024'}=={link['data-edition'] for link in links}
     for link in links:
-        assert link.find_parent(class_='spell-text')
+        assert link.find_parent(class_='spell-text') or link.find_parent(class_='stat-block')
         assert link['data-condition'] in CONDITION_NAMES
         assert link['href']==condition_url(link['data-condition'],link['data-edition'])
         assert link.get_text().lower()==link['data-condition']
@@ -56,6 +56,9 @@ def check_condition_content(page,data,house):
         card=page.find(id='spell-wall-of-force')
         assert not card.select_one('[data-panel="'+year+'"] .condition-link[data-condition="invisible"]'),year
     assert not page.find(id='spell-wall-of-force').select_one('[data-panel="spell"] .condition-link[data-condition="invisible"]')
+    assert page.select_one('#spell-animate-objects [data-panel=spell] .stat-block .condition-link[data-condition=poisoned]')
+    assert page.select_one('#spell-summon-aberration [data-panel=spell] .stat-block .condition-link[data-condition=incapacitated]')
+    assert not page.select_one('#spell-arcane-eye [data-panel=spell] .condition-link[data-condition=invisible]')
     sample='<div class="spell-text"><p data-test="Poisoned">BLINDED, <em>Prone</em>, unrestrained and unconsciousness. <a href="/unchanged">Charmed</a> <strong>Stunned</strong>.</p></div><p>Poisoned</p>'
     result=BeautifulSoup(link_conditions(sample,'2014'),'html.parser')
     assert [a.get_text() for a in result.select('.condition-link')]==['BLINDED','Prone','Stunned']
