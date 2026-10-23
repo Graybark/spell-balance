@@ -201,6 +201,8 @@ async def check_condition_browser(browser,url,report):
     assert await mobile_dialog.evaluate('(el)=>el.contains(document.activeElement)')
     await mobile.keyboard.press('Tab')
     assert await mobile_dialog.evaluate('(el)=>el.contains(document.activeElement)')
+    await mobile.keyboard.press('Shift+Tab')
+    assert await mobile_dialog.evaluate('(el)=>el.contains(document.activeElement)')
     await mobile.keyboard.press('Escape')
     await expect(mobile_dialog).not_to_be_visible()
     for spell,conditions in [('blindness-deafness',['blinded','deafened']),('web',['restrained']),('sleep',['incapacitated','unconscious'])]:

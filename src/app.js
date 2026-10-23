@@ -304,6 +304,14 @@
     if (backdropPointerDown && event.target === conditionDialog && outsideConditionDialog(event)) closeConditionDialog();
     backdropPointerDown = false;
   });
+  conditionDialog.addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const stops = [...conditionDialog.querySelectorAll('button:not([disabled]), a[href]')];
+    const current = stops.indexOf(doc.activeElement);
+    const next = (current + (event.shiftKey ? -1 : 1) + stops.length) % stops.length;
+    event.preventDefault();
+    stops[next].focus();
+  });
   conditionDialog.addEventListener('cancel', event => {
     event.preventDefault();
     closeConditionDialog();
