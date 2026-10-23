@@ -1,0 +1,75 @@
+name: Validate complete condition references
+on:
+  push:
+    branches: [fix/complete-condition-definitions-20261024]
+    paths: [.github/workflows/complete-conditions-check.yml]
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Install existing validation tools
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python -m playwright install --with-deps chromium
+      - name: Compare all 30 definitions with their edition source
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          from bs4 import BeautifulSoup,NavigableString,Tag
+          data=json.loads(Path('data/conditions.json').read_text())
+          urls={'2014':'https://roll20.net/compendium/dnd5e/Conditions','2024':'https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335'}
+          def norm(s):return re.sub(r'[^a-z0-9]','',s.lower())
+          for year,url in urls.items():
+              soup=BeautifulSoup(urlopen(Request(url,headers={'User-Agent':'Mozilla/5.0'}),timeout=45).read(),'html.parser')
+              for name,editions in data.items():
+                  title=name.title()+(' [Condition]' if year=='2024' else '')
+                  heading=next((h for h in soup.find_all(['h1','h2','h3','h4']) if norm(h.get_text(' ',strip=True))==norm(title)),None)
+                  assert heading is not None,(year,name,'missing source heading')
+                  strings=[]
+                  for el in heading.next_elements:
+                      if isinstance(el,Tag) and el.name in ('h1','h2','h3','h4') and int(el.name[1])<=int(heading.name[1]):break
+                      if isinstance(el,NavigableString):strings.append(str(el))
+                  source=norm(' '.join(strings))
+                  definition=editions[year]
+                  portions=[definition['intro']] if definition.get('intro') else []
+                  portions += [(e['heading']+' '+e['text']).strip() for e in definition['effects']]
+                  if definition.get('table'):
+                      portions += [' '.join(row) for row in definition['table']['rows']]
+                  portions += definition.get('after',[])
+                  for portion in portions:
+                      assert norm(portion) in source,(year,name,'source mismatch',portion)
+                  print('SOURCE PASS',year,name,len(definition['effects']),'effects')
+          print('PASS: every condition effect, heading, table row and removal rule checked against Roll20')
+          PY
+      - name: Build and verify original spell text and complete definitions
+        run: |
+          python tools/build.py
+          python tools/build.py --check
+          python tools/verify.py
+          node --check src/app.js
+          git diff --exit-code -- data/catalog.json data/house-rules.json
+      - name: Run desktop, keyboard, touch, edition and Buff-filter tests
+        run: python tools/browser_test.py
+      - name: Save validation screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: complete-condition-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 7
+      - name: Commit tested generated HTML and browser assets
+        run: |
+          git config user.name "Graybark"
+          git config user.email "24878945+Graybark@users.noreply.github.com"
+          git add index.html assets
+          git commit -m "Regenerate complete condition popovers and mobile overlays"
+          git push origin HEAD:fix/complete-condition-definitions-20261024

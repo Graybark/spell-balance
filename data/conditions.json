@@ -1,162 +1,580 @@
 {
   "blinded": {
-    "2014": [
-      "Can't see; automatically fails ability checks that require sight.",
-      "Attack rolls against the creature have advantage; its attack rolls have disadvantage."
-    ],
-    "2024": [
-      "Can't see; automatically fails ability checks that require sight.",
-      "Attack rolls against the creature have Advantage; its attack rolls have Disadvantage."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A blinded creature can’t see and automatically fails any ability check that requires sight."
+        },
+        {
+          "heading": "",
+          "text": "Attack rolls against the creature have advantage, and the creature’s attack rolls have disadvantage."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Blinded"
+    },
+    "2024": {
+      "intro": "While you have the Blinded condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Can’t See.",
+          "text": "You can’t see and automatically fail any ability check that requires sight."
+        },
+        {
+          "heading": "Attacks Affected.",
+          "text": "Attack rolls against you have Advantage, and your attack rolls have Disadvantage."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Blinded%20%5BCondition%5D"
+    }
   },
   "charmed": {
-    "2014": [
-      "Can't attack the charmer or target the charmer with harmful abilities or magical effects.",
-      "The charmer has advantage on ability checks to interact socially with the creature."
-    ],
-    "2024": [
-      "Can't attack the charmer or target the charmer with damaging abilities or magical effects.",
-      "The charmer has Advantage on ability checks to interact socially with the creature."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A charmed creature can’t attack the charmer or target the charmer with harmful abilities or magical effects."
+        },
+        {
+          "heading": "",
+          "text": "The charmer has advantage on any ability check to interact socially with the creature."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Charmed"
+    },
+    "2024": {
+      "intro": "While you have the Charmed condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Can’t Harm the Charmer.",
+          "text": "You can’t attack the charmer or target the charmer with damaging abilities or magical effects."
+        },
+        {
+          "heading": "Social Advantage.",
+          "text": "The charmer has Advantage on any ability check to interact with you socially."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Charmed%20%5BCondition%5D"
+    }
   },
   "deafened": {
-    "2014": [
-      "Can't hear; automatically fails ability checks that require hearing."
-    ],
-    "2024": [
-      "Can't hear; automatically fails ability checks that require hearing."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A deafened creature can’t hear and automatically fails any ability check that requires hearing."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Deafened"
+    },
+    "2024": {
+      "intro": "While you have the Deafened condition, you experience the following effect.",
+      "effects": [
+        {
+          "heading": "Can’t Hear.",
+          "text": "You can’t hear and automatically fail any ability check that requires hearing."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Deafened%20%5BCondition%5D"
+    }
   },
   "exhaustion": {
-    "2014": [
-      "Six cumulative levels: 1—Disadvantage on ability checks; 2—Speed halved; 3—Disadvantage on attack rolls and saving throws.",
-      "Level 4—Hit Point maximum halved; 5—Speed 0; 6—death.",
-      "A Long Rest removes one level if the creature has consumed food and drink; all effects end at level 0."
-    ],
-    "2024": [
-      "Each application adds one Exhaustion level (maximum 6; level 6 causes death).",
-      "Subtract twice the Exhaustion level from all D20 Tests and reduce Speed by 5 feet per level.",
-      "A Long Rest removes one level; the condition ends at level 0."
-    ]
+    "2014": {
+      "intro": "Some special abilities and environmental hazards, such as starvation and the long-term effects of freezing or scorching temperatures, can lead to a special condition called exhaustion. Exhaustion is measured in six levels. An effect can give a creature one or more levels of exhaustion, as specified in the effect’s description.",
+      "effects": [],
+      "table": {
+        "caption": "Exhaustion Effects",
+        "headers": [
+          "Level",
+          "Effect"
+        ],
+        "rows": [
+          [
+            "1",
+            "Disadvantage on ability checks"
+          ],
+          [
+            "2",
+            "Speed halved"
+          ],
+          [
+            "3",
+            "Disadvantage on attack rolls and saving throws"
+          ],
+          [
+            "4",
+            "Hit point maximum halved"
+          ],
+          [
+            "5",
+            "Speed reduced to 0"
+          ],
+          [
+            "6",
+            "Death"
+          ]
+        ]
+      },
+      "after": [
+        "If an already exhausted creature suffers another effect that causes exhaustion, its current level of exhaustion increases by the amount specified in the effect’s description.",
+        "A creature suffers the effect of its current level of exhaustion as well as all lower levels. For example, a creature suffering level 2 exhaustion has its speed halved and has disadvantage on ability checks.",
+        "An effect that removes exhaustion reduces its level as specified in the effect’s description, with all exhaustion effects ending if a creature’s exhaustion level is reduced below 1.",
+        "Finishing a long rest reduces a creature’s exhaustion level by 1, provided that the creature has also ingested some food and drink."
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Exhaustion"
+    },
+    "2024": {
+      "intro": "While you have the Exhaustion condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Exhaustion Levels.",
+          "text": "This condition is cumulative. Each time you receive it, you gain 1 Exhaustion level. You die if your Exhaustion level is 6."
+        },
+        {
+          "heading": "D20 Tests Affected.",
+          "text": "When you make a D20 Test, the roll is reduced by 2 times your Exhaustion level."
+        },
+        {
+          "heading": "Speed Reduced.",
+          "text": "Your Speed is reduced by a number of feet equal to 5 times your Exhaustion level."
+        },
+        {
+          "heading": "Removing Exhaustion Levels.",
+          "text": "Finishing a Long Rest removes 1 of your Exhaustion levels. When your Exhaustion level reaches 0, the condition ends."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Exhaustion%20%5BCondition%5D"
+    }
   },
   "frightened": {
-    "2014": [
-      "Disadvantage on ability checks and attack rolls while the source of fear is within line of sight.",
-      "Can't willingly move closer to the source of fear."
-    ],
-    "2024": [
-      "Disadvantage on ability checks and attack rolls while the source of fear is in line of sight.",
-      "Can't willingly move closer to the source of fear."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight."
+        },
+        {
+          "heading": "",
+          "text": "The creature can’t willingly move closer to the source of its fear."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Frightened"
+    },
+    "2024": {
+      "intro": "While you have the Frightened condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Ability Checks and Attacks Affected.",
+          "text": "You have Disadvantage on ability checks and attack rolls while the source of fear is within line of sight."
+        },
+        {
+          "heading": "Can’t Approach.",
+          "text": "You can’t willingly move closer to the source of fear."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Frightened%20%5BCondition%5D"
+    }
   },
   "grappled": {
-    "2014": [
-      "Speed is 0, with no benefits from bonuses to Speed.",
-      "The condition ends if the grappler becomes Incapacitated or if an effect moves the target out of the grappler's reach."
-    ],
-    "2024": [
-      "Speed is 0 and can't increase.",
-      "Attack rolls against anyone other than the grappler have Disadvantage.",
-      "Dragging or carrying the creature costs the grappler 1 extra foot per foot moved, unless the creature is Tiny or at least two sizes smaller."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A grappled creature’s speed becomes 0, and it can’t benefit from any bonus to its speed."
+        },
+        {
+          "heading": "",
+          "text": "The condition ends if the grappler is incapacitated (see the condition)."
+        },
+        {
+          "heading": "",
+          "text": "The condition also ends if an effect removes the grappled creature from the reach of the grappler or grappling effect, such as when a creature is hurled away by the thunderwave spell."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Grappled"
+    },
+    "2024": {
+      "intro": "While you have the Grappled condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Speed 0.",
+          "text": "Your Speed is 0 and can’t increase."
+        },
+        {
+          "heading": "Attacks Affected.",
+          "text": "You have Disadvantage on attack rolls against any target other than the grappler."
+        },
+        {
+          "heading": "Movable.",
+          "text": "The grappler can drag or carry you when it moves, but every foot of movement costs it 1 extra foot unless you are Tiny or two or more sizes smaller than it."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Grappled%20%5BCondition%5D"
+    }
   },
   "incapacitated": {
-    "2014": [
-      "Can't take actions or Reactions (and therefore can't take Bonus Actions).",
-      "Any existing Concentration ends."
-    ],
-    "2024": [
-      "Can't take actions, Bonus Actions, or Reactions; Concentration ends.",
-      "Can't speak; has Disadvantage on Initiative if already Incapacitated when it is rolled."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "An incapacitated creature can’t take actions or reactions."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Incapacitated"
+    },
+    "2024": {
+      "intro": "While you have the Incapacitated condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Inactive.",
+          "text": "You can’t take any action, Bonus Action, or Reaction."
+        },
+        {
+          "heading": "No Concentration.",
+          "text": "Your Concentration is broken."
+        },
+        {
+          "heading": "Speechless.",
+          "text": "You can’t speak."
+        },
+        {
+          "heading": "Surprised.",
+          "text": "If you’re Incapacitated when you roll Initiative, you have Disadvantage on the roll."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Incapacitated%20%5BCondition%5D"
+    }
   },
   "invisible": {
-    "2014": [
-      "Can't be seen without magic or a special sense; counts as heavily obscured for hiding.",
-      "Attack rolls against the creature have disadvantage, and its attack rolls have advantage.",
-      "Noise and tracks can still reveal its location."
-    ],
-    "2024": [
-      "Advantage on Initiative rolls while Invisible.",
-      "Effects that require sight of the target don't affect the creature unless the creator can somehow see it; carried equipment is concealed.",
-      "Attack rolls against the creature have Disadvantage, and its own have Advantage, unless the other creature can see it."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "An invisible creature is impossible to see without the aid of magic or a special sense. For the purpose of hiding, the creature is heavily obscured. The creature’s location can be detected by any noise it makes or any tracks it leaves."
+        },
+        {
+          "heading": "",
+          "text": "Attack rolls against the creature have disadvantage, and the creature’s attack rolls have advantage."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Invisible"
+    },
+    "2024": {
+      "intro": "While you have the Invisible condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Surprise.",
+          "text": "If you’re Invisible when you roll Initiative, you have Advantage on the roll."
+        },
+        {
+          "heading": "Concealed.",
+          "text": "You aren’t affected by any effect that requires its target to be seen unless the effect’s creator can somehow see you. Any equipment you are wearing or carrying is also concealed."
+        },
+        {
+          "heading": "Attacks Affected.",
+          "text": "Attack rolls against you have Disadvantage, and your attack rolls have Advantage. If a creature can somehow see you, you don’t gain this benefit against that creature."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Invisible%20%5BCondition%5D"
+    }
   },
   "paralyzed": {
-    "2014": [
-      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends. Can't move or speak.",
-      "Automatically fails Strength and Dexterity saving throws; attack rolls against the creature have advantage.",
-      "An attack that hits from within 5 feet is a critical hit."
-    ],
-    "2024": [
-      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends, speech is impossible, and Initiative has Disadvantage. Speed is 0 and can't increase.",
-      "Automatically fails Strength and Dexterity saving throws; attack rolls against the creature have Advantage.",
-      "An attack that hits from within 5 feet is a Critical Hit."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A paralyzed creature is incapacitated (see the condition) and can’t move or speak."
+        },
+        {
+          "heading": "",
+          "text": "The creature automatically fails Strength and Dexterity saving throws."
+        },
+        {
+          "heading": "",
+          "text": "Attack rolls against the creature have advantage."
+        },
+        {
+          "heading": "",
+          "text": "Any attack that hits the creature is a critical hit if the attacker is within 5 feet of the creature."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Paralyzed"
+    },
+    "2024": {
+      "intro": "While you have the Paralyzed condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Incapacitated.",
+          "text": "You have the Incapacitated condition."
+        },
+        {
+          "heading": "Speed 0.",
+          "text": "Your Speed is 0 and can’t increase."
+        },
+        {
+          "heading": "Saving Throws Affected.",
+          "text": "You automatically fail Strength and Dexterity saving throws."
+        },
+        {
+          "heading": "Attacks Affected.",
+          "text": "Attack rolls against you have Advantage."
+        },
+        {
+          "heading": "Automatic Critical Hits.",
+          "text": "Any attack roll that hits you is a Critical Hit if the attacker is within 5 feet of you."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Paralyzed%20%5BCondition%5D"
+    }
   },
   "petrified": {
-    "2014": [
-      "Transformed into solid substance with nonmagical gear; weight increases tenfold, aging stops.",
-      "No actions, Bonus Actions, or Reactions; Concentration ends. Can't move or speak and is unaware of its surroundings.",
-      "Attack rolls against it have advantage; it automatically fails Strength and Dexterity saving throws.",
-      "Resistance to all damage; immune to poison and disease (existing poison or disease is suspended)."
-    ],
-    "2024": [
-      "The creature and its nonmagical possessions turn into solid material; weight increases tenfold, and aging stops.",
-      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends, speech is impossible, and Initiative has Disadvantage. Speed is 0 and can't increase.",
-      "Attack rolls against it have Advantage; it automatically fails Strength and Dexterity saving throws.",
-      "Resistance to all damage; immunity to the Poisoned condition."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A petrified creature is transformed, along with any nonmagical object it is wearing or carrying, into a solid inanimate substance (usually stone). Its weight increases by a factor of ten, and it ceases aging."
+        },
+        {
+          "heading": "",
+          "text": "The creature is incapacitated (see the condition), can’t move or speak, and is unaware of its surroundings."
+        },
+        {
+          "heading": "",
+          "text": "Attack rolls against the creature have advantage."
+        },
+        {
+          "heading": "",
+          "text": "The creature automatically fails Strength and Dexterity saving throws."
+        },
+        {
+          "heading": "",
+          "text": "The creature has resistance to all damage."
+        },
+        {
+          "heading": "",
+          "text": "The creature is immune to poison and disease, although a poison or disease already in its system is suspended, not neutralized."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Petrified"
+    },
+    "2024": {
+      "intro": "While you have the Petrified condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Turned to Inanimate Substance.",
+          "text": "You are transformed, along with any nonmagical objects you are wearing and carrying, into a solid inanimate substance (usually stone). Your weight increases by a factor of ten, and you cease aging."
+        },
+        {
+          "heading": "Incapacitated.",
+          "text": "You have the Incapacitated condition."
+        },
+        {
+          "heading": "Speed 0.",
+          "text": "Your Speed is 0 and can’t increase."
+        },
+        {
+          "heading": "Attacks Affected.",
+          "text": "Attack rolls against you have Advantage."
+        },
+        {
+          "heading": "Saving Throws Affected.",
+          "text": "You automatically fail Strength and Dexterity saving throws."
+        },
+        {
+          "heading": "Resist Damage.",
+          "text": "You have Resistance to all damage."
+        },
+        {
+          "heading": "Poison Immunity.",
+          "text": "You have Immunity to the Poisoned condition."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Petrified%20%5BCondition%5D"
+    }
   },
   "poisoned": {
-    "2014": [
-      "Disadvantage on attack rolls and ability checks."
-    ],
-    "2024": [
-      "Disadvantage on attack rolls and ability checks."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A poisoned creature has disadvantage on attack rolls and ability checks."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Poisoned"
+    },
+    "2024": {
+      "intro": "While you have the Poisoned condition, you experience the following effect.",
+      "effects": [
+        {
+          "heading": "Ability Checks and Attacks Affected.",
+          "text": "You have Disadvantage on attack rolls and ability checks."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Poisoned%20%5BCondition%5D"
+    }
   },
   "prone": {
-    "2014": [
-      "Can crawl or spend half Speed to stand; can't stand if Speed is 0.",
-      "Disadvantage on own attack rolls. Attacks against it have advantage within 5 feet, otherwise disadvantage."
-    ],
-    "2024": [
-      "Can crawl or spend movement equal to half Speed (rounded down) to stand; can't stand if Speed is 0.",
-      "Disadvantage on own attack rolls. Attacks against it have Advantage within 5 feet, otherwise Disadvantage."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A prone creature’s only movement option is to crawl, unless it stands up and thereby ends the condition."
+        },
+        {
+          "heading": "",
+          "text": "The creature has disadvantage on attack rolls."
+        },
+        {
+          "heading": "",
+          "text": "An attack roll against the creature has advantage if the attacker is within 5 feet of the creature. Otherwise, the attack roll has disadvantage."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Prone"
+    },
+    "2024": {
+      "intro": "While you have the Prone condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Restricted Movement.",
+          "text": "Your only movement options are to crawl or to spend an amount of movement equal to half your Speed (round down) to right yourself and thereby end the condition. If your Speed is 0, you can’t right yourself."
+        },
+        {
+          "heading": "Attacks Affected.",
+          "text": "You have Disadvantage on attack rolls. An attack roll against you has Advantage if the attacker is within 5 feet of you. Otherwise, that attack roll has Disadvantage."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Prone%20%5BCondition%5D"
+    }
   },
   "restrained": {
-    "2014": [
-      "Speed is 0 and can't increase.",
-      "Attacks against the creature have advantage, its attack rolls have disadvantage, and it has disadvantage on Dexterity saving throws."
-    ],
-    "2024": [
-      "Speed is 0 and can't increase.",
-      "Attacks against the creature have Advantage, its attack rolls have Disadvantage, and it has Disadvantage on Dexterity saving throws."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its speed."
+        },
+        {
+          "heading": "",
+          "text": "Attack rolls against the creature have advantage, and the creature’s attack rolls have disadvantage."
+        },
+        {
+          "heading": "",
+          "text": "The creature has disadvantage on Dexterity saving throws."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Restrained"
+    },
+    "2024": {
+      "intro": "While you have the Restrained condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Speed 0.",
+          "text": "Your Speed is 0 and can’t increase."
+        },
+        {
+          "heading": "Attacks Affected.",
+          "text": "Attack rolls against you have Advantage, and your attack rolls have Disadvantage."
+        },
+        {
+          "heading": "Saving Throws Affected.",
+          "text": "You have Disadvantage on Dexterity saving throws."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Restrained%20%5BCondition%5D"
+    }
   },
   "stunned": {
-    "2014": [
-      "No actions, Bonus Actions, or Reactions; Concentration ends. Can't move and can speak only falteringly.",
-      "Automatically fails Strength and Dexterity saving throws; attack rolls against the creature have advantage."
-    ],
-    "2024": [
-      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends, speech is impossible, and Initiative has Disadvantage. Stunned itself doesn't set Speed to 0.",
-      "Automatically fails Strength and Dexterity saving throws; attack rolls against the creature have Advantage."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "A stunned creature is incapacitated (see the condition), can’t move, and can speak only falteringly."
+        },
+        {
+          "heading": "",
+          "text": "The creature automatically fails Strength and Dexterity saving throws."
+        },
+        {
+          "heading": "",
+          "text": "Attack rolls against the creature have advantage."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Stunned"
+    },
+    "2024": {
+      "intro": "While you have the Stunned condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Incapacitated.",
+          "text": "You have the Incapacitated condition."
+        },
+        {
+          "heading": "Saving Throws Affected.",
+          "text": "You automatically fail Strength and Dexterity saving throws."
+        },
+        {
+          "heading": "Attacks Affected.",
+          "text": "Attack rolls against you have Advantage."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Stunned%20%5BCondition%5D"
+    }
   },
   "unconscious": {
-    "2014": [
-      "No actions, Bonus Actions, or Reactions; Concentration ends. Drops held items, falls Prone, can't move or speak, and is unaware of its surroundings.",
-      "Automatically fails Strength and Dexterity saving throws; attacks against it have advantage.",
-      "An attack that hits from within 5 feet is a critical hit."
-    ],
-    "2024": [
-      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends, speech is impossible, and Initiative has Disadvantage.",
-      "Drops held items and falls Prone, remaining Prone when Unconscious ends.",
-      "Speed is 0 and can't increase; attacks against it have Advantage; it automatically fails Strength and Dexterity saving throws.",
-      "An attack that hits from within 5 feet is a Critical Hit; the creature is unaware of its surroundings."
-    ]
+    "2014": {
+      "effects": [
+        {
+          "heading": "",
+          "text": "An unconscious creature is incapacitated (see the condition), can’t move or speak, and is unaware of its surroundings."
+        },
+        {
+          "heading": "",
+          "text": "The creature drops whatever it’s holding and falls prone."
+        },
+        {
+          "heading": "",
+          "text": "The creature automatically fails Strength and Dexterity saving throws."
+        },
+        {
+          "heading": "",
+          "text": "Attack rolls against the creature have advantage."
+        },
+        {
+          "heading": "",
+          "text": "Any attack that hits the creature is a critical hit if the attacker is within 5 feet of the creature."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Conditions#Unconscious"
+    },
+    "2024": {
+      "intro": "While you have the Unconscious condition, you experience the following effects.",
+      "effects": [
+        {
+          "heading": "Inert.",
+          "text": "You have the Incapacitated and Prone conditions, and you drop whatever you’re holding. When this condition ends, you remain Prone."
+        },
+        {
+          "heading": "Speed 0.",
+          "text": "Your Speed is 0 and can’t increase."
+        },
+        {
+          "heading": "Attacks Affected.",
+          "text": "Attack rolls against you have Advantage."
+        },
+        {
+          "heading": "Saving Throws Affected.",
+          "text": "You automatically fail Strength and Dexterity saving throws."
+        },
+        {
+          "heading": "Automatic Critical Hits.",
+          "text": "Any attack roll that hits you is a Critical Hit if the attacker is within 5 feet of you."
+        },
+        {
+          "heading": "Unaware.",
+          "text": "You’re unaware of your surroundings."
+        }
+      ],
+      "source_url": "https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Unconscious%20%5BCondition%5D"
+    }
   }
 }

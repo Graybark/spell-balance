@@ -11,9 +11,22 @@ def check_condition_content(page,data,house):
     assert set(x['data-condition-entry'] for x in template.select('[data-condition-entry]'))==set(CONDITION_NAMES)
     for section in template.select('[data-condition-entry]'):
         name=section['data-condition-entry'];year=section['data-edition']
-        link=section.select_one('.condition-source')
-        assert link and link['href']==condition_url(name,year)
-        assert section.select('li') and section.select_one('.condition-edition')
+        assert not section.select('a[href]'), 'Condition definitions must be self-contained.'
+        assert section.select_one('.condition-edition')
+        counts_2014={'blinded':2,'charmed':2,'deafened':1,'exhaustion':0,'frightened':2,'grappled':3,'incapacitated':1,'invisible':2,'paralyzed':4,'petrified':6,'poisoned':1,'prone':3,'restrained':3,'stunned':3,'unconscious':5}
+        counts_2024={'blinded':2,'charmed':2,'deafened':1,'exhaustion':4,'frightened':2,'grappled':3,'incapacitated':4,'invisible':3,'paralyzed':5,'petrified':7,'poisoned':1,'prone':2,'restrained':3,'stunned':3,'unconscious':6}
+        assert len(section.select('li'))==({'2014':counts_2014,'2024':counts_2024}[year][name]), (name,year,'merged or missing effects')
+        if year=='2024':
+            assert len(section.select('li > strong'))==counts_2024[name], (name,'missing bold headings')
+        else:
+            assert not section.select('li > strong'), 'Preserve the original 2014 list structure.'
+    restrained=template.select_one('[data-condition-entry=restrained][data-edition="2024"]')
+    assert [s.get_text() for s in restrained.select('li > strong')]==['Speed 0.','Attacks Affected.','Saving Throws Affected.']
+    old_exhaustion=template.select_one('[data-condition-entry=exhaustion][data-edition="2014"]')
+    assert len(old_exhaustion.select('table tbody tr'))==6
+    assert len(old_exhaustion.select('table tbody th[scope=row]'))==6
+    assert 'food and drink' in old_exhaustion.get_text()
+    assert page.select_one('.site-footer a[href="attribution.html"]')
     assert page.select_one('#condition-dialog[aria-labelledby="condition-dialog-title"]')
     assert page.select_one('#condition-tooltip[role="dialog"][aria-modal="false"]')
     links=page.select('.condition-link')
@@ -73,10 +86,10 @@ def check_condition_content(page,data,house):
     assert str(result)==str(BeautifulSoup(sample,'html.parser'))
     # Edition distinctions are visible in the offline summaries, not inferred from the spell.
     def definition(name,year):return template.select_one('[data-condition-entry="'+name+'"][data-edition="'+year+'"]').get_text()
-    assert 'twice' in definition('exhaustion','2024') and 'halved' in definition('exhaustion','2014')
+    assert '2 times' in definition('exhaustion','2024') and 'halved' in definition('exhaustion','2014')
     assert 'Initiative' in definition('invisible','2024') and 'Initiative' not in definition('invisible','2014')
     assert 'disease' in definition('petrified','2014') and 'disease' not in definition('petrified','2024')
-    assert "doesn't set Speed to 0" in definition('stunned','2024')
+    assert 'Speed 0.' not in definition('stunned','2024') and 'can’t move' in definition('stunned','2014')
 
 async def check_condition_browser(browser,url,report):
     from playwright.async_api import expect
@@ -96,9 +109,10 @@ async def check_condition_browser(browser,url,report):
     await expect(tip).to_be_visible()
     assert '2024 rules' in (await tip.inner_text()).lower()
     assert 'Strength and Dexterity' in await tip.inner_text()
-    assert await tip.locator('.condition-source').count()==1
+    assert await tip.locator('a[href]').count()==0
+    assert await tip.locator('li > strong').count()==5
     before=await trigger.bounding_box()
-    await tip.locator('.condition-source').hover()
+    await tip.locator('li').last.hover()
     await p.wait_for_timeout(350)
     await expect(tip).to_be_visible()
     assert await trigger.bounding_box()==before,'Hover must not move spell text'
@@ -108,7 +122,7 @@ async def check_condition_browser(browser,url,report):
     await trigger.focus()
     await expect(tip).to_be_visible()
     await p.keyboard.press('ArrowDown')
-    assert await tip.locator('.condition-source').evaluate('(el)=>document.activeElement===el')
+    assert await tip.evaluate('(el)=>document.activeElement===el')
     await p.keyboard.press('Escape')
     await expect(tip).not_to_be_visible()
     assert await trigger.evaluate('(el)=>document.activeElement===el')
@@ -118,7 +132,8 @@ async def check_condition_browser(browser,url,report):
     assert await modal.evaluate('(el)=>el.open')
     assert 'Paralyzed' == await p.locator('#condition-dialog-title').inner_text()
     assert '2024 rules' in (await modal.inner_text()).lower()
-    assert await modal.locator('.condition-source').get_attribute('href')=='https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Paralyzed%20%5BCondition%5D'
+    assert await modal.locator('a[href]').count()==0
+    assert await modal.locator('li > strong').count()==5
     assert len(new_pages)==0
     await p.keyboard.press('Escape')
     await expect(modal).not_to_be_visible()
@@ -135,7 +150,8 @@ async def check_condition_browser(browser,url,report):
     old=p.locator('#spell-hold-person [data-panel="2014"] .condition-link').first
     await old.click()
     assert '2014 rules' in (await modal.inner_text()).lower()
-    assert '/Conditions#Paralyzed' in await modal.locator('.condition-source').get_attribute('href')
+    assert await modal.locator('a[href]').count()==0
+    assert await modal.locator('li').count()==4
     await p.locator('#condition-dialog-close').click()
     await p.locator('#condition-tooltip').screenshot(path=str(report/'conditions-desktop-hover.png')) if await tip.is_visible() else None
     # Wall of Force's Invisible reference is present in both editions and rule modes.
@@ -235,6 +251,9 @@ async def check_condition_browser(browser,url,report):
             await term.tap()
             await expect(mobile_dialog).to_be_visible()
             assert await mobile.locator('#condition-dialog-title').inner_text()==condition.title()
+            assert await mobile_dialog.locator('a[href]').count()==0
+            if condition=='restrained':
+                assert await mobile_dialog.locator('li > strong').all_inner_texts()==['Speed 0.','Attacks Affected.','Saving Throws Affected.']
             await mobile.locator('#condition-dialog-close').tap()
     # A naturally long condition scrolls inside a narrow sheet; Close remains visible.
     await mobile.set_viewport_size({'width':320,'height':480})

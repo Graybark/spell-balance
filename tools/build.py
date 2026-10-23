@@ -50,13 +50,27 @@ def condition_ui(conditions):
     definitions=[]
     for edition in ('2024','2014'):
         for name in CONDITION_NAMES:
-            items=conditions[name][edition]
-            assert items and all(isinstance(item,str) and item.strip() for item in items)
-            bullet=''.join('<li>'+esc(item)+'</li>' for item in items)
-            source=esc(condition_url(name,edition))
-            definitions.append('<section data-condition-entry="'+name+'" data-edition="'+edition+'"><p class="condition-edition">'+edition+' rules</p><ul>'+bullet+'</ul><a class="condition-source" href="'+source+'">Read full rules on Roll20</a></section>')
+            definition=conditions[name][edition]
+            items=definition['effects']
+            assert items or definition.get('table')
+            assert definition['source_url']==condition_url(name,edition)
+            intro='<p>'+esc(definition['intro'])+'</p>' if definition.get('intro') else ''
+            bullets=[]
+            for item in items:
+                assert item['text'] and (edition!='2024' or item['heading'])
+                heading='<strong>'+esc(item['heading'])+'</strong> ' if item['heading'] else ''
+                bullets.append('<li>'+heading+esc(item['text'])+'</li>')
+            content=intro+('<ul>'+''.join(bullets)+'</ul>' if bullets else '')
+            if definition.get('table'):
+                table=definition['table']
+                content+='<table class="condition-table"><caption>'+esc(table['caption'])+'</caption><thead><tr>'+''.join('<th scope="col">'+esc(h)+'</th>' for h in table['headers'])+'</tr></thead><tbody>'
+                for row in table['rows']:
+                    content+='<tr><th scope="row">'+esc(row[0])+'</th>'+''.join('<td>'+esc(cell)+'</td>' for cell in row[1:])+'</tr>'
+                content+='</tbody></table>'
+            content+=''.join('<p>'+esc(p)+'</p>' for p in definition.get('after',[]))
+            definitions.append('<section data-condition-entry="'+name+'" data-edition="'+edition+'"><p class="condition-edition">'+edition+' rules</p>'+content+'</section>')
     return ('<template id="condition-definitions">'+''.join(definitions)+'</template>'
-            '<div id="condition-tooltip" class="condition-tooltip" role="dialog" aria-modal="false" aria-labelledby="condition-tooltip-title" hidden></div>'
+            '<div id="condition-tooltip" class="condition-tooltip" role="dialog" aria-modal="false" aria-labelledby="condition-tooltip-title" tabindex="0" hidden></div>'
             '<dialog id="condition-dialog" class="condition-dialog" aria-labelledby="condition-dialog-title">'
             '<div class="condition-dialog-heading"><h2 id="condition-dialog-title"></h2><button id="condition-dialog-close" class="condition-close" type="button" aria-label="Close condition description">×</button></div>'
             '<div id="condition-dialog-content"></div></dialog>')
@@ -207,7 +221,7 @@ def build(output, check=False):
     navigation='<aside class="sidebar" aria-label="Spell navigation"><details id="spell-menu" open><summary>Spells <span id="sidebar-count">(391)</span></summary><nav aria-label="Spell list"><ul>'+''.join(sidebar)+'</ul></nav></details></aside>'
     page+='<div class="reader-layout" id="spells"><div class="reader-detail"><div id="empty" hidden><p>No spells match these filters.</p><button id="reset" type="button">Clear filters</button></div>'+''.join(cards)+'</div>'+navigation+'</div></main>'
     page+=condition_ui(conditions)
-    page+='<footer class="site-footer">Spellwright · 2014 &amp; 2024 editions · House-rule versions are marked in purple.</footer></body></html>\n'
+    page+='<footer class="site-footer">Spellwright · 2014 &amp; 2024 editions · House-rule versions are marked in purple. <a href="attribution.html">Rules attribution</a></footer></body></html>\n'
     return page
 if __name__=='__main__':
     parser=argparse.ArgumentParser(); parser.add_argument('--output',default='index.html'); parser.add_argument('--check',action='store_true'); args=parser.parse_args()
