@@ -3,7 +3,7 @@ Usage: python tools/build.py [--output 'Spell Balance.html'] [--check]
 Dependencies: beautifulsoup4 (pinned in requirements-build.txt).
 """
 from pathlib import Path
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString
 from html import escape
 import argparse, copy, hashlib, json, re
 ROOT=Path(__file__).resolve().parents[1]
@@ -13,6 +13,51 @@ def esc(x): return escape(str(x),quote=True)
 def load(name): return json.loads((ROOT/'data'/f'{name}.json').read_text(encoding='utf-8'))
 def norm(name): return re.sub(r'\s+','',name.strip().lower()).replace('vvizard','wizard')
 def text(html): return BeautifulSoup(html,'html.parser').get_text()
+
+CONDITION_NAMES=('blinded','charmed','deafened','exhaustion','frightened','grappled','incapacitated','invisible','paralyzed','petrified','poisoned','prone','restrained','stunned','unconscious')
+CONDITION_PATTERN=re.compile(r'\b('+'|'.join(CONDITION_NAMES)+r')\b',re.I)
+NONCONDITION_INVISIBLE=re.compile(r'^\s+(?:wall|sensor|barrier|sphere|object|disk|disc|hand|servant|eye|dome|force|stalker|platform|structure|weapon|door|item|rune|ward)\b',re.I)
+def condition_url(name,edition):
+    title=name.title()
+    return ('https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#'+title+'%20%5BCondition%5D') if edition=='2024' else ('https://roll20.net/compendium/dnd5e/Conditions#'+title)
+def link_conditions(html,edition):
+    """Decorate rendered spell text only. Leave original catalog entries and hashes untouched."""
+    soup=BeautifulSoup(html,'html.parser')
+    for node in list(soup.find_all(string=CONDITION_PATTERN)):
+        if not isinstance(node,NavigableString) or not node.find_parent(class_='spell-text') or node.find_parent('a'):
+            continue
+        raw=str(node); chunks=[]; offset=0; changed=False
+        for hit in CONDITION_PATTERN.finditer(raw):
+            name=hit.group(0).lower()
+            if name=='invisible' and NONCONDITION_INVISIBLE.match(raw[hit.end():]):
+                continue
+            if hit.start()>offset:chunks.append(NavigableString(raw[offset:hit.start()]))
+            link=soup.new_tag('a',href=condition_url(name,edition))
+            link['class']='condition-link'; link['data-condition']=name; link['data-edition']=edition
+            link['aria-label']=hit.group(0)+' condition: view '+edition+' rules'
+            link.string=hit.group(0)
+            chunks.append(link)
+            offset=hit.end();changed=True
+        if changed:
+            if offset<len(raw):chunks.append(NavigableString(raw[offset:]))
+            node.replace_with(*chunks)
+    return str(soup)
+def condition_ui(conditions):
+    assert set(conditions)==set(CONDITION_NAMES)
+    definitions=[]
+    for edition in ('2024','2014'):
+        for name in CONDITION_NAMES:
+            items=conditions[name][edition]
+            assert items and all(isinstance(item,str) and item.strip() for item in items)
+            bullet=''.join('<li>'+esc(item)+'</li>' for item in items)
+            source=esc(condition_url(name,edition))
+            definitions.append('<section data-condition-entry="'+name+'" data-edition="'+edition+'"><p class="condition-edition">'+edition+' rules</p><ul>'+bullet+'</ul><a class="condition-source" href="'+source+'">Read full rules on Roll20</a></section>')
+    return ('<template id="condition-definitions">'+''.join(definitions)+'</template>'
+            '<div id="condition-tooltip" class="condition-tooltip" role="tooltip" hidden></div>'
+            '<dialog id="condition-dialog" class="condition-dialog" aria-labelledby="condition-dialog-title">'
+            '<div class="condition-dialog-heading"><h2 id="condition-dialog-title"></h2><button id="condition-dialog-close" class="condition-close" type="button" aria-label="Close condition description">×</button></div>'
+            '<div id="condition-dialog-content"></div></dialog>')
+
 def tabs(prefix, label, definitions):
     parts=[f'<div class="tabs" role="group" aria-label="{esc(label)}">']
     for i,(key,title,_) in enumerate(definitions):
@@ -62,13 +107,13 @@ def body(v,house=None):
             rendered=escape(phrase,quote=False)
             assert html.count(rendered)==1, 'Ambiguous house-rule highlight'
             html=html.replace(rendered,'<mark class="house-change">'+rendered+'</mark>')
-    return '<div class="spell-body">'+html+'</div>'+footer(v,bool(house))
+    return '<div class="spell-body">'+link_conditions(html,'2024')+'</div>'+footer(v,bool(house))
 def version(v,year):
     if v['absent']: return '<div class="original-version">'+v['body']+'</div>'
     meta=''.join(f'<div><dt>{esc(k)}</dt><dd>{esc(val)}</dd></div>' for k,val in v['metadata'].items())
-    return f'<div class="original-version" data-original="{year}"><p class="version-label">{year} · {esc(v["type"])}</p><dl class="original-meta">{meta}</dl><div class="original-body">{v["body"]}</div>{footer(v)}</div>'
+    return f'<div class="original-version" data-original="{year}"><p class="version-label">{year} · {esc(v["type"])}</p><dl class="original-meta">{meta}</dl><div class="original-body">{link_conditions(v["body"],year)}</div>{footer(v)}</div>'
 def build(output, check=False):
-    catalog=load('catalog'); cls=load('classes'); house=load('house-rules'); overview=load('overview')
+    catalog=load('catalog'); cls=load('classes'); house=load('house-rules'); overview=load('overview'); conditions=load('conditions')
     assert len(catalog)==391 and len({s['id'] for s in catalog})==len(catalog)
     for s in catalog:
         assert s['school'] in SCHOOLS
@@ -158,6 +203,7 @@ def build(output, check=False):
     # Content-first DOM matches phone reading/tab order; desktop CSS places the list left.
     navigation='<aside class="sidebar" aria-label="Spell navigation"><details id="spell-menu" open><summary>Spells <span id="sidebar-count">(391)</span></summary><nav aria-label="Spell list"><ul>'+''.join(sidebar)+'</ul></nav></details></aside>'
     page+='<div class="reader-layout" id="spells"><div class="reader-detail"><div id="empty" hidden><p>No spells match these filters.</p><button id="reset" type="button">Clear filters</button></div>'+''.join(cards)+'</div>'+navigation+'</div></main>'
+    page+=condition_ui(conditions)
     page+='<footer class="site-footer">Spellwright · 2014 &amp; 2024 editions · House-rule versions are marked in purple.</footer></body></html>\n'
     return page
 if __name__=='__main__':
