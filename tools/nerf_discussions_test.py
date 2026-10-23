@@ -12,6 +12,11 @@ SOURCES={
     ],
 }
 def check_discussion_content(page,data,house):
+    sword=next(s for s in data if s['id']=='spell-mordenkainen-s-sword')
+    assert sword['categories'].count('buff')==1
+    assert sum(t['class']=='tag tag-buff' for t in sword['tags'])==1
+    assert page.find(id=sword['id']).select_one('.tag-buff').get_text()=='Buff'
+    assert sword['id'] not in house
     hut=next(s for s in data if s['id']=='spell-leomund-s-tiny-hut')
     assert hut['categories'].count('nerf')==1 and 'revised' in hut['categories']
     assert sum(t['class']=='tag tag-nerf' for t in hut['tags'])==1
@@ -62,6 +67,16 @@ def check_discussion_content(page,data,house):
 
 async def check_discussion_browser(browser,url,report):
     errors=[]
+    for width in (1280,390):
+        context=await browser.new_context(viewport={'width':width,'height':1000})
+        p=await context.new_page()
+        await p.goto(url+'?label=buff#spell-mordenkainen-s-sword')
+        await p.wait_for_selector('html.enhanced')
+        assert await p.locator('#label').input_value()=='buff'
+        assert await p.locator('.spell-card:visible h2').inner_text()=="Mordenkainen's Sword"
+        assert await p.locator('#spell-mordenkainen-s-sword .tag-buff').inner_text()=='Buff'
+        assert await p.locator('.sidebar li[data-spell="spell-mordenkainen-s-sword"]').evaluate('(el)=>!el.hidden')
+        await context.close()
     for width in (1280,390):
         context=await browser.new_context(viewport={'width':width,'height':1000})
         p=await context.new_page()

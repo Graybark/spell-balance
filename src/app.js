@@ -330,7 +330,7 @@
     }
     if (event.key === 'ArrowDown' && event.target === conditionHoverTarget) {
       event.preventDefault();
-      conditionTip.querySelector('.condition-source')?.focus();
+      conditionTip.focus({preventScroll:true});
     }
   });
   doc.addEventListener('spellwright:navigate', dismissConditions);
