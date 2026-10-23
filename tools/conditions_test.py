@@ -54,8 +54,8 @@ def check_condition_content(page,data,house):
             assert card.select_one('[data-panel="'+year+'"] .condition-link[data-condition="'+name+'"]')
     for year in ('2014','2024'):
         card=page.find(id='spell-wall-of-force')
-        assert not card.select_one('[data-panel="'+year+'"] .condition-link[data-condition="invisible"]'),year
-    assert not page.find(id='spell-wall-of-force').select_one('[data-panel="spell"] .condition-link[data-condition="invisible"]')
+        assert card.select_one('[data-panel="'+year+'"] .condition-link[data-condition="invisible"]'),year
+    assert page.find(id='spell-wall-of-force').select_one('[data-panel="spell"] .condition-link[data-condition="invisible"]')
     assert page.select_one('#spell-animate-objects [data-panel=spell] .stat-block .condition-link[data-condition=poisoned]')
     assert page.select_one('#spell-summon-aberration [data-panel=spell] .stat-block .condition-link[data-condition=incapacitated]')
     assert not page.select_one('#spell-arcane-eye [data-panel=spell] .condition-link[data-condition=invisible]')
@@ -134,6 +134,25 @@ async def check_condition_browser(browser,url,report):
     assert '/Conditions#Paralyzed' in await modal.locator('.condition-source').get_attribute('href')
     await p.locator('#condition-dialog-close').click()
     await p.locator('#condition-tooltip').screenshot(path=str(report/'conditions-desktop-hover.png')) if await tip.is_visible() else None
+    # Wall of Force's Invisible reference is present in both editions and rule modes.
+    await p.goto(url+'#spell-wall-of-force')
+    await p.wait_for_selector('html.enhanced')
+    wall=p.locator('#spell-wall-of-force')
+    for house_mode in (True,False):
+        await p.locator('#house-rules-toggle').set_checked(house_mode)
+        word=wall.locator('[data-panel=spell] .condition-link[data-condition=invisible]:visible')
+        await word.click()
+        await expect(modal).to_be_visible()
+        assert await p.locator('#condition-dialog-title').inner_text()=='Invisible'
+        assert '2024 rules' in (await modal.inner_text()).lower()
+        await p.locator('#condition-dialog-close').click()
+    await wall.locator('label[for="spell-wall-of-force-info-compare"]').click()
+    for year in ('2014','2024'):
+        await wall.locator('label[for="spell-wall-of-force-editions-'+year+'"]').click()
+        await wall.locator('[data-panel="'+year+'"] .condition-link[data-condition=invisible]').click()
+        await expect(modal).to_be_visible()
+        assert year+' rules' in (await modal.inner_text()).lower()
+        await p.locator('#condition-dialog-close').click()
     # Edges and a short viewport: the entire preview stays inside the viewport,
     # and its contents can scroll without dismissing it.
     await p.goto(url+'#spell-flesh-to-stone')
