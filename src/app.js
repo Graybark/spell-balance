@@ -161,4 +161,90 @@
   // Restore state and select the existing card before enabling interactions.
   restore();doc.documentElement.classList.add('enhanced');
   doc.querySelectorAll('.toolbar [disabled]').forEach(control=>{control.disabled=false;});
+}
+  // Inline condition reference: mouse hover/focus preview and tap/click dialog.
+  // The anchors have genuine Roll20 hrefs so the reference still works without JS.
+  const conditionLibrary = doc.getElementById('condition-definitions');
+  const conditionTip = doc.getElementById('condition-tooltip');
+  const conditionDialog = doc.getElementById('condition-dialog');
+  const conditionDialogTitle = doc.getElementById('condition-dialog-title');
+  const conditionDialogContent = doc.getElementById('condition-dialog-content');
+  const conditionClose = doc.getElementById('condition-dialog-close');
+  const hoverAvailable = matchMedia('(hover: hover) and (pointer: fine)');
+  let conditionHoverTarget = null, conditionDialogOpener = null;
+  function conditionEntry(link) {
+    return conditionLibrary.content.querySelector(
+      '[data-condition-entry="' + link.dataset.condition + '"][data-edition="' + link.dataset.edition + '"]'
+    );
+  }
+  function hideConditionTip() {
+    if (conditionHoverTarget) conditionHoverTarget.removeAttribute('aria-describedby');
+    conditionHoverTarget = null;
+    conditionTip.hidden = true;
+    conditionTip.replaceChildren();
+  }
+  function showConditionTip(link) {
+    if (!hoverAvailable.matches || conditionDialog.open || conditionHoverTarget === link) return;
+    const entry = conditionEntry(link);
+    if (!entry) return;
+    hideConditionTip();
+    conditionHoverTarget = link;
+    const heading = doc.createElement('h3');
+    heading.textContent = link.dataset.condition.charAt(0).toUpperCase() + link.dataset.condition.slice(1);
+    const excerpt = entry.cloneNode(true);
+    excerpt.querySelector('.condition-source')?.remove();
+    conditionTip.replaceChildren(heading, excerpt);
+    conditionTip.hidden = false;
+    link.setAttribute('aria-describedby', 'condition-tooltip');
+    const rect = link.getBoundingClientRect();
+    const popup = conditionTip.getBoundingClientRect();
+    const left = Math.max(12, Math.min(rect.left, innerWidth - popup.width - 12));
+    const below = rect.bottom + 10;
+    const top = below + popup.height <= innerHeight - 12
+      ? below : Math.max(12, rect.top - popup.height - 10);
+    conditionTip.style.left = left + 'px';
+    conditionTip.style.top = top + 'px';
+  }
+  function openConditionDialog(link) {
+    const entry = conditionEntry(link);
+    if (!entry) return;
+    hideConditionTip();
+    conditionDialogOpener = link;
+    conditionDialogTitle.textContent = link.dataset.condition.charAt(0).toUpperCase() + link.dataset.condition.slice(1);
+    conditionDialogContent.replaceChildren(entry.cloneNode(true));
+    conditionDialog.showModal();
+    conditionClose.focus();
+  }
+  doc.addEventListener('pointerover', event => {
+    const link = event.target.closest?.('.condition-link');
+    if (link) showConditionTip(link);
+  });
+  doc.addEventListener('pointerout', event => {
+    const link = event.target.closest?.('.condition-link');
+    if (link && link === conditionHoverTarget && !link.contains(event.relatedTarget)) hideConditionTip();
+  });
+  doc.addEventListener('focusin', event => {
+    const link = event.target.closest?.('.condition-link');
+    if (link) showConditionTip(link);
+  });
+  doc.addEventListener('focusout', event => {
+    if (event.target === conditionHoverTarget) hideConditionTip();
+  });
+  doc.addEventListener('click', event => {
+    const link = event.target.closest?.('.condition-link');
+    if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    openConditionDialog(link);
+  });
+  conditionClose.addEventListener('click', () => conditionDialog.close());
+  conditionDialog.addEventListener('click', event => {
+    if (event.target === conditionDialog) conditionDialog.close();
+  });
+  conditionDialog.addEventListener('close', () => {
+    if (conditionDialogOpener?.isConnected) conditionDialogOpener.focus({preventScroll:true});
+    conditionDialogOpener = null;
+  });
+  window.addEventListener('scroll', hideConditionTip, true);
+  window.addEventListener('resize', hideConditionTip);
+  hoverAvailable.addEventListener('change', hideConditionTip);
 })();
