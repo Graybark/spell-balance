@@ -1,0 +1,103 @@
+name: Restore Wall of Ice paragraphs
+on:
+  push:
+    branches: [maintenance/wall-of-ice-paragraphs-20261023]
+    paths: [.github/workflows/wall-of-ice-check.yml]
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Install existing build and browser tools
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python -m playwright install --with-deps chromium
+      - name: Restore source paragraph boundaries without changing readable text
+        run: |
+          python - <<'PY'
+          import copy,hashlib,json
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          p=Path('data/catalog.json')
+          raw=p.read_text()
+          assert hashlib.sha1(b'blob '+str(len(raw.encode())).encode()+b'\0'+raw.encode()).hexdigest()=='d6bd6dcaf6b2d1562437dd264f622372cde19885'
+          data=json.loads(raw); before=copy.deepcopy(data)
+          record=next(s for s in data if s['id']=='spell-wall-of-ice')
+          for year,v in record['versions'].items():
+              old=v['body']; new=old
+              boundaries=['If the wall cuts through','The wall is an object']
+              if year=='2024': boundaries.append('A creature moving through')
+              for phrase in boundaries:
+                  assert new.count(' '+phrase)==1
+                  new=new.replace(' '+phrase,'</p> <p>'+phrase)
+              assert BeautifulSoup(old,'html.parser').get_text()==BeautifulSoup(new,'html.parser').get_text()
+              assert len(BeautifulSoup(new,'html.parser').select('.spell-text > p'))=={'2014':4,'2024':5}[year]
+              v['body']=new
+              v['body_sha256']=hashlib.sha256(new.encode()).hexdigest()
+          assert [a['id'] for a,b in zip(data,before) if a!=b]==['spell-wall-of-ice']
+          p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+          print('PASS: only paragraph tags and corresponding HTML checksums changed; all spell wording preserved')
+          PY
+          python tools/build.py
+          python tools/build.py --check
+          python tools/verify.py
+          node --check src/app.js
+      - name: Run existing responsive and interaction regression tests
+        run: python tools/browser_test.py
+      - name: Check Wall of Ice paragraphs at desktop and phone widths
+        run: |
+          python - <<'PY'
+          import asyncio
+          from functools import partial
+          from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+          from threading import Thread
+          from pathlib import Path
+          from playwright.async_api import async_playwright
+          async def main():
+              server=ThreadingHTTPServer(('127.0.0.1',0),partial(SimpleHTTPRequestHandler,directory='.'))
+              Thread(target=server.serve_forever,daemon=True).start()
+              async with async_playwright() as pw:
+                  browser=await pw.chromium.launch()
+                  for width in (1280,390,360):
+                      page=await browser.new_page(viewport={'width':width,'height':950})
+                      await page.goto('http://127.0.0.1:'+str(server.server_port)+'/#spell-wall-of-ice')
+                      await page.wait_for_selector('html.enhanced')
+                      card=page.locator('#spell-wall-of-ice')
+                      assert await card.locator('[data-panel=spell] .spell-text > p').count()==5
+                      await card.screenshot(path='/tmp/spell-balance-validation/wall-of-ice-'+str(width)+'.png')
+                      assert await page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+                      await card.locator('label[for="spell-wall-of-ice-info-compare"]').click()
+                      for year,count in (('2014',4),('2024',5)):
+                          await card.locator('label[for="spell-wall-of-ice-editions-'+year+'"]').click()
+                          ps=card.locator('[data-panel="'+year+'"] .spell-text > p')
+                          assert await ps.count()==count
+                          boxes=[await ps.nth(i).bounding_box() for i in range(count)]
+                          assert all(b['y']>=a['y']+a['height']+5 for a,b in zip(boxes,boxes[1:]))
+                      await page.close()
+                  await browser.close()
+              server.shutdown()
+          asyncio.run(main())
+          print('PASS: main description, both comparison editions, paragraph spacing and no horizontal overflow at 1280/390/360px')
+          PY
+      - name: Save validation screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: wall-of-ice-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 7
+      - name: Commit tested source and generated HTML to this branch
+        run: |
+          git config user.name "Graybark"
+          git config user.email "24878945+Graybark@users.noreply.github.com"
+          git add data/catalog.json index.html
+          git diff --cached --stat
+          git commit -m "Restore Wall of Ice paragraph breaks in both editions"
+          git push origin HEAD:maintenance/wall-of-ice-paragraphs-20261023
+          git rev-parse HEAD
