@@ -35,6 +35,7 @@ def link_conditions(html,edition):
             link=soup.new_tag('a',href=condition_url(name,edition))
             link['class']='condition-link'; link['data-condition']=name; link['data-edition']=edition
             link['aria-label']=hit.group(0)+' condition: view '+edition+' rules'
+            link['aria-haspopup']='dialog'
             link.string=hit.group(0)
             chunks.append(link)
             offset=hit.end();changed=True
@@ -53,7 +54,7 @@ def condition_ui(conditions):
             source=esc(condition_url(name,edition))
             definitions.append('<section data-condition-entry="'+name+'" data-edition="'+edition+'"><p class="condition-edition">'+edition+' rules</p><ul>'+bullet+'</ul><a class="condition-source" href="'+source+'">Read full rules on Roll20</a></section>')
     return ('<template id="condition-definitions">'+''.join(definitions)+'</template>'
-            '<div id="condition-tooltip" class="condition-tooltip" role="tooltip" hidden></div>'
+            '<div id="condition-tooltip" class="condition-tooltip" role="dialog" aria-modal="false" aria-labelledby="condition-tooltip-title" hidden></div>'
             '<dialog id="condition-dialog" class="condition-dialog" aria-labelledby="condition-dialog-title">'
             '<div class="condition-dialog-heading"><h2 id="condition-dialog-title"></h2><button id="condition-dialog-close" class="condition-close" type="button" aria-label="Close condition description">×</button></div>'
             '<div id="condition-dialog-content"></div></dialog>')

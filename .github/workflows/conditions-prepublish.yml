@@ -1,0 +1,41 @@
+name: Condition reference prepublication checks
+on:
+  push:
+    branches: [condition-tooltips-20261023]
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Install validation tools
+        run: |
+          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python -m playwright install --with-deps chromium
+      - name: Build and validate content
+        run: |
+          python tools/build.py
+          python tools/build.py --check
+          python tools/verify.py
+          node --check src/app.js
+      - name: Browser and responsive regression tests
+        run: python tools/browser_test.py
+      - name: Save validation screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: condition-reference-validation
+          path: /tmp/spell-balance-validation
+          retention-days: 7
+      - name: Commit tested build to isolated branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets
+          git diff --cached --quiet || git commit -m "Build tested condition reference assets"
+          git push origin HEAD:condition-tooltips-20261023

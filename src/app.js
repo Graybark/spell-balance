@@ -43,6 +43,7 @@
   // Class tables are a separate in-page view reached from the header, not a disclosure.
   // Keep the existing reader, filters and phone-menu preference intact when switching views.
   function syncView(navigate = false) {
+    doc.dispatchEvent(new Event('spellwright:navigate'));
     const showingSlots = location.hash === '#spell-slots';
     doc.documentElement.dataset.view = showingSlots ? 'slots' : 'spells';
     doc.querySelectorAll('.section-nav a').forEach(link => {
@@ -70,6 +71,7 @@
     syncView();
   }
   function choose(entry, navigate = false) {
+    doc.dispatchEvent(new Event('spellwright:navigate'));
     if (active) {active.card.classList.remove('is-active'); active.item.querySelector('a').removeAttribute('aria-current');}
     active=entry;
     if (!active) return;
@@ -170,31 +172,48 @@
   const conditionDialogContent = doc.getElementById('condition-dialog-content');
   const conditionClose = doc.getElementById('condition-dialog-close');
   const hoverAvailable = matchMedia('(hover: hover) and (pointer: fine)');
-  let conditionHoverTarget = null, conditionDialogOpener = null;
+  let conditionHoverTarget = null, conditionDialogOpener = null, conditionHideTimer;
+  let suppressConditionFocus = false, backdropPointerDown = false;
   function conditionEntry(link) {
     return conditionLibrary.content.querySelector(
       '[data-condition-entry="' + link.dataset.condition + '"][data-edition="' + link.dataset.edition + '"]'
     );
   }
   function hideConditionTip() {
-    if (conditionHoverTarget) conditionHoverTarget.removeAttribute('aria-describedby');
+    clearTimeout(conditionHideTimer);
+    if (conditionHoverTarget) {
+      conditionHoverTarget.removeAttribute('aria-describedby');
+      conditionHoverTarget.removeAttribute('aria-controls');
+      conditionHoverTarget.removeAttribute('aria-expanded');
+    }
     conditionHoverTarget = null;
     conditionTip.hidden = true;
     conditionTip.replaceChildren();
   }
+  function deferConditionHide() {
+    clearTimeout(conditionHideTimer);
+    // Give the pointer time to cross the small gap between word and preview.
+    conditionHideTimer = setTimeout(() => {
+      if (conditionHoverTarget?.matches(':hover') || conditionTip.matches(':hover') ||
+          doc.activeElement === conditionHoverTarget || conditionTip.contains(doc.activeElement)) return;
+      hideConditionTip();
+    }, 220);
+  }
   function showConditionTip(link) {
+    clearTimeout(conditionHideTimer);
     if (!hoverAvailable.matches || conditionDialog.open || conditionHoverTarget === link) return;
     const entry = conditionEntry(link);
     if (!entry) return;
     hideConditionTip();
     conditionHoverTarget = link;
     const heading = doc.createElement('h3');
+    heading.id = 'condition-tooltip-title';
     heading.textContent = link.dataset.condition.charAt(0).toUpperCase() + link.dataset.condition.slice(1);
-    const excerpt = entry.cloneNode(true);
-    excerpt.querySelector('.condition-source')?.remove();
-    conditionTip.replaceChildren(heading, excerpt);
+    conditionTip.replaceChildren(heading, entry.cloneNode(true));
     conditionTip.hidden = false;
     link.setAttribute('aria-describedby', 'condition-tooltip');
+    link.setAttribute('aria-controls', 'condition-tooltip');
+    link.setAttribute('aria-expanded', 'true');
     const rect = link.getBoundingClientRect();
     const popup = conditionTip.getBoundingClientRect();
     const left = Math.max(12, Math.min(rect.left, innerWidth - popup.width - 12));
@@ -208,26 +227,58 @@
     const entry = conditionEntry(link);
     if (!entry) return;
     hideConditionTip();
+    if (conditionDialog.open && conditionDialogOpener === link) {
+      closeConditionDialog();
+      return;
+    }
     conditionDialogOpener = link;
+    link.setAttribute('aria-controls', 'condition-dialog');
+    link.setAttribute('aria-expanded', 'true');
     conditionDialogTitle.textContent = link.dataset.condition.charAt(0).toUpperCase() + link.dataset.condition.slice(1);
     conditionDialogContent.replaceChildren(entry.cloneNode(true));
-    conditionDialog.showModal();
+    conditionDialogContent.scrollTop = 0;
+    if (!conditionDialog.open) conditionDialog.showModal();
     conditionClose.focus();
   }
+  function closeConditionDialog(restoreFocus = true) {
+    const opener = conditionDialogOpener;
+    conditionDialogOpener = null;
+    if (opener) {
+      opener.removeAttribute('aria-controls');
+      opener.removeAttribute('aria-expanded');
+    }
+    // Native dialog closing restores focus synchronously; don't reopen a preview.
+    suppressConditionFocus = true;
+    if (conditionDialog.open) conditionDialog.close();
+    if (restoreFocus && opener?.isConnected && opener.getClientRects().length) {
+      opener.focus({preventScroll:true});
+    }
+    suppressConditionFocus = false;
+  }
+  function dismissConditions() {
+    hideConditionTip();
+    closeConditionDialog(false);
+  }
   doc.addEventListener('pointerover', event => {
+    if (event.pointerType !== 'mouse') return;
+    if (conditionTip.contains(event.target)) {
+      clearTimeout(conditionHideTimer);
+      return;
+    }
     const link = event.target.closest?.('.condition-link');
     if (link) showConditionTip(link);
   });
   doc.addEventListener('pointerout', event => {
     const link = event.target.closest?.('.condition-link');
-    if (link && link === conditionHoverTarget && !link.contains(event.relatedTarget)) hideConditionTip();
+    if ((link && link === conditionHoverTarget && !link.contains(event.relatedTarget)) ||
+        (conditionTip.contains(event.target) && !conditionTip.contains(event.relatedTarget))) deferConditionHide();
   });
   doc.addEventListener('focusin', event => {
     const link = event.target.closest?.('.condition-link');
-    if (link) showConditionTip(link);
+    if (link && !suppressConditionFocus) showConditionTip(link);
   });
   doc.addEventListener('focusout', event => {
-    if (event.target === conditionHoverTarget) hideConditionTip();
+    if (event.target === conditionHoverTarget || conditionTip.contains(event.target)) deferConditionHide();
   });
   doc.addEventListener('click', event => {
     const link = event.target.closest?.('.condition-link');
@@ -235,15 +286,51 @@
     event.preventDefault();
     openConditionDialog(link);
   });
-  conditionClose.addEventListener('click', () => conditionDialog.close());
+  conditionClose.addEventListener('click', () => closeConditionDialog());
+  function outsideConditionDialog(event) {
+    const r = conditionDialog.getBoundingClientRect();
+    return event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom;
+  }
+  conditionDialog.addEventListener('pointerdown', event => {
+    backdropPointerDown = event.target === conditionDialog && outsideConditionDialog(event);
+  });
   conditionDialog.addEventListener('click', event => {
-    if (event.target === conditionDialog) conditionDialog.close();
+    if (backdropPointerDown && event.target === conditionDialog && outsideConditionDialog(event)) closeConditionDialog();
+    backdropPointerDown = false;
   });
-  conditionDialog.addEventListener('close', () => {
-    if (conditionDialogOpener?.isConnected) conditionDialogOpener.focus({preventScroll:true});
-    conditionDialogOpener = null;
+  conditionDialog.addEventListener('cancel', event => {
+    event.preventDefault();
+    closeConditionDialog();
   });
-  window.addEventListener('scroll', hideConditionTip, true);
+  doc.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !conditionTip.hidden) {
+      event.preventDefault();
+      const opener = conditionHoverTarget;
+      const inside = conditionTip.contains(doc.activeElement);
+      hideConditionTip();
+      if (inside && opener) {
+        suppressConditionFocus = true;
+        opener.focus({preventScroll:true});
+        suppressConditionFocus = false;
+      }
+    }
+    if (event.key === 'ArrowDown' && event.target === conditionHoverTarget) {
+      event.preventDefault();
+      conditionTip.querySelector('.condition-source')?.focus();
+    }
+  });
+  doc.addEventListener('spellwright:navigate', dismissConditions);
+  // Tab/version changes and filters can hide the current trigger without changing the URL.
+  doc.addEventListener('change', event => {
+    if (!conditionDialog.contains(event.target)) dismissConditions();
+  });
+  controls.search.addEventListener('input', dismissConditions);
+  window.addEventListener('popstate', dismissConditions);
+  window.addEventListener('hashchange', dismissConditions);
+  window.addEventListener('pagehide', dismissConditions);
+  window.addEventListener('scroll', event => {
+    if (!conditionTip.contains(event.target)) hideConditionTip();
+  }, true);
   window.addEventListener('resize', hideConditionTip);
   hoverAvailable.addEventListener('change', hideConditionTip);
 })();
