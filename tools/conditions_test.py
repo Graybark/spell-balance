@@ -59,7 +59,7 @@ async def check_condition_browser(browser,url,report):
     await trigger.hover()
     tip=p.locator('#condition-tooltip')
     await expect(tip).to_be_visible()
-    assert '2024 rules' in (await tip.inner_text().lower())
+    assert '2024 rules' in (await tip.inner_text()).lower()
     assert 'Strength and Dexterity' in await tip.inner_text()
     assert await tip.locator('.condition-source').count()==0
     await trigger.click()
@@ -67,7 +67,7 @@ async def check_condition_browser(browser,url,report):
     await expect(modal).to_be_visible()
     assert await modal.evaluate('(el)=>el.open')
     assert 'Paralyzed' == await p.locator('#condition-dialog-title').inner_text()
-    assert '2024 rules' in (await modal.inner_text().lower())
+    assert '2024 rules' in (await modal.inner_text()).lower()
     assert await modal.locator('.condition-source').get_attribute('href')=='https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#Paralyzed%20%5BCondition%5D'
     assert len(new_pages)==0
     await p.keyboard.press('Escape')
@@ -83,7 +83,7 @@ async def check_condition_browser(browser,url,report):
     await p.locator('label[for="spell-hold-person-editions-2014"]').click()
     old=p.locator('#spell-hold-person [data-panel="2014"] .condition-link').first
     await old.click()
-    assert '2014 rules' in (await modal.inner_text().lower())
+    assert '2014 rules' in (await modal.inner_text()).lower()
     assert '/Conditions#Paralyzed' in await modal.locator('.condition-source').get_attribute('href')
     await p.locator('#condition-dialog-close').click()
     await p.locator('#condition-tooltip').screenshot(path=str(report/'conditions-desktop-hover.png')) if await tip.is_visible() else None
