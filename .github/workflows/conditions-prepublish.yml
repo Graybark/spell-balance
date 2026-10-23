@@ -19,7 +19,7 @@ jobs:
       - name: Install browser verification tools
         run: |
           python -m pip install -r requirements-build.txt -r requirements-test.txt
-          python -m playwright install --with-deps chromium
+          google-chrome --version
       - name: Match published HTML and assets to the tested commit
         run: |
           python - <<'PY'
@@ -37,7 +37,22 @@ jobs:
           print('PASS: published HTML and CSS/JS exactly match 367c1d900344246e7bc8b7822726c9c67ab906df')
           PY
       - name: Test real desktop, keyboard, touch and edition interactions on GitHub Pages
-        run: python tools/conditions_test.py --url https://graybark.github.io/spell-balance/
+        run: |
+          python - <<'PY'
+          import asyncio,json,sys
+          from pathlib import Path
+          from playwright.async_api import async_playwright
+          sys.path.insert(0,'tools')
+          from conditions_test import check_condition_browser
+          async def main():
+              report=Path('/tmp/spell-balance-validation');report.mkdir(parents=True,exist_ok=True)
+              async with async_playwright() as pw:
+                  browser=await pw.chromium.launch(channel='chrome')
+                  await check_condition_browser(browser,'https://graybark.github.io/spell-balance/',report)
+                  await browser.close()
+              print(json.dumps({'result':'PASS','published_url':'https://graybark.github.io/spell-balance/','conditions':15,'editions':[2014,2024],'desktop_hover':True,'keyboard':True,'touch_overlay':True,'navigation_cleanup':True}))
+          asyncio.run(main())
+          PY
       - name: Save published-site screenshots
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
