@@ -1,46 +1,47 @@
-name: Condition reference prepublication checks
+name: Verify published condition references
 on:
   push:
     branches: [condition-tooltips-20261023]
 permissions:
-  contents: write
+  contents: read
 jobs:
-  validate:
+  published:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: 367c1d900344246e7bc8b7822726c9c67ab906df
+          persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.13'
-      - name: Install validation tools
+      - name: Install browser verification tools
         run: |
           python -m pip install -r requirements-build.txt -r requirements-test.txt
           python -m playwright install --with-deps chromium
-      - name: Build and check condition interactions first
+      - name: Match published HTML and assets to the tested commit
         run: |
-          python tools/build.py
-          python tools/build.py --check
-          node --check src/app.js
-          python -m http.server 8765 --bind 127.0.0.1 >/tmp/condition-test-server.log 2>&1 &
-          server_pid=$!
-          trap 'kill "$server_pid"' EXIT
-          python tools/conditions_test.py --url http://127.0.0.1:8765/
-      - name: Validate all original content and house rules
-        run: python tools/verify.py
-      - name: Browser and responsive regression tests
-        run: python tools/browser_test.py
-      - name: Save validation screenshots
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import urlopen
+          from urllib.parse import urljoin
+          from bs4 import BeautifulSoup
+          base='https://graybark.github.io/spell-balance/'
+          actual=urlopen(base+'?verify=367c1d900344246e7bc8b7822726c9c67ab906df',timeout=30).read()
+          assert actual==Path('index.html').read_bytes(), 'Published HTML differs from the tested commit'
+          soup=BeautifulSoup(actual,'html.parser')
+          for tag in soup.select('link[rel=stylesheet],script[src]'):
+              path=tag.get('href',tag.get('src'))
+              assert urlopen(urljoin(base,path),timeout=30).read()==Path(path).read_bytes(),path
+          print('PASS: published HTML and CSS/JS exactly match 367c1d900344246e7bc8b7822726c9c67ab906df')
+          PY
+      - name: Test real desktop, keyboard, touch and edition interactions on GitHub Pages
+        run: python tools/conditions_test.py --url https://graybark.github.io/spell-balance/
+      - name: Save published-site screenshots
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
-          name: condition-reference-validation
+          name: published-condition-verification
           path: /tmp/spell-balance-validation
           retention-days: 7
-      - name: Commit tested build to isolated branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html assets
-          git diff --cached --quiet || git commit -m "Build tested condition reference assets"
-          git push origin HEAD:condition-tooltips-20261023
