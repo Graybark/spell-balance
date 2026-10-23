@@ -17,12 +17,17 @@ jobs:
         run: |
           python -m pip install -r requirements-build.txt -r requirements-test.txt
           python -m playwright install --with-deps chromium
-      - name: Build and validate content
+      - name: Build and check condition interactions first
         run: |
           python tools/build.py
           python tools/build.py --check
-          python tools/verify.py
           node --check src/app.js
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/condition-test-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          python tools/conditions_test.py --url http://127.0.0.1:8765/
+      - name: Validate all original content and house rules
+        run: python tools/verify.py
       - name: Browser and responsive regression tests
         run: python tools/browser_test.py
       - name: Save validation screenshots
