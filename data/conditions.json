@@ -31,7 +31,7 @@
     "2014": [
       "Six cumulative levels: 1—Disadvantage on ability checks; 2—Speed halved; 3—Disadvantage on attack rolls and saving throws.",
       "Level 4—Hit Point maximum halved; 5—Speed 0; 6—death.",
-      "A Long Rest can remove one level if food and drink are available."
+      "A Long Rest removes one level if the creature has consumed food and drink; all effects end at level 0."
     ],
     "2024": [
       "Each application adds one Exhaustion level (maximum 6; level 6 causes death).",
@@ -57,12 +57,12 @@
     "2024": [
       "Speed is 0 and can't increase.",
       "Attack rolls against anyone other than the grappler have Disadvantage.",
-      "The grappler can drag or carry the creature, with extra movement cost except when the target is Tiny or at least two sizes smaller."
+      "Dragging or carrying the creature costs the grappler 1 extra foot per foot moved, unless the creature is Tiny or at least two sizes smaller."
     ]
   },
   "incapacitated": {
     "2014": [
-      "Can't take actions or Reactions.",
+      "Can't take actions or Reactions (and therefore can't take Bonus Actions).",
       "Any existing Concentration ends."
     ],
     "2024": [
@@ -73,7 +73,8 @@
   "invisible": {
     "2014": [
       "Can't be seen without magic or a special sense; counts as heavily obscured for hiding.",
-      "Attack rolls against the creature have disadvantage, and its attack rolls have advantage."
+      "Attack rolls against the creature have disadvantage, and its attack rolls have advantage.",
+      "Noise and tracks can still reveal its location."
     ],
     "2024": [
       "Advantage on Initiative rolls while Invisible.",
@@ -83,12 +84,12 @@
   },
   "paralyzed": {
     "2014": [
-      "Also Incapacitated; can't move or speak.",
+      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends. Can't move or speak.",
       "Automatically fails Strength and Dexterity saving throws; attack rolls against the creature have advantage.",
       "An attack that hits from within 5 feet is a critical hit."
     ],
     "2024": [
-      "Also Incapacitated; Speed is 0 and can't increase.",
+      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends, speech is impossible, and Initiative has Disadvantage. Speed is 0 and can't increase.",
       "Automatically fails Strength and Dexterity saving throws; attack rolls against the creature have Advantage.",
       "An attack that hits from within 5 feet is a Critical Hit."
     ]
@@ -96,12 +97,14 @@
   "petrified": {
     "2014": [
       "Transformed into solid substance with nonmagical gear; weight increases tenfold, aging stops.",
-      "Incapacitated, immobile and unaware; attack rolls against it have advantage and it automatically fails Strength and Dexterity saving throws.",
+      "No actions, Bonus Actions, or Reactions; Concentration ends. Can't move or speak and is unaware of its surroundings.",
+      "Attack rolls against it have advantage; it automatically fails Strength and Dexterity saving throws.",
       "Resistance to all damage; immune to poison and disease (existing poison or disease is suspended)."
     ],
     "2024": [
       "The creature and its nonmagical possessions turn into solid material; weight increases tenfold, and aging stops.",
-      "Incapacitated; Speed 0; attack rolls against it have Advantage; it automatically fails Strength and Dexterity saving throws.",
+      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends, speech is impossible, and Initiative has Disadvantage. Speed is 0 and can't increase.",
+      "Attack rolls against it have Advantage; it automatically fails Strength and Dexterity saving throws.",
       "Resistance to all damage; immunity to the Poisoned condition."
     ]
   },
@@ -119,7 +122,7 @@
       "Disadvantage on own attack rolls. Attacks against it have advantage within 5 feet, otherwise disadvantage."
     ],
     "2024": [
-      "Can crawl or spend movement equal to half Speed to stand; can't stand if Speed is 0.",
+      "Can crawl or spend movement equal to half Speed (rounded down) to stand; can't stand if Speed is 0.",
       "Disadvantage on own attack rolls. Attacks against it have Advantage within 5 feet, otherwise Disadvantage."
     ]
   },
@@ -135,23 +138,24 @@
   },
   "stunned": {
     "2014": [
-      "Also Incapacitated, can't move, and can speak only falteringly.",
+      "No actions, Bonus Actions, or Reactions; Concentration ends. Can't move and can speak only falteringly.",
       "Automatically fails Strength and Dexterity saving throws; attack rolls against the creature have advantage."
     ],
     "2024": [
-      "Also Incapacitated.",
+      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends, speech is impossible, and Initiative has Disadvantage. Stunned itself doesn't set Speed to 0.",
       "Automatically fails Strength and Dexterity saving throws; attack rolls against the creature have Advantage."
     ]
   },
   "unconscious": {
     "2014": [
-      "Also Incapacitated and Prone; drops what it's holding, can't move or speak, and is unaware of its surroundings.",
+      "No actions, Bonus Actions, or Reactions; Concentration ends. Drops held items, falls Prone, can't move or speak, and is unaware of its surroundings.",
       "Automatically fails Strength and Dexterity saving throws; attacks against it have advantage.",
       "An attack that hits from within 5 feet is a critical hit."
     ],
     "2024": [
-      "Also Incapacitated and Prone; drops what it's holding and remains Prone when Unconscious ends.",
-      "Speed is 0; attacks against it have Advantage; it automatically fails Strength and Dexterity saving throws.",
+      "Incapacitated: no actions, Bonus Actions, or Reactions; Concentration ends, speech is impossible, and Initiative has Disadvantage.",
+      "Drops held items and falls Prone, remaining Prone when Unconscious ends.",
+      "Speed is 0 and can't increase; attacks against it have Advantage; it automatically fails Strength and Dexterity saving throws.",
       "An attack that hits from within 5 feet is a Critical Hit; the creature is unaware of its surroundings."
     ]
   }
