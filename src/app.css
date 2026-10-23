@@ -62,3 +62,23 @@ html.enhanced[data-view=slots] .reader-layout{display:none}
 .teleport-outcome-table tbody tr:nth-child(odd){background:#d7e8ee}
 .teleport-outcome-table tbody tr:nth-child(even){background:#f1f7f9}
 @media (hover:hover){.teleport-outcome-table tbody tr:hover{background:#cde2ea}}
+
+
+/* Edition-aware, in-page condition definitions. Links are readable without JavaScript. */
+.condition-link{color:#215b9c;text-decoration:underline;text-decoration-style:dotted;text-decoration-thickness:1.5px;text-underline-offset:3px;text-decoration-color:#6593bf;border-radius:2px;cursor:help}
+.condition-link:hover{background:#edf5ff;text-decoration-style:solid}
+.condition-link:focus-visible{outline:3px solid #5392c9;outline-offset:2px}
+.condition-tooltip{position:fixed;z-index:90;width:min(350px,calc(100vw - 24px));max-height:min(390px,calc(100dvh - 24px));overflow:hidden;pointer-events:none;background:#fff;border:1px solid #b9cce0;border-radius:10px;box-shadow:0 12px 36px #19395835;padding:14px 17px;color:#233d5b;font:13px/1.52 system-ui,sans-serif}
+.condition-tooltip h3{margin:0 0 5px;font:700 19px/1.25 Georgia,serif;color:#183960}
+.condition-edition{margin:0 0 9px;font:600 11px/1.4 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#59748f}
+.condition-tooltip ul,.condition-dialog ul{margin:6px 0 10px;padding-left:20px}
+.condition-tooltip li,.condition-dialog li{margin:5px 0}
+.condition-dialog{width:min(510px,calc(100vw - 24px));max-height:min(620px,calc(100dvh - 24px));overflow:auto;border:1px solid #bfcedf;border-radius:14px;background:#fff;color:#233d5b;padding:20px 24px 24px;box-shadow:0 20px 65px #132e4f55;font:15px/1.55 system-ui,sans-serif}
+.condition-dialog::backdrop{background:#142d49a6}
+.condition-dialog-heading{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:8px}
+.condition-dialog-heading h2{margin:0;font:700 25px/1.25 Georgia,serif;color:#183960}
+.condition-close{flex:0 0 36px;width:36px;height:36px;border-radius:20px;border:1px solid #c6d5e4;background:#f1f6fb;color:#244668;font-size:26px;line-height:1}
+.condition-close:hover{background:#deebf8}
+.condition-dialog .condition-source{display:inline-block;margin-top:12px;font-weight:600}
+@media (hover:none),(pointer:coarse){.condition-tooltip{display:none!important}.condition-link{cursor:pointer}}
+@media (max-width:700px){.condition-dialog{position:fixed;inset:auto 0 0 0;margin:0;width:100%;max-width:100%;max-height:84dvh;padding:20px 22px calc(22px + env(safe-area-inset-bottom));border-radius:16px 16px 0 0;border-bottom:0}}
