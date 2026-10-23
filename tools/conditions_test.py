@@ -237,3 +237,20 @@ async def check_condition_browser(browser,url,report):
     assert not await nojs.locator('#condition-dialog').is_visible()
     await fallback.close()
     assert not errors,errors
+
+if __name__=='__main__':
+    import argparse, asyncio, json
+    from pathlib import Path
+    from playwright.async_api import async_playwright
+    parser=argparse.ArgumentParser(description='Check condition references on a published site.')
+    parser.add_argument('--url',required=True)
+    parser.add_argument('--report',default='/tmp/spell-balance-validation')
+    args=parser.parse_args()
+    async def live():
+        report=Path(args.report);report.mkdir(parents=True,exist_ok=True)
+        async with async_playwright() as pw:
+            browser=await pw.chromium.launch()
+            await check_condition_browser(browser,args.url,report)
+            await browser.close()
+        print(json.dumps({'result':'PASS','published_url':args.url,'conditions':15,'editions':[2014,2024],'desktop_hover':True,'keyboard':True,'touch_overlay':True,'navigation_cleanup':True}))
+    asyncio.run(live())

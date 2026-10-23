@@ -215,13 +215,19 @@
     link.setAttribute('aria-controls', 'condition-tooltip');
     link.setAttribute('aria-expanded', 'true');
     const rect = link.getBoundingClientRect();
+    conditionTip.style.maxHeight = '';
+    const naturalHeight = conditionTip.getBoundingClientRect().height;
+    const below = Math.max(0, innerHeight - rect.bottom - 22);
+    const above = Math.max(0, rect.top - 22);
+    const useBelow = naturalHeight <= below || below >= above;
+    // Restrict the scrollable preview to that side of the trigger, including
+    // short landscape viewports. Never cover the word with its own preview.
+    conditionTip.style.maxHeight = Math.min(390, useBelow ? below : above) + 'px';
     const popup = conditionTip.getBoundingClientRect();
     const left = Math.max(12, Math.min(rect.left, innerWidth - popup.width - 12));
-    const below = rect.bottom + 10;
-    const top = below + popup.height <= innerHeight - 12
-      ? below : Math.max(12, rect.top - popup.height - 10);
+    const top = useBelow ? rect.bottom + 10 : rect.top - popup.height - 10;
     conditionTip.style.left = left + 'px';
-    conditionTip.style.top = top + 'px';
+    conditionTip.style.top = Math.max(12, top) + 'px';
   }
   function openConditionDialog(link) {
     const entry = conditionEntry(link);
