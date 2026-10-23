@@ -1,75 +1,92 @@
-name: Validate complete condition references
+name: Verify published complete condition references
 on:
   push:
     branches: [fix/complete-condition-definitions-20261024]
     paths: [.github/workflows/complete-conditions-check.yml]
 permissions:
-  contents: write
+  contents: read
 jobs:
-  validate:
+  published:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: 2b5352be67fcc5c8cac18953c08e929f8de3bdd7
+          persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.13'
-      - name: Install existing validation tools
-        run: |
-          python -m pip install -r requirements-build.txt -r requirements-test.txt
-          python -m playwright install --with-deps chromium
-      - name: Compare all 30 definitions with their edition source
+      - name: Install existing verification tools
+        run: python -m pip install -r requirements-build.txt -r requirements-test.txt
+      - name: Verify all 30 published definitions and real interactions
         run: |
           python - <<'PY'
-          import json,re
+          import asyncio,json,re,sys,time
           from pathlib import Path
-          from urllib.request import Request,urlopen
-          from bs4 import BeautifulSoup,NavigableString,Tag
+          from urllib.request import urlopen
+          from urllib.parse import urljoin
+          from bs4 import BeautifulSoup
+          from playwright.async_api import async_playwright
+          sys.path.insert(0,'tools')
+          from conditions_test import check_condition_browser
+          base='https://graybark.github.io/spell-balance/'
+          expected=Path('index.html').read_bytes()
+          for attempt in range(18):
+              actual=urlopen(base+'?verify=2b5352be67fcc5c8cac18953c08e929f8de3bdd7',timeout=30).read()
+              if actual==expected:break
+              time.sleep(10)
+          else:raise AssertionError('Published HTML differs from tested commit')
+          page=BeautifulSoup(actual,'html.parser')
+          for tag in page.select('link[rel=stylesheet],script[src]'):
+              path=tag.get('href',tag.get('src'))
+              assert urlopen(urljoin(base,path),timeout=30).read()==Path(path).read_bytes(),path
+          assert urlopen(urljoin(base,'attribution.html'),timeout=30).read()==Path('attribution.html').read_bytes()
+          definitions=BeautifulSoup(page.select_one('#condition-definitions').decode_contents(),'html.parser')
           data=json.loads(Path('data/conditions.json').read_text())
-          urls={'2014':'https://roll20.net/compendium/dnd5e/Conditions','2024':'https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335'}
-          def norm(s):return re.sub(r'[^a-z0-9]','',s.lower())
-          for year,url in urls.items():
-              soup=BeautifulSoup(urlopen(Request(url,headers={'User-Agent':'Mozilla/5.0'}),timeout=45).read(),'html.parser')
-              for name,editions in data.items():
-                  title=name.title()+(' [Condition]' if year=='2024' else '')
-                  heading=next((h for h in soup.find_all(['h1','h2','h3','h4']) if norm(h.get_text(' ',strip=True))==norm(title)),None)
-                  assert heading is not None,(year,name,'missing source heading')
-                  strings=[]
-                  for el in heading.next_elements:
-                      if isinstance(el,Tag) and el.name in ('h1','h2','h3','h4') and int(el.name[1])<=int(heading.name[1]):break
-                      if isinstance(el,NavigableString):strings.append(str(el))
-                  source=norm(' '.join(strings))
-                  definition=editions[year]
-                  portions=[definition['intro']] if definition.get('intro') else []
-                  portions += [(e['heading']+' '+e['text']).strip() for e in definition['effects']]
-                  if definition.get('table'):
-                      portions += [' '.join(row) for row in definition['table']['rows']]
-                  portions += definition.get('after',[])
-                  for portion in portions:
-                      assert norm(portion) in source,(year,name,'source mismatch',portion)
-                  print('SOURCE PASS',year,name,len(definition['effects']),'effects')
-          print('PASS: every condition effect, heading, table row and removal rule checked against Roll20')
+          for name,editions in data.items():
+              for year,d in editions.items():
+                  section=definitions.select_one('[data-condition-entry="'+name+'"][data-edition="'+year+'"]')
+                  assert not section.select('a[href]')
+                  assert len(section.select('li'))==len(d['effects'])
+                  assert [s.get_text() for s in section.select('li > strong')]==[e['heading'] for e in d['effects'] if e['heading']]
+          async def main():
+              report=Path('/tmp/spell-balance-validation');report.mkdir(parents=True,exist_ok=True)
+              async with async_playwright() as pw:
+                  browser=await pw.chromium.launch(channel='chrome')
+                  await check_condition_browser(browser,base,report)
+                  for width in (1280,390):
+                      context=await browser.new_context(viewport={'width':width,'height':844},has_touch=width==390,is_mobile=width==390)
+                      p=await context.new_page()
+                      await p.goto(base+'?label=buff#spell-mordenkainen-s-sword')
+                      await p.wait_for_selector('html.enhanced')
+                      assert await p.locator('#label').input_value()=='buff'
+                      assert await p.locator('.spell-card:visible h2').inner_text()=="Mordenkainen's Sword"
+                      assert await p.locator('#spell-mordenkainen-s-sword .tag-buff').inner_text()=='Buff'
+                      await p.goto(base+'#spell-web')
+                      await p.wait_for_selector('html.enhanced')
+                      await p.locator('#spell-web [data-panel=spell] .condition-link[data-condition=restrained]').first.click()
+                      modal=p.locator('#condition-dialog')
+                      assert await modal.locator('li > strong').all_inner_texts()==['Speed 0.','Attacks Affected.','Saving Throws Affected.']
+                      assert await modal.locator('a[href]').count()==0
+                      await p.locator('#condition-dialog-close').click()
+                      await p.goto(base+'#spell-greater-restoration')
+                      await p.wait_for_selector('html.enhanced')
+                      await p.locator('label[for="spell-greater-restoration-info-compare"]').click()
+                      await p.locator('label[for="spell-greater-restoration-editions-2014"]').click()
+                      await p.locator('#spell-greater-restoration [data-panel="2014"] .condition-link[data-condition=exhaustion]').first.click()
+                      assert await modal.locator('table tbody tr').count()==6
+                      assert await p.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+                      await p.screenshot(path=str(report/('exhaustion-2014-'+str(width)+'.png')))
+                      await context.close()
+                  await browser.close()
+          asyncio.run(main())
+          print('PASS: all 30 published definitions, original bullet counts and bold headings, no popup source links, keyboard/hover/touch, 2014 Exhaustion table and Mordenkainen Sword Buff filter')
           PY
-      - name: Build and verify original spell text and complete definitions
-        run: |
-          python tools/build.py
-          python tools/build.py --check
-          python tools/verify.py
-          node --check src/app.js
-          git diff --exit-code -- data/catalog.json data/house-rules.json
-      - name: Run desktop, keyboard, touch, edition and Buff-filter tests
-        run: python tools/browser_test.py
-      - name: Save validation screenshots
+      - name: Save published screenshots
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
-          name: complete-condition-validation
+          name: published-complete-conditions
           path: /tmp/spell-balance-validation
           retention-days: 7
-      - name: Commit tested generated HTML and browser assets
-        run: |
-          git config user.name "Graybark"
-          git config user.email "24878945+Graybark@users.noreply.github.com"
-          git add index.html assets
-          git commit -m "Regenerate complete condition popovers and mobile overlays"
-          git push origin HEAD:fix/complete-condition-definitions-20261024
