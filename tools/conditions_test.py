@@ -152,6 +152,7 @@ async def check_condition_browser(browser,url,report):
     await edge.evaluate("el=>el.removeAttribute('style')")
     await p.set_viewport_size({'width':1280,'height':950})
     await p.goto(url+'#spell-hold-person');await p.wait_for_selector('html.enhanced')
+    await p.locator('label[for="spell-hold-person-info-spell"]').click()
     trigger=p.locator('#spell-hold-person [data-panel=spell] .condition-link').first
     await trigger.hover()
     await p.select_option('#jump','spell-web')
