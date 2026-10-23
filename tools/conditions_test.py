@@ -58,7 +58,11 @@ def check_condition_content(page,data,house):
     assert page.find(id='spell-wall-of-force').select_one('[data-panel="spell"] .condition-link[data-condition="invisible"]')
     assert page.select_one('#spell-animate-objects [data-panel=spell] .stat-block .condition-link[data-condition=poisoned]')
     assert page.select_one('#spell-summon-aberration [data-panel=spell] .stat-block .condition-link[data-condition=incapacitated]')
-    assert not page.select_one('#spell-arcane-eye [data-panel=spell] .condition-link[data-condition=invisible]')
+    for spell in ('arcane-eye','clairvoyance','drawmij-s-instant-summons'):
+        assert page.select_one('#spell-'+spell+' [data-panel=spell] .condition-link[data-condition=invisible]')
+        assert page.select_one('#spell-'+spell+' [data-panel="2024"] .condition-link[data-condition=invisible]')
+        assert not page.select_one('#spell-'+spell+' [data-panel="2014"] .condition-link[data-condition=invisible]')
+    assert not page.select_one('#spell-thaumaturgy .run-in .condition-link[data-condition=invisible]')
     sample='<div class="spell-text"><p data-test="Poisoned">BLINDED, <em>Prone</em>, unrestrained and unconsciousness. <a href="/unchanged">Charmed</a> <strong>Stunned</strong>.</p></div><p>Poisoned</p>'
     result=BeautifulSoup(link_conditions(sample,'2014'),'html.parser')
     assert [a.get_text() for a in result.select('.condition-link')]==['BLINDED','Prone','Stunned']

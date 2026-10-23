@@ -1,4 +1,4 @@
-name: Validate Wall of Force Invisible link
+name: Validate capitalized Invisible condition references
 on:
   push:
     branches: [fix/wall-of-force-invisible-link-20261023]

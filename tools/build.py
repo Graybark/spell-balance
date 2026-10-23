@@ -29,7 +29,9 @@ def link_conditions(html,edition):
         raw=str(node); chunks=[]; offset=0; changed=False
         for hit in CONDITION_PATTERN.finditer(raw):
             name=hit.group(0).lower()
-            if name=='invisible' and NONCONDITION_INVISIBLE.match(raw[hit.end():]):
+            # Capitalized 2024 rules terms remain references even for magical objects.
+            if (name=='invisible' and NONCONDITION_INVISIBLE.match(raw[hit.end():])
+                    and not (edition=='2024' and hit.group(0)=='Invisible' and not node.find_parent(class_='run-in'))):
                 continue
             if hit.start()>offset:chunks.append(NavigableString(raw[offset:hit.start()]))
             link=soup.new_tag('a',href=condition_url(name,edition))
