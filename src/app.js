@@ -161,7 +161,6 @@
   // Restore state and select the existing card before enabling interactions.
   restore();doc.documentElement.classList.add('enhanced');
   doc.querySelectorAll('.toolbar [disabled]').forEach(control=>{control.disabled=false;});
-}
   // Inline condition reference: mouse hover/focus preview and tap/click dialog.
   // The anchors have genuine Roll20 hrefs so the reference still works without JS.
   const conditionLibrary = doc.getElementById('condition-definitions');
