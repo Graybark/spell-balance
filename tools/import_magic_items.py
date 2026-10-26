@@ -7,6 +7,8 @@ from urllib.request import Request, urlopen
 from urllib.parse import urlsplit, unquote, urljoin
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from bs4 import BeautifulSoup, SoupStrainer
+from importlib.util import find_spec
+PARSER='lxml' if find_spec('lxml') else 'html.parser'
 import hashlib, json, re, time
 from datetime import date
 ROOT=Path(__file__).resolve().parents[1]
@@ -29,18 +31,24 @@ def fetch(url):
     raise RuntimeError(str(error)+' '+url)
 def index(expansion):
     url=INDEX+expansion
-    soup=BeautifulSoup(fetch(url),'html.parser',parse_only=SoupStrainer('div',class_=lambda c:c and 'page' in c.split()))
+    soup=BeautifulSoup(fetch(url),PARSER,parse_only=SoupStrainer('div',class_=lambda c:c and 'page' in c.split()))
     heading=next((h for h in soup.find_all(['h2','h3']) if h.get_text(' ',strip=True)=='Magic Items A–Z'),None)
     assert heading is not None,'Missing 2024 A–Z index'
-    ul=heading.find_next('ul')
-    records=[]
-    for a in ul.select('a[href]'):
+    body=heading.find_parent('div',class_='page__body')
+    assert body is not None,'Missing index body'
+    records=[]; seen=set()
+    for a in heading.find_all_next('a',href=True):
+        if a.find_parent('div',class_='page__body') is not body:break
         href=urljoin(url,a['href'])
         if not any(p in href for p in ('/Items:','/Templates:')):continue
+        if key(href) in seen:continue
+        seen.add(key(href))
         li=a.find_parent('li')
+        assert li is not None,'Item link outside its index list'
         family=a
         parent_ul=li.find_parent('ul')
-        while parent_ul is not ul:
+        root_ul=list(li.find_parents('ul'))[-1]
+        while parent_ul is not root_ul:
             # Roll20 places child ULs beside the owning LI, rather than inside it.
             owner=parent_ul.parent if parent_ul.parent.name=='li' else parent_ul.find_previous_sibling('li')
             if owner:
@@ -116,7 +124,7 @@ def main():
         if r['key']==r['family_key'] and r['key'] not in tasks:tasks[r['key']]=(r,False)
     cache=ROOT/'data/magic-items-import-cache.json'
     fetched=json.loads(cache.read_text(encoding='utf-8')) if cache.exists() else {}
-    tasks={k:v for k,v in tasks.items() if k not in fetched or fetched[k]['metadata']['type']=='Not listed'}
+    tasks={k:v for k,v in tasks.items() if k not in fetched or (v[1] and 'description' not in fetched[k]) or fetched[k]['metadata']['type']=='Not listed'}
     print('SOURCE_TASKS',len(tasks),'CACHED',len(fetched),flush=True)
     errors=[]
     with ThreadPoolExecutor(max_workers=6) as pool:

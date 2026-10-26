@@ -17,6 +17,7 @@ def render_items(data,link_conditions,spells):
         assert hashlib.sha256(d['html'].encode()).hexdigest()==d['sha256'],'Item source body changed'
         soup=BeautifulSoup('<div class="item-body spell-text">'+d['html']+'</div>','html.parser')
         for a in list(soup.select('a[href]')):
+            if not a.get_text().strip():a.unwrap();continue
             if a.get_text().strip().casefold() in condition_names:
                 a.unwrap();continue
             target=source_key(a['href'])
