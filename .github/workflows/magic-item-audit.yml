@@ -1,0 +1,27 @@
+name: Audit item index nesting
+on:
+  push:
+    branches: [audit/magic-item-index-20261026]
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - run: pip install beautifulsoup4==4.14.3
+      - run: |
+          python - <<'PY'
+          from urllib.request import urlopen
+          from bs4 import BeautifulSoup,SoupStrainer
+          for expansion in ('33335','33359'):
+              soup=BeautifulSoup(urlopen('https://roll20.net/compendium/dnd5e/Rules:Magic%20Items?expansion='+expansion).read(),'html.parser')
+              h=next(h for h in soup.find_all(['h2','h3']) if h.get_text(' ',strip=True)=='Magic Items A–Z')
+              ul=h.find_next('ul')
+              links=ul.select('a[href]')
+              print('INDEX',expansion,'links',len(links),'top',sum(not a.find_parent('li').find_parent('li') for a in links))
+              for a in links[:4]:print('ANCESTORS',a.get_text(' ',strip=True),[(p.name,p.get_text(' ',strip=True)[:80]) for p in a.parents if p.name in ('li','ul')][:5])
+              print('LIST_HTML',str(ul)[:5000])
+          PY
