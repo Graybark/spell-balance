@@ -1,57 +1,26 @@
-name: Inspect primary item rules containers
+name: Import 2024 magic item catalog
 on:
   push:
     branches: [feature/magic-items-20261026]
     paths: [.github/workflows/magic-items-prepublish.yml]
 permissions:
-  contents: read
+  contents: write
 jobs:
-  inspect:
+  import:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.13'
       - run: python -m pip install -r requirements-build.txt
-      - name: Inspect source indexes and representative items
+      - name: Import the public SRD text and both complete 2024 indexes
+        run: python tools/import_magic_items.py
+      - name: Save the source catalog checkpoint
         run: |
-          python - <<'PY'
-          from urllib.request import urlopen,Request
-          from bs4 import BeautifulSoup
-          import json
-          urls=[
-           'https://roll20.net/compendium/dnd5e/Rules:Magic%20Items?expansion=33335',
-           'https://roll20.net/compendium/dnd5e/Rules:Magic%20Items?expansion=33359',
-           'https://roll20.net/compendium/dnd5e/Items:Bag%20of%20Holding?expansion=33335',
-           'https://roll20.net/compendium/dnd5e/Items:Adamantine%20Chain%20Mail?expansion=33335',
-           'https://roll20.net/compendium/dnd5e/Items:Staff%20of%20the%20Magi?expansion=33335']
-          for url in urls:
-              html=urlopen(Request(url,headers={'User-Agent':'Mozilla/5.0'}),timeout=45).read()
-              s=BeautifulSoup(html,'html.parser')
-              print('URL',url,'BYTES',len(html))
-              print('CONTENT_NODES',[(e.name,e.get('id'),e.get('class')) for e in s.select('[id]') if any(t in e.get('id','').lower() for t in ['content','page'])][:30])
-              h=next((h for h in s.find_all(['h1','h2','h3']) if h.get_text(' ',strip=True)=='Magic Items A–Z'),None)
-              if h:
-                  ul=h.find_next('ul')
-                  print('LIST',len(ul.select('a[href]')),json.dumps([(a.get_text(' ',strip=True),a.get('href')) for a in ul.select('a[href]')[:12]]))
-              for selector in ['#pagecontent','.compendium-page-content','.page-content','#content']:
-                  node=s.select_one(selector)
-                  if node:
-                      print('NODE',selector,str(node)[:18000])
-                      break
-              print('HEADINGS',[(h.name,h.get_text(' ',strip=True)) for h in s.find_all(['h1','h2','h3','h4'])][-15:])
-              if 'Items:' in url:
-                  page=s.select_one('.page')
-                  print('PAGE_CHILDREN',[(e.name,e.attrs) for e in page.find_all(recursive=False)])
-                  for e in page.find_all(recursive=False):
-                      if 'page__header' not in e.get('class',[]): print('PAGE_BODY',str(e)[:30000])
-                  for h in s.find_all('h1'):
-                      print('H1_PARENTS',[(p.name,p.attrs) for p in list(h.parents)[:4]])
-                      print('H1_CONTAINER',str(h.parent.parent)[:26000])
-                  print('DESCRIPTION_NODES',[(e.name,e.attrs) for e in s.find_all(class_=lambda c:c and any(w in c.lower() for w in ['content','description','attribute']))][:50])
-
-          PY
+          git config user.name "Graybark"
+          git config user.email "24878945+Graybark@users.noreply.github.com"
+          git add data/magic-items.json
+          git commit -m "Import complete 2024 item indexes and openly licensed item descriptions"
+          git push origin HEAD:feature/magic-items-20261026
