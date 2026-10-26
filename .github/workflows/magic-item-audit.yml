@@ -1,4 +1,4 @@
-name: Audit item index nesting
+name: Inspect two irregular item descriptions
 on:
   push:
     branches: [audit/magic-item-index-20261026]
@@ -16,12 +16,10 @@ jobs:
           python - <<'PY'
           from urllib.request import urlopen,Request
           from bs4 import BeautifulSoup,SoupStrainer
-          for expansion in ('33335','33359'):
-              soup=BeautifulSoup(urlopen(Request('https://roll20.net/compendium/dnd5e/Rules:Magic%20Items?expansion='+expansion,headers={'User-Agent':'Mozilla/5.0'})).read(),'html.parser')
-              h=next(h for h in soup.find_all(['h2','h3']) if h.get_text(' ',strip=True)=='Magic Items A–Z')
-              ul=h.find_next('ul')
-              links=ul.select('a[href]')
-              print('INDEX',expansion,'links',len(links),'top',sum(not a.find_parent('li').find_parent('li') for a in links))
-              for a in links[:4]:print('ANCESTORS',a.get_text(' ',strip=True),[(p.name,p.get_text(' ',strip=True)[:80]) for p in a.parents if p.name in ('li','ul')][:5])
-              print('LIST_HTML',str(ul)[:5000])
+          for name in ('Bag%20of%20Beans','Deck%20of%20Illusions'):
+              url='https://roll20.net/compendium/dnd5e/Items:'+name+'?expansion=33335'
+              soup=BeautifulSoup(urlopen(Request(url,headers={'User-Agent':'Mozilla/5.0'})).read(),'html.parser')
+              print('SOURCE',url)
+              body=soup.select_one('.page__body')
+              print('BODY',str(body)[:24000])
           PY
