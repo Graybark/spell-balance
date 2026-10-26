@@ -14,10 +14,10 @@ jobs:
       - run: pip install beautifulsoup4==4.14.3
       - run: |
           python - <<'PY'
-          from urllib.request import urlopen
+          from urllib.request import urlopen,Request
           from bs4 import BeautifulSoup,SoupStrainer
           for expansion in ('33335','33359'):
-              soup=BeautifulSoup(urlopen('https://roll20.net/compendium/dnd5e/Rules:Magic%20Items?expansion='+expansion).read(),'html.parser')
+              soup=BeautifulSoup(urlopen(Request('https://roll20.net/compendium/dnd5e/Rules:Magic%20Items?expansion='+expansion,headers={'User-Agent':'Mozilla/5.0'})).read(),'html.parser')
               h=next(h for h in soup.find_all(['h2','h3']) if h.get_text(' ',strip=True)=='Magic Items A–Z')
               ul=h.find_next('ul')
               links=ul.select('a[href]')
