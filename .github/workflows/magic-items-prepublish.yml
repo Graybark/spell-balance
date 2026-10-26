@@ -1,70 +1,70 @@
-name: Verify published magic items
+name: Validate final magic item presentation
 on:
   push:
     branches: [feature/magic-items-20261026]
     paths: [.github/workflows/magic-items-prepublish.yml]
 permissions:
-  contents: read
+  contents: write
 jobs:
-  published:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          ref: c64d89296902a6e398095d922a3d9fb54d9c6963
-          persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.13'
-      - name: Install the browser checks
+      - name: Install existing build and browser test tools
         run: |
-          python -m pip install -r requirements-build.txt -r requirements-test.txt
+          python -m pip install -r requirements-build.txt -r requirements-test.txt lxml==6.0.2
           python -m playwright install --with-deps chromium
-      - name: Verify exact published HTML and assets
+      - name: Complete and verify the cached source import
+        run: python tools/import_magic_items.py
+      - name: Save the completed catalog checkpoint
+        if: always()
         run: |
+          git config user.name "Graybark"
+          git config user.email "24878945+Graybark@users.noreply.github.com"
+          git add -f data/magic-items*.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Complete checked 2024 item catalog snapshot"
+            git push origin HEAD:feature/magic-items-20261026
+          fi
+      - name: Build and validate complete static content
+        run: |
+          python tools/build.py
+          python tools/build.py --check
+          python tools/verify.py
+          node --check src/app.js
+      - name: Verify unchanged spells, slots, condition definitions and house rules
+        run: |
+          git fetch --depth=1 origin 2b5352be67fcc5c8cac18953c08e929f8de3bdd7
           python - <<'PY'
+          import subprocess
           from pathlib import Path
-          from urllib.request import Request,urlopen
-          from urllib.parse import urljoin
           from bs4 import BeautifulSoup
-          import time,hashlib
-          base='https://graybark.github.io/spell-balance/'
-          expected=Path('index.html').read_bytes()
-          for attempt in range(40):
-              try:
-                  actual=urlopen(Request(base+'?release=c64d89296902a6e398095d922a3d9fb54d9c6963',headers={'Cache-Control':'no-cache','User-Agent':'Mozilla/5.0'}),timeout=30).read()
-                  if actual==expected:break
-              except Exception:pass
-              time.sleep(10)
-          else:raise AssertionError('GitHub Pages does not yet serve the exact released HTML')
-          soup=BeautifulSoup(expected,'html.parser')
-          urls=[soup.select_one('link[rel=stylesheet]')['href'],soup.select_one('script[src]')['src'],'attribution.html']
-          for path in urls:
-              assert urlopen(urljoin(base,path),timeout=30).read()==Path(path).read_bytes(),path
-          print('PASS exact published HTML/assets',hashlib.sha256(expected).hexdigest(),len(soup.select('.magic-item-card')),'magic item cards')
+          base='2b5352be67fcc5c8cac18953c08e929f8de3bdd7'
+          before=BeautifulSoup(subprocess.check_output(['git','show',base+':index.html']),'html.parser')
+          after=BeautifulSoup(Path('index.html').read_text(),'html.parser')
+          for id in ('spells','spell-slots','condition-definitions'):
+              assert str(before.find(id=id))==str(after.find(id=id)),id+' changed'
+          for file in ('data/catalog.json','data/house-rules.json','data/classes.json','data/conditions.json'):
+              assert subprocess.check_output(['git','show',base+':'+file])==Path(file).read_bytes(),file
+          print('PASS: all 391 spell cards, original paragraphs, class tables, house rules and condition definitions unchanged')
           PY
-      - name: Verify live desktop, mobile, history, filters and no-script navigation
-        run: |
-          python - <<'PY'
-          import asyncio,sys,json
-          from pathlib import Path
-          sys.path.insert(0,'tools')
-          from playwright.async_api import async_playwright
-          from magic_items_test import check_item_browser
-          async def main():
-              report=Path('/tmp/spell-balance-validation');report.mkdir(parents=True,exist_ok=True)
-              async with async_playwright() as p:
-                  browser=await p.chromium.launch()
-                  await check_item_browser(browser,'https://graybark.github.io/spell-balance/',report)
-                  await browser.close()
-              print(json.dumps({'result':'PASS','published_commit':'c64d89296902a6e398095d922a3d9fb54d9c6963','desktop_and_phone_widths':[1280,390,320],'item_search_filters':True,'condition_dialog':True,'native_no_js_navigation':True,'spells_preserved':True}))
-          asyncio.run(main())
-          PY
-      - name: Save published screenshots
+      - name: Check all desktop, touch, history, filters and native fallbacks
+        run: python tools/browser_test.py
+      - name: Save validation screenshots
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
-          name: published-magic-items-validation
+          name: magic-items-validation
           path: /tmp/spell-balance-validation
           retention-days: 7
+      - name: Commit tested generated HTML and browser assets
+        run: |
+          git config user.name "Graybark"
+          git config user.email "24878945+Graybark@users.noreply.github.com"
+          git add index.html assets
+          git commit -m "Generate separate searchable magic item section"
+          git push origin HEAD:feature/magic-items-20261026

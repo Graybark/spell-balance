@@ -140,7 +140,18 @@ def main():
                 print('FETCHED',i,'/',len(futures),'ERRORS',len(errors),flush=True)
     cache.write_text(json.dumps(fetched,ensure_ascii=False),encoding='utf-8')
     assert not errors,errors
-    descriptions={k:v['description'] for k,v in fetched.items() if 'description' in v}
+    # This Roll20 editor notice is platform UI guidance, not part of the SRD rules.
+    platform_note='<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>'
+    descriptions={}
+    for k,v in fetched.items():
+        if 'description' not in v:continue
+        d=dict(v['description'])
+        omitted=d['html'].count(platform_note)
+        if omitted:
+            d['html']=d['html'].replace(platform_note,'')
+            d['paragraphs']-=omitted
+            d['sha256']=hashlib.sha256(d['html'].encode()).hexdigest()
+        descriptions[k]=d
     entries=[]
     for k,r in records.items():
         origin=k if k in fetched else r['family_key']

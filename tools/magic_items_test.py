@@ -40,6 +40,7 @@ def check_item_content(page):
             assert e['description_kind']=='reference'
     section=page.select_one('#magic-items')
     assert not section.select('script,iframe,img,style')
+    assert 'Roll20 Note:' not in section.get_text()
     assert page.select_one('#item-staff-of-the-magi .item-body table')
     assert len(page.select('#item-bag-of-holding .item-body p'))>=3
     assert page.select_one('#item-ring-of-invisibility .condition-link[data-condition=invisible]')
