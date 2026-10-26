@@ -2997,10 +2997,10 @@
       "tables": 0
     },
     "templates:adamantine armor": {
-      "html": "\n\n<p>This suit of armor is reinforced with adamantine, one of the hardest substances in existence. While you’re wearing it, any Critical Hit against you becomes a normal hit.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "1fdb54568d0cfbab846ea803d1e14c2335a00372c1dfb1c1e4b606c007ed7529",
+      "html": "\n\n<p>This suit of armor is reinforced with adamantine, one of the hardest substances in existence. While you’re wearing it, any Critical Hit against you becomes a normal hit.</p>\n\n\n",
+      "sha256": "2993c0c2ab681a87a692bc7bcd2c3ea36a45537eb4921530729dccf2599eaca8",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Adamantine%20Armor?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:arrow +1": {
@@ -3046,10 +3046,10 @@
       "tables": 0
     },
     "templates:ammunition +1": {
-      "html": "\n\n<p>You have a +1 bonus to attack rolls and damage rolls made with this piece of magic ammunition. Once it hits a target, the ammunition is no longer magical.</p>\n<p>This ammunition is typically found or sold in quantities of ten or twenty pieces. Ten pieces of this ammunition are equivalent in value to a potion of the same rarity.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "027a7bb62af428ae0acf72f61cf3a660fe20096c2bd3e02f3a8f8582cf2bbae0",
+      "html": "\n\n<p>You have a +1 bonus to attack rolls and damage rolls made with this piece of magic ammunition. Once it hits a target, the ammunition is no longer magical.</p>\n<p>This ammunition is typically found or sold in quantities of ten or twenty pieces. Ten pieces of this ammunition are equivalent in value to a potion of the same rarity.</p>\n\n\n",
+      "sha256": "301e0c77556dcbc6581eae89f0c9ee68e9d8f619066a85d9dd6b82f6c016a985",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Ammunition%20+1?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:firearm bullet +1": {
@@ -3088,10 +3088,10 @@
       "tables": 0
     },
     "templates:ammunition +2": {
-      "html": "\n\n<p>You have a +2 bonus to attack rolls and damage rolls made with this piece of magic ammunition. Once it hits a target, the ammunition is no longer magical.</p>\n<p>This ammunition is typically found or sold in quantities of ten or twenty pieces. Ten pieces of this ammunition are equivalent in value to a potion of the same rarity.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "772cb7905885c9226ac9b05a7c3acdd0284687311aef6d5febd26ea0cbe0b051",
+      "html": "\n\n<p>You have a +2 bonus to attack rolls and damage rolls made with this piece of magic ammunition. Once it hits a target, the ammunition is no longer magical.</p>\n<p>This ammunition is typically found or sold in quantities of ten or twenty pieces. Ten pieces of this ammunition are equivalent in value to a potion of the same rarity.</p>\n\n\n",
+      "sha256": "7363c4df502ec29c03cb14c51bb41513b310a7369698e1e2920c6cac4a6feb9f",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Ammunition%20+2?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:needle +2": {
@@ -3102,10 +3102,10 @@
       "tables": 0
     },
     "templates:ammunition +3": {
-      "html": "\n\n<p>You have a +3 bonus to attack rolls and damage rolls made with this piece of magic ammunition. Once it hits a target, the ammunition is no longer magical.</p>\n<p>This ammunition is typically found or sold in quantities of ten or twenty pieces. Ten pieces of this ammunition are equivalent in value to a potion of the same rarity.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "b7e0f573cf543078517f3fb0802405554f6ed6071e6df61e36c1d25161940fab",
+      "html": "\n\n<p>You have a +3 bonus to attack rolls and damage rolls made with this piece of magic ammunition. Once it hits a target, the ammunition is no longer magical.</p>\n<p>This ammunition is typically found or sold in quantities of ten or twenty pieces. Ten pieces of this ammunition are equivalent in value to a potion of the same rarity.</p>\n\n\n",
+      "sha256": "61ea3e408f363ea266b4fa34c1d67d3a7f456e96c8ad0d2d0e5b66d783704fa5",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Ammunition%20+3?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:bolt +3": {
@@ -3158,10 +3158,10 @@
       "tables": 0
     },
     "templates:ammunition of slaying": {
-      "html": "\n\n\n\n<p>This magic ammunition is meant to slay creatures of a particular type, which the DM chooses or determines randomly by rolling on the table below. If a creature of that type takes damage from the ammunition, the creature makes a DC 17 Constitution saving throw, taking an extra 6d10 Force damage on a failed save or half as much extra damage on a successful one.</p>\n<p>After dealing its extra damage to a creature, the ammunition becomes nonmagical.</p>\n<table>\n<thead><tr>\n<th>1d100  </th>\n<th>Creature Type</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>01–10<br/>\n</td>\n<td>Aberrations<br/>\n</td>\n</tr>\n<tr>\n<td>11–15<br/>\n</td>\n<td>Beasts<br/>\n</td>\n</tr>\n<tr>\n<td>16–20<br/>\n</td>\n<td>Celestials<br/>\n</td>\n</tr>\n<tr>\n<td>21–25<br/>\n</td>\n<td>Constructs<br/>\n</td>\n</tr>\n<tr>\n<td>26–35<br/>\n</td>\n<td>Dragons<br/>\n</td>\n</tr>\n<tr>\n<td>36–45<br/>\n</td>\n<td>Elementals<br/>\n</td>\n</tr>\n<tr>\n<td>46–50<br/>\n</td>\n<td>Humanoids<br/>\n</td>\n</tr>\n<tr>\n<td>51–60<br/>\n</td>\n<td>Fey<br/>\n</td>\n</tr>\n<tr>\n<td>61–70<br/>\n</td>\n<td>Fiends<br/>\n</td>\n</tr>\n<tr>\n<td>71–75<br/>\n</td>\n<td>Giants<br/>\n</td>\n</tr>\n<tr>\n<td>76–80<br/>\n</td>\n<td>Monstrosities<br/>\n</td>\n</tr>\n<tr>\n<td>81–85<br/>\n</td>\n<td>Oozes<br/>\n</td>\n</tr>\n<tr>\n<td>86–90<br/>\n</td>\n<td>Plants<br/>\n</td>\n</tr>\n<tr>\n<td>91–00<br/>\n</td>\n<td>Undead<br/>\n</td>\n</tr>\n</tbody>\n</table>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n\n\n",
-      "sha256": "ae5ff942ba863c921ba9b206df4f37beb92c65d53e48773ab0f4be09324233ea",
+      "html": "\n\n\n\n<p>This magic ammunition is meant to slay creatures of a particular type, which the DM chooses or determines randomly by rolling on the table below. If a creature of that type takes damage from the ammunition, the creature makes a DC 17 Constitution saving throw, taking an extra 6d10 Force damage on a failed save or half as much extra damage on a successful one.</p>\n<p>After dealing its extra damage to a creature, the ammunition becomes nonmagical.</p>\n<table>\n<thead><tr>\n<th>1d100  </th>\n<th>Creature Type</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>01–10<br/>\n</td>\n<td>Aberrations<br/>\n</td>\n</tr>\n<tr>\n<td>11–15<br/>\n</td>\n<td>Beasts<br/>\n</td>\n</tr>\n<tr>\n<td>16–20<br/>\n</td>\n<td>Celestials<br/>\n</td>\n</tr>\n<tr>\n<td>21–25<br/>\n</td>\n<td>Constructs<br/>\n</td>\n</tr>\n<tr>\n<td>26–35<br/>\n</td>\n<td>Dragons<br/>\n</td>\n</tr>\n<tr>\n<td>36–45<br/>\n</td>\n<td>Elementals<br/>\n</td>\n</tr>\n<tr>\n<td>46–50<br/>\n</td>\n<td>Humanoids<br/>\n</td>\n</tr>\n<tr>\n<td>51–60<br/>\n</td>\n<td>Fey<br/>\n</td>\n</tr>\n<tr>\n<td>61–70<br/>\n</td>\n<td>Fiends<br/>\n</td>\n</tr>\n<tr>\n<td>71–75<br/>\n</td>\n<td>Giants<br/>\n</td>\n</tr>\n<tr>\n<td>76–80<br/>\n</td>\n<td>Monstrosities<br/>\n</td>\n</tr>\n<tr>\n<td>81–85<br/>\n</td>\n<td>Oozes<br/>\n</td>\n</tr>\n<tr>\n<td>86–90<br/>\n</td>\n<td>Plants<br/>\n</td>\n</tr>\n<tr>\n<td>91–00<br/>\n</td>\n<td>Undead<br/>\n</td>\n</tr>\n</tbody>\n</table>\n\n\n\n\n",
+      "sha256": "04639b624ba5ba8f335d24ac9a77b9b39bf4af2bceb95b70c82d66ccb5beb2b6",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Ammunition%20of%20Slaying?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 1
     },
     "items:needle of aberration slaying": {
@@ -3662,10 +3662,10 @@
       "tables": 0
     },
     "templates:armor +1": {
-      "html": "\n\n<p>You have a +1 bonus to Armor Class while wearing this armor.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "b4c50a9e0de53cee14de70dd1fe996e81e2c184da8de54df38e7dddae488ee2e",
+      "html": "\n\n<p>You have a +1 bonus to Armor Class while wearing this armor.</p>\n\n\n",
+      "sha256": "668cf7c171849b66e241027b00093a2bee99282a2668d793e25899b1ee59a7b0",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Armor%20+1?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:apparatus of the crab": {
@@ -3788,10 +3788,10 @@
       "tables": 0
     },
     "templates:armor +2": {
-      "html": "\n\n<p>You have a +2 bonus to Armor Class while wearing this armor.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "bb643ec7e93fba018acbaf0a2b1af3e0e0ffc7493ffa5743e1a3c442c54676df",
+      "html": "\n\n<p>You have a +2 bonus to Armor Class while wearing this armor.</p>\n\n\n",
+      "sha256": "6d864ee34f948ed925bdad594756858c43d67d50400643b870a06296b557794c",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Armor%20+2?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:breastplate +2": {
@@ -3935,10 +3935,10 @@
       "tables": 0
     },
     "templates:armor of resistance": {
-      "html": "\n\n\n\n<p>You have Resistance to one type of damage while you wear this armor. The GM chooses the type or determines it randomly by rolling on the following table.</p>\n<table>\n<thead><tr>\n<th>1d10  </th>\n<th>Damage Type</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Acid<br/>\n</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Cold<br/>\n</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Fire<br/>\n</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Force<br/>\n</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Lightning<br/>\n</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Necrotic<br/>\n</td>\n</tr>\n<tr>\n<td>7</td>\n<td>Poison<br/>\n</td>\n</tr>\n<tr>\n<td>8</td>\n<td>Psychic<br/>\n</td>\n</tr>\n<tr>\n<td>9</td>\n<td>Radiant<br/>\n</td>\n</tr>\n<tr>\n<td>10</td>\n<td>Thunder<br/>\n</td>\n</tr>\n</tbody>\n</table>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n\n<br/>\n\n\n\n",
-      "sha256": "567a7b222b47690424be56e4a58593f1198477b66ae3f2f6fe0b34b155c889f9",
+      "html": "\n\n\n\n<p>You have Resistance to one type of damage while you wear this armor. The GM chooses the type or determines it randomly by rolling on the following table.</p>\n<table>\n<thead><tr>\n<th>1d10  </th>\n<th>Damage Type</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Acid<br/>\n</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Cold<br/>\n</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Fire<br/>\n</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Force<br/>\n</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Lightning<br/>\n</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Necrotic<br/>\n</td>\n</tr>\n<tr>\n<td>7</td>\n<td>Poison<br/>\n</td>\n</tr>\n<tr>\n<td>8</td>\n<td>Psychic<br/>\n</td>\n</tr>\n<tr>\n<td>9</td>\n<td>Radiant<br/>\n</td>\n</tr>\n<tr>\n<td>10</td>\n<td>Thunder<br/>\n</td>\n</tr>\n</tbody>\n</table>\n\n\n\n<br/>\n\n\n\n",
+      "sha256": "8f2d39bc4b3f661d622139d6142a143836bf53e8e9312d638582512b09a9524c",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Armor%20of%20Resistance?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 1
     },
     "items:leather armor of acid resistance": {
@@ -4803,10 +4803,10 @@
       "tables": 0
     },
     "templates:armor of vulnerability": {
-      "html": "\n\n<p>While wearing this armor, you have Resistance to one of the following damage types: Bludgeoning, Piercing, or Slashing. The GM chooses the type or determines it randomly.</p>\n<p><em><strong>Curse.</strong></em> This armor is cursed, a fact that is revealed only when the <em>Identify</em> spell is cast on the armor or you attune to it. Attuning to the armor curses you until you are targeted by a <em>Remove Curse</em> spell or similar magic; removing the armor fails to end the curse. While cursed, you have Vulnerability to two of the three damage types associated with the armor (not the one to which it grants Resistance).</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "849aa1d85b5f6dbf4eb15d22c8f0c6282715eb263f89defa6bc81f95e10e7628",
+      "html": "\n\n<p>While wearing this armor, you have Resistance to one of the following damage types: Bludgeoning, Piercing, or Slashing. The GM chooses the type or determines it randomly.</p>\n<p><em><strong>Curse.</strong></em> This armor is cursed, a fact that is revealed only when the <em>Identify</em> spell is cast on the armor or you attune to it. Attuning to the armor curses you until you are targeted by a <em>Remove Curse</em> spell or similar magic; removing the armor fails to end the curse. While cursed, you have Vulnerability to two of the three damage types associated with the armor (not the one to which it grants Resistance).</p>\n\n\n",
+      "sha256": "d9d12d3fa622cd27d4820c815ed01d51d7394fdeea564218807b4124d3a914a3",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Armor%20of%20Vulnerability?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:leather armor of vulnerability (bludgeoning)": {
@@ -5188,10 +5188,10 @@
       "tables": 0
     },
     "templates:berserker axe": {
-      "html": "\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon. In addition, while you are attuned to this weapon, your Hit Point maximum increases by 1 for each level you have attained.</p>\n<p><em><strong>Curse.</strong></em> This weapon is cursed, and becoming attuned to it extends the curse to you. As long as you remain cursed, you are unwilling to part with the weapon, keeping it within reach at all times. You also have Disadvantage on attack rolls with weapons other than this one.</p>\n<p>Whenever another creature damages you while the weapon is in your possession, you must succeed on a DC 15 Wisdom saving throw or go berserk. This berserk state ends when you start your turn and there are no creatures within 60 feet of you that you can see or hear.</p>\n<p>While berserk, you regard the creature nearest to you that you can see or hear as your enemy. If there are multiple possible creatures, choose one at random. On each of your turns, you must move as close to the creature as possible and take the Attack action, targeting the creature. If you’re unable to get close enough to the creature to attack it with the weapon, your turn ends after you’ve used up all your available movement. If the creature dies or can no longer be seen or heard by you, the next nearest creature that you can see or hear becomes your new target.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "ae4e083ee70f2ad649a69b89a1f874e4ab55efb18fe51773c2912ab4827479a2",
+      "html": "\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon. In addition, while you are attuned to this weapon, your Hit Point maximum increases by 1 for each level you have attained.</p>\n<p><em><strong>Curse.</strong></em> This weapon is cursed, and becoming attuned to it extends the curse to you. As long as you remain cursed, you are unwilling to part with the weapon, keeping it within reach at all times. You also have Disadvantage on attack rolls with weapons other than this one.</p>\n<p>Whenever another creature damages you while the weapon is in your possession, you must succeed on a DC 15 Wisdom saving throw or go berserk. This berserk state ends when you start your turn and there are no creatures within 60 feet of you that you can see or hear.</p>\n<p>While berserk, you regard the creature nearest to you that you can see or hear as your enemy. If there are multiple possible creatures, choose one at random. On each of your turns, you must move as close to the creature as possible and take the Attack action, targeting the creature. If you’re unable to get close enough to the creature to attack it with the weapon, your turn ends after you’ve used up all your available movement. If the creature dies or can no longer be seen or heard by you, the next nearest creature that you can see or hear becomes your new target.</p>\n\n\n",
+      "sha256": "721b0076b9724c37ab0dedafe4caf42bf033e8240252355b1c5bf87584148488",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Berserker%20Axe?expansion=33335",
-      "paragraphs": 5,
+      "paragraphs": 4,
       "tables": 0
     },
     "items:boots of speed": {
@@ -5419,10 +5419,10 @@
       "tables": 0
     },
     "templates:dancing sword": {
-      "html": "\n\n<p>You can take a Bonus Action to toss this magic weapon into the air. When you do so, the weapon begins to hover, flies up to 30 feet, and attacks one creature of your choice within 5 feet of itself. The weapon uses your attack roll and adds your ability modifier to damage rolls.</p>\n<p>While the weapon hovers, you can take a Bonus Action to cause it to fly up to 30 feet to another spot within 30 feet of you. As part of the same Bonus Action, you can cause the weapon to attack one creature within 5 feet of the weapon.</p>\n<p>After the hovering weapon attacks for the fourth time, it flies back to you and tries to return to your hand. If you have no hand free, the weapon falls to the ground in your space. If the weapon has no unobstructed path to you, it moves as close to you as it can and then falls to the ground. It also ceases to hover if you grasp it or are more than 30 feet away from it.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "f5924cbf61aba499e2dfdf04189b0bad92adc268bdaf7fb943714a7ad998ad8f",
+      "html": "\n\n<p>You can take a Bonus Action to toss this magic weapon into the air. When you do so, the weapon begins to hover, flies up to 30 feet, and attacks one creature of your choice within 5 feet of itself. The weapon uses your attack roll and adds your ability modifier to damage rolls.</p>\n<p>While the weapon hovers, you can take a Bonus Action to cause it to fly up to 30 feet to another spot within 30 feet of you. As part of the same Bonus Action, you can cause the weapon to attack one creature within 5 feet of the weapon.</p>\n<p>After the hovering weapon attacks for the fourth time, it flies back to you and tries to return to your hand. If you have no hand free, the weapon falls to the ground in your space. If the weapon has no unobstructed path to you, it moves as close to you as it can and then falls to the ground. It also ceases to hover if you grasp it or are more than 30 feet away from it.</p>\n\n\n",
+      "sha256": "32978754d3478fa025245da997d70075f03fbbc2f9076197ac8c938eaa046bc2",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Dancing%20Sword?expansion=33335",
-      "paragraphs": 4,
+      "paragraphs": 3,
       "tables": 0
     },
     "items:dagger of venom": {
@@ -5657,10 +5657,10 @@
       "tables": 0
     },
     "templates:demon armor": {
-      "html": "\n\n<p>While wearing this armor, you gain a +1 bonus to Armor Class, and you know Abyssal. In addition, the armor’s clawed gauntlets allow your Unarmed Strikes to deal 1d8 Slashing damage instead of the usual Bludgeoning damage, and you gain a +1 bonus to the attack and damage rolls of your Unarmed Strikes.</p>\n<p><em><strong>Curse.</strong></em> Once you don this cursed armor, you can’t doff it unless you are targeted by a <em>Remove Curse</em> spell or similar magic. While wearing the armor, you have Disadvantage on attack rolls against demons and on saving throws against their spells and special abilities.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "69090235a521c2f0b7686db7fb298cd2b0c48678c4eadc5f3b7c0bdddfd68c1c",
+      "html": "\n\n<p>While wearing this armor, you gain a +1 bonus to Armor Class, and you know Abyssal. In addition, the armor’s clawed gauntlets allow your Unarmed Strikes to deal 1d8 Slashing damage instead of the usual Bludgeoning damage, and you gain a +1 bonus to the attack and damage rolls of your Unarmed Strikes.</p>\n<p><em><strong>Curse.</strong></em> Once you don this cursed armor, you can’t doff it unless you are targeted by a <em>Remove Curse</em> spell or similar magic. While wearing the armor, you have Disadvantage on attack rolls against demons and on saving throws against their spells and special abilities.</p>\n\n\n",
+      "sha256": "2aa12fbdac1e14db73bbdbde129d747239e4018a1795f5b708ff662b417b958e",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Demon%20Armor?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:defender pike": {
@@ -5741,10 +5741,10 @@
       "tables": 0
     },
     "templates:dragon scale mail": {
-      "html": "\n\n\n\n<p><em>Dragon Scale Mail</em> is made of the scales of one kind of dragon. Sometimes dragons collect their cast-off scales and gift them. Other times, hunters carefully preserve the hide of a dead dragon. In either case, <em>Dragon Scale Mail</em> is highly valued.</p>\n<p>While wearing this armor, you gain a +1 bonus to Armor Class, you have Advantage on saving throws against the breath weapons of Dragons, and you have Resistance to one damage type determined by the kind of dragon that provided the scales (see the accompanying table).</p>\n<p>Additionally, you can focus your senses as a Magic action to discern the distance and direction to the closest dragon within 30 miles of yourself that is of the same type as the armor. This action can’t be used again until the next dawn.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n\n<br/>\n\n\n<table>\n<thead><tr>\n<th>Dragon  </th>\n<th>Resistance</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>Black</td>\n<td>Acid</td>\n</tr>\n<tr>\n<td>Blue</td>\n<td>Lightning</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>Fire</td>\n</tr>\n<tr>\n<td>Bronze</td>\n<td>Lightning</td>\n</tr>\n<tr>\n<td>Copper</td>\n<td>Acid</td>\n</tr>\n<tr>\n<td>Gold</td>\n<td>Fire</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>Poison</td>\n</tr>\n<tr>\n<td>Red</td>\n<td>Fire</td>\n</tr>\n<tr>\n<td>Silver</td>\n<td>Cold</td>\n</tr>\n<tr>\n<td>White</td>\n<td>Cold</td>\n</tr>\n</tbody>\n</table>\n\n",
-      "sha256": "9aeee6623cff5835f2a6760a69123ff35cb6166be43813979656777da860ecc8",
+      "html": "\n\n\n\n<p><em>Dragon Scale Mail</em> is made of the scales of one kind of dragon. Sometimes dragons collect their cast-off scales and gift them. Other times, hunters carefully preserve the hide of a dead dragon. In either case, <em>Dragon Scale Mail</em> is highly valued.</p>\n<p>While wearing this armor, you gain a +1 bonus to Armor Class, you have Advantage on saving throws against the breath weapons of Dragons, and you have Resistance to one damage type determined by the kind of dragon that provided the scales (see the accompanying table).</p>\n<p>Additionally, you can focus your senses as a Magic action to discern the distance and direction to the closest dragon within 30 miles of yourself that is of the same type as the armor. This action can’t be used again until the next dawn.</p>\n\n\n\n<br/>\n\n\n<table>\n<thead><tr>\n<th>Dragon  </th>\n<th>Resistance</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>Black</td>\n<td>Acid</td>\n</tr>\n<tr>\n<td>Blue</td>\n<td>Lightning</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>Fire</td>\n</tr>\n<tr>\n<td>Bronze</td>\n<td>Lightning</td>\n</tr>\n<tr>\n<td>Copper</td>\n<td>Acid</td>\n</tr>\n<tr>\n<td>Gold</td>\n<td>Fire</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>Poison</td>\n</tr>\n<tr>\n<td>Red</td>\n<td>Fire</td>\n</tr>\n<tr>\n<td>Silver</td>\n<td>Cold</td>\n</tr>\n<tr>\n<td>White</td>\n<td>Cold</td>\n</tr>\n</tbody>\n</table>\n\n",
+      "sha256": "517e20f7c161c8a604302a5f11787e3d6d03626c97a329fcd42bcc45c3f0185f",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Dragon%20Scale%20Mail?expansion=33335",
-      "paragraphs": 4,
+      "paragraphs": 3,
       "tables": 1
     },
     "items:black dragon scale mail": {
@@ -5832,10 +5832,10 @@
       "tables": 1
     },
     "templates:dragon slayer": {
-      "html": "\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p>The weapon deals an extra 3d6 damage of the weapon’s type if the target is a Dragon.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "c113801b291476e45bd9eaeb5c08a8123f4d3594448c1cdd0cb3c0f0ceb58b74",
+      "html": "\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p>The weapon deals an extra 3d6 damage of the weapon’s type if the target is a Dragon.</p>\n\n\n",
+      "sha256": "6faa4bbf6ea191b0c75d45b7bbb8c5455cb5925138244c580f41c505aeda0f65",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Dragon%20Slayer?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:dragon slayer club": {
@@ -6140,10 +6140,10 @@
       "tables": 0
     },
     "templates:dwarven plate": {
-      "html": "\n\n\n\n<p>While wearing this armor, you gain a +2 bonus to Armor Class. In addition, if an effect moves you against your will along the ground, you can take a Reaction to reduce the distance you are moved by up to 10 feet.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n\n\n",
-      "sha256": "b132cd4bcf7d6e726df09e29c9f153788dc4aac84b41c419ec052f8914ebe872",
+      "html": "\n\n\n\n<p>While wearing this armor, you gain a +2 bonus to Armor Class. In addition, if an effect moves you against your will along the ground, you can take a Reaction to reduce the distance you are moved by up to 10 feet.</p>\n\n\n\n\n",
+      "sha256": "129a8d554bb01988b78fbd2fce3c34b9c379637a76e6f0ade68a0a368d25fcd4",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Dwarven%20Plate?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:dragon slayer whip": {
@@ -6210,17 +6210,17 @@
       "tables": 0
     },
     "templates:elven chain": {
-      "html": "\n\n\n\n<p>You gain a +1 bonus to Armor Class while you wear this armor. You are considered trained with this armor even if you lack training with Medium or Heavy armor.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n\n\n",
-      "sha256": "0da59649a4c68a9d322fc661e7e6cbec9fd002e5eef756e1e64e32f55e380075",
+      "html": "\n\n\n\n<p>You gain a +1 bonus to Armor Class while you wear this armor. You are considered trained with this armor even if you lack training with Medium or Heavy armor.</p>\n\n\n\n\n",
+      "sha256": "2bc33099b1ebdc5dd7624eec705914a287258a0fce789b0944aa5476839e10ea",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Elven%20Chain?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "templates:energy bow": {
-      "html": "\n\n\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon, which has no string. Each time you pull your arm back in a firing motion, a magical arrow made of golden energy appears nocked and ready to fire. An arrow produced by this weapon deals Force damage instead of Piercing damage on a hit, and it disappears after it hits or misses its target. Until it disappears, the arrow emits Bright Light in a 20-foot radius and Dim Light for an additional 20 feet.</p>\n<p>This weapon has the following additional properties.</p>\n<p><em><strong>Arrow of Restraint.</strong></em> Whenever you use this weapon to make a ranged attack against a creature, you can try to restrain the target instead of dealing damage to it. If the arrow hits, the target must succeed on a DC 15 Strength saving throw or have the Restrained condition for 1 minute. As an action, a creature Restrained by an arrow can make a DC 20 Strength (Athletics) check to try to break the restraint, ending the effect on itself on a successful check.</p>\n<p><em><strong>Arrow of Transport.</strong></em> As a Magic action, you can fire one energy arrow from this weapon at a target you can see within 60 feet of yourself. The target can be either a willing Medium or smaller creature or an object that isn’t being worn or carried, provided the object is small enough to fit inside a 5-foot Cube. The arrow teleports the target to an unoccupied space you can see within 10 feet of you.</p>\n<p><em><strong>Energy Ladder.</strong></em> As a Magic action, you can loose a flurry of energy arrows from this weapon at a wall up to 60 feet away from yourself. The arrows become glowing rungs that stick out of the wall, forming a magical ladder up to 60 feet long on the wall. This ladder lasts for 1 minute before disappearing.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n\n\n",
-      "sha256": "be89086e4532f6801da83d41e48879e7e1290908485ab02f32ff1050cbfc0e62",
+      "html": "\n\n\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon, which has no string. Each time you pull your arm back in a firing motion, a magical arrow made of golden energy appears nocked and ready to fire. An arrow produced by this weapon deals Force damage instead of Piercing damage on a hit, and it disappears after it hits or misses its target. Until it disappears, the arrow emits Bright Light in a 20-foot radius and Dim Light for an additional 20 feet.</p>\n<p>This weapon has the following additional properties.</p>\n<p><em><strong>Arrow of Restraint.</strong></em> Whenever you use this weapon to make a ranged attack against a creature, you can try to restrain the target instead of dealing damage to it. If the arrow hits, the target must succeed on a DC 15 Strength saving throw or have the Restrained condition for 1 minute. As an action, a creature Restrained by an arrow can make a DC 20 Strength (Athletics) check to try to break the restraint, ending the effect on itself on a successful check.</p>\n<p><em><strong>Arrow of Transport.</strong></em> As a Magic action, you can fire one energy arrow from this weapon at a target you can see within 60 feet of yourself. The target can be either a willing Medium or smaller creature or an object that isn’t being worn or carried, provided the object is small enough to fit inside a 5-foot Cube. The arrow teleports the target to an unoccupied space you can see within 10 feet of you.</p>\n<p><em><strong>Energy Ladder.</strong></em> As a Magic action, you can loose a flurry of energy arrows from this weapon at a wall up to 60 feet away from yourself. The arrows become glowing rungs that stick out of the wall, forming a magical ladder up to 60 feet long on the wall. This ladder lasts for 1 minute before disappearing.</p>\n\n\n\n\n",
+      "sha256": "493286649fd385d66f7fec2d6f564204be354af6ff2d60fd05992d09372440a0",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Energy%20Bow?expansion=33335",
-      "paragraphs": 6,
+      "paragraphs": 5,
       "tables": 0
     },
     "items:eyes of charming": {
@@ -6315,10 +6315,10 @@
       "tables": 0
     },
     "templates:flame tongue": {
-      "html": "\n\n<p>While holding this magic weapon, you can take a Bonus Action and use a command word to cause flames to engulf the damage-dealing part of the weapon. These flames shed Bright Light in a 40-foot radius and Dim Light for an additional 40 feet. While the weapon is ablaze, it deals an extra 2d6 Fire damage on a hit. The flames last until you take a Bonus Action to issue the command again or until you drop, stow, or sheathe the weapon.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "ed0b76845ed5a464f660010be6bd84f7bb4b06063991667ea19c796289fac878",
+      "html": "\n\n<p>While holding this magic weapon, you can take a Bonus Action and use a command word to cause flames to engulf the damage-dealing part of the weapon. These flames shed Bright Light in a 40-foot radius and Dim Light for an additional 40 feet. While the weapon is ablaze, it deals an extra 2d6 Fire damage on a hit. The flames last until you take a Bonus Action to issue the command again or until you drop, stow, or sheathe the weapon.</p>\n\n\n",
+      "sha256": "45141ca570e1df8ab4ce5cf5ef624206f701ee701212a64b1ef7687a03f27e1e",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Flame%20Tongue?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:serpentine owl figurine of wondrous power": {
@@ -6336,10 +6336,10 @@
       "tables": 0
     },
     "templates:frost brand": {
-      "html": "\n\n<p>When you hit with an attack roll using this magic weapon, the target takes an extra 1d6 Cold damage. In addition, while you hold the weapon, you have Resistance to Fire damage.</p>\n<p>In freezing temperatures, the weapon sheds Bright Light in a 10-foot radius and Dim Light for an additional 10 feet.</p>\n<p>When you draw this weapon, you can extinguish all nonmagical flames within 30 feet of yourself. Once used, this property can’t be used again for 1 hour.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "0a98aaeb0751d79d345ac69eb8b87806f70fb2a543416f4f1014720f775eee2c",
+      "html": "\n\n<p>When you hit with an attack roll using this magic weapon, the target takes an extra 1d6 Cold damage. In addition, while you hold the weapon, you have Resistance to Fire damage.</p>\n<p>In freezing temperatures, the weapon sheds Bright Light in a 10-foot radius and Dim Light for an additional 10 feet.</p>\n<p>When you draw this weapon, you can extinguish all nonmagical flames within 30 feet of yourself. Once used, this property can’t be used again for 1 hour.</p>\n\n\n",
+      "sha256": "dfae4ddd8947aa3e6eb3da87db3bc779fc095fc91043d7623770e0e2ffc0e64c",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Frost%20Brand?expansion=33335",
-      "paragraphs": 4,
+      "paragraphs": 3,
       "tables": 0
     },
     "items:gloves of missile snaring": {
@@ -6378,10 +6378,10 @@
       "tables": 0
     },
     "templates:giant slayer": {
-      "html": "\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p>When you hit a Giant with this weapon, the Giant takes an extra 2d6 damage of the weapon’s type and must succeed on a DC 15 Strength saving throw or have the Prone condition.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "010e660aa4ecba579c999a6be733ef56b8098a07222bafd5a95e81feb899d504",
+      "html": "\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p>When you hit a Giant with this weapon, the Giant takes an extra 2d6 damage of the weapon’s type and must succeed on a DC 15 Strength saving throw or have the Prone condition.</p>\n\n\n",
+      "sha256": "137aa38388dddc8a25d279dc5908f8936c8dd22b496a29c48ff7d03584bf511c",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Giant%20Slayer?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:gloves of thievery": {
@@ -6399,10 +6399,10 @@
       "tables": 1
     },
     "templates:hammer of thunderbolts": {
-      "html": "\n\n\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p>The weapon has 5 charges. You can expend 1 charge and make a ranged attack with the weapon, hurling it as if it had the Thrown property with a normal range of 20 feet and a long range of 60 feet. If the attack hits, the weapon unleashes a thunderclap audible out to 300 feet. The target and every creature within 30 feet of it other than you must succeed on a DC 17 Constitution saving throw or have the Stunned condition until the end of your next turn. Immediately after hitting or missing, the weapon flies back to your hand. The weapon regains 1d4 + 1 expended charges daily at dawn.</p>\n<p><em><strong>Giant’s Bane.</strong></em> While you are attuned to the weapon and wearing either a <em>Belt of Giant Strength</em> or <em>Gauntlets of Ogre Power</em> to which you are also attuned, you gain the following benefits:</p>\n<p><strong>Giants’ Bane.</strong> When you roll a 20 on the d20 for an attack roll made with this weapon against a Giant, the creature must succeed on a DC 17 Constitution saving throw or die.</p>\n<p><strong>Might of Giants.</strong> The Strength score bestowed by your <em>Belt of Giant Strength</em> or <em>Gauntlets of Ogre Power</em> increases by 4, to a maximum of 30.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n\n\n",
-      "sha256": "66832bd58919488349919d837e58b952903d0d3d964600bd21f5075d56231a50",
+      "html": "\n\n\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p>The weapon has 5 charges. You can expend 1 charge and make a ranged attack with the weapon, hurling it as if it had the Thrown property with a normal range of 20 feet and a long range of 60 feet. If the attack hits, the weapon unleashes a thunderclap audible out to 300 feet. The target and every creature within 30 feet of it other than you must succeed on a DC 17 Constitution saving throw or have the Stunned condition until the end of your next turn. Immediately after hitting or missing, the weapon flies back to your hand. The weapon regains 1d4 + 1 expended charges daily at dawn.</p>\n<p><em><strong>Giant’s Bane.</strong></em> While you are attuned to the weapon and wearing either a <em>Belt of Giant Strength</em> or <em>Gauntlets of Ogre Power</em> to which you are also attuned, you gain the following benefits:</p>\n<p><strong>Giants’ Bane.</strong> When you roll a 20 on the d20 for an attack roll made with this weapon against a Giant, the creature must succeed on a DC 17 Constitution saving throw or die.</p>\n<p><strong>Might of Giants.</strong> The Strength score bestowed by your <em>Belt of Giant Strength</em> or <em>Gauntlets of Ogre Power</em> increases by 4, to a maximum of 30.</p>\n\n\n\n\n",
+      "sha256": "23d56b0129d7130a7e5f8b6937c15b5242c65d571062d520162465a2c5d5dfa7",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Hammer%20of%20Thunderbolts?expansion=33335",
-      "paragraphs": 6,
+      "paragraphs": 5,
       "tables": 0
     },
     "items:headband of intellect": {
@@ -6448,10 +6448,10 @@
       "tables": 0
     },
     "templates:holy avenger": {
-      "html": "\n\n<p>You gain a +3 bonus to attack rolls and damage rolls made with this magic weapon. When you hit a Fiend or an Undead with it, that creature takes an extra 2d10 Radiant damage.</p>\n<p>While you hold the drawn weapon, it creates a 10-foot Emanation originating from you. You and all creatures Friendly to you in the Emanation have Advantage on saving throws against spells and other magical effects. If you have 17 or more levels in the Paladin class, the size of the Emanation increases to 30 feet.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "53c679ebd25d8582db17c075a8f6d238f5ae62b157045e73c9a87e82a6039e9b",
+      "html": "\n\n<p>You gain a +3 bonus to attack rolls and damage rolls made with this magic weapon. When you hit a Fiend or an Undead with it, that creature takes an extra 2d10 Radiant damage.</p>\n<p>While you hold the drawn weapon, it creates a 10-foot Emanation originating from you. You and all creatures Friendly to you in the Emanation have Advantage on saving throws against spells and other magical effects. If you have 17 or more levels in the Paladin class, the size of the Emanation increases to 30 feet.</p>\n\n\n",
+      "sha256": "b03eb6569b682a1d6533bd718b26df647e9bda45afadf360d0db041560d18f08",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Holy%20Avenger?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:helm of comprehending languages": {
@@ -6651,10 +6651,10 @@
       "tables": 0
     },
     "templates:luck blade": {
-      "html": "\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon. While the weapon is on your person, you also gain a +1 bonus to saving throws.</p>\n<p><em><strong>Luck.</strong></em> If the weapon is on your person, you can call on its luck (no action required) to reroll one failed D20 Test if you don’t have the Incapacitated condition. You must use the second roll. Once used, this property can’t be used again until the next dawn.</p>\n<p><em><strong>Wish.</strong> </em>The weapon has 1d3 charges. While holding it, you can expend 1 charge and cast <em>Wish</em> from it. Once used, this property can’t be used again until the next dawn. The weapon loses this property if it has no charges.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "d9897cd51a2dcc7094522b0ceaf4ecdf8419a715720d53b0f7fa60a3685ba3e8",
+      "html": "\n\n<p>You gain a +1 bonus to attack rolls and damage rolls made with this magic weapon. While the weapon is on your person, you also gain a +1 bonus to saving throws.</p>\n<p><em><strong>Luck.</strong></em> If the weapon is on your person, you can call on its luck (no action required) to reroll one failed D20 Test if you don’t have the Incapacitated condition. You must use the second roll. Once used, this property can’t be used again until the next dawn.</p>\n<p><em><strong>Wish.</strong> </em>The weapon has 1d3 charges. While holding it, you can expend 1 charge and cast <em>Wish</em> from it. Once used, this property can’t be used again until the next dawn. The weapon loses this property if it has no charges.</p>\n\n\n",
+      "sha256": "ee4bb1b289005591271cd1c9c80ce4123cc0c08da94a68f33f4228445f281ab0",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Luck%20Blade?expansion=33335",
-      "paragraphs": 4,
+      "paragraphs": 3,
       "tables": 0
     },
     "items:manual of gainful exercise": {
@@ -6707,10 +6707,10 @@
       "tables": 0
     },
     "templates:mithral armor": {
-      "html": "\n\n<p>Mithral is a light, flexible metal. Armor made of this substance can be worn under normal clothes. If the armor normally imposes Disadvantage on Dexterity (Stealth) checks or has a Strength requirement, the mithral version of the armor doesn’t.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "430ef2e05138a416e4006fa8557d026367a91b01ecbea0d8d87712da8db28217",
+      "html": "\n\n<p>Mithral is a light, flexible metal. Armor made of this substance can be worn under normal clothes. If the armor normally imposes Disadvantage on Dexterity (Stealth) checks or has a Strength requirement, the mithral version of the armor doesn’t.</p>\n\n\n",
+      "sha256": "930e2c332a2eb288c29bf69c5b5dd471d6d4fbe733a9ddb1c63d55dd5f37da0c",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Mithral%20Armor?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:medallion of thoughts": {
@@ -6735,10 +6735,10 @@
       "tables": 0
     },
     "templates:oathbow": {
-      "html": "\n\n<p>When you nock an arrow on this bow, it whispers in Elvish, “Swift defeat to my enemies.” When you use this weapon to make a ranged attack, you can utter or sign the following command words: “Swift death to you who have wronged me.” The target of your attack becomes your sworn enemy until it dies or until dawn 7 days later. You can have only one such sworn enemy at a time. When your sworn enemy dies, you can choose a new one after the next dawn.</p>\n<p>When you make a ranged attack roll with this weapon against your sworn enemy, you have Advantage on the roll. In addition, your target gains no benefit from Half Cover or Three-Quarters Cover, and you suffer no Disadvantage due to long range. If the attack hits, your sworn enemy takes an extra 3d6 Piercing damage.</p>\n<p>While your sworn enemy lives, you have Disadvantage on attack rolls with all other weapons.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "6266f9e7868aa4f6ec18c3274b0a29eb9eed6cc3b0e209fe53aa3ca277ddf64f",
+      "html": "\n\n<p>When you nock an arrow on this bow, it whispers in Elvish, “Swift defeat to my enemies.” When you use this weapon to make a ranged attack, you can utter or sign the following command words: “Swift death to you who have wronged me.” The target of your attack becomes your sworn enemy until it dies or until dawn 7 days later. You can have only one such sworn enemy at a time. When your sworn enemy dies, you can choose a new one after the next dawn.</p>\n<p>When you make a ranged attack roll with this weapon against your sworn enemy, you have Advantage on the roll. In addition, your target gains no benefit from Half Cover or Three-Quarters Cover, and you suffer no Disadvantage due to long range. If the attack hits, your sworn enemy takes an extra 3d6 Piercing damage.</p>\n<p>While your sworn enemy lives, you have Disadvantage on attack rolls with all other weapons.</p>\n\n\n",
+      "sha256": "f564e9a469048c7d69a089a2aae2fbbb98411e3281f26f167236519c84cf17d7",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Oathbow?expansion=33335",
-      "paragraphs": 4,
+      "paragraphs": 3,
       "tables": 0
     },
     "items:necklace of adaptation": {
@@ -6756,10 +6756,10 @@
       "tables": 0
     },
     "templates:nine lives stealer": {
-      "html": "\n\n<p>You gain a +2 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p><em><strong>Life Stealing.</strong></em> The weapon has 1d8 + 1 charges. When you attack a creature that has fewer than 100 Hit Points with this weapon and roll a 20 on the d20 for the attack roll, the creature must succeed on a DC 15 Constitution saving throw or be slain instantly as the sword tears its life force from its body. Constructs and Undead succeed on the save automatically. The weapon loses 1 charge if the creature is slain. When the weapon has no charges remaining, it loses this property.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "c6dcd3df639d7574d15acd240345f80f89e802f43889070f554bffdb0d515ead",
+      "html": "\n\n<p>You gain a +2 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p><em><strong>Life Stealing.</strong></em> The weapon has 1d8 + 1 charges. When you attack a creature that has fewer than 100 Hit Points with this weapon and roll a 20 on the d20 for the attack roll, the creature must succeed on a DC 15 Constitution saving throw or be slain instantly as the sword tears its life force from its body. Constructs and Undead succeed on the save automatically. The weapon loses 1 charge if the creature is slain. When the weapon has no charges remaining, it loses this property.</p>\n\n\n",
+      "sha256": "53a2bfecfb36beb3b9a66532046e78746ecb09d0b6a63074addbaa74fcf6cb09",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Nine%20Lives%20Stealer?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:oil of sharpness": {
@@ -6805,10 +6805,10 @@
       "tables": 0
     },
     "templates:plate armor of etherealness": {
-      "html": "\n\n<p>While you’re wearing this armor, you can take a Magic action and use a command word to gain the effect of the <em>Etherealness</em> spell. The spell ends immediately if you remove the armor or take a Magic action to repeat the command word. This property of the armor can’t be used again until the next dawn.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "e2eb89703ac8ed60cbda813f3401374688085ac4d1fb11d3402177eaefcb6fc5",
+      "html": "\n\n<p>While you’re wearing this armor, you can take a Magic action and use a command word to gain the effect of the <em>Etherealness</em> spell. The spell ends immediately if you remove the armor or take a Magic action to repeat the command word. This property of the armor can’t be used again until the next dawn.</p>\n\n\n",
+      "sha256": "c6e738fd00707fc65521f86da5ac091c97de9ecb0515a40aeaebc0dcd98d1c96",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Plate%20Armor%20of%20Etherealness?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:pipes of the sewers": {
@@ -7673,10 +7673,10 @@
       "tables": 1
     },
     "templates:sword of life stealing": {
-      "html": "\n\n<p>When you attack a creature with this magic weapon and roll a 20 on the d20 for the attack roll, that target takes an extra 15 Necrotic damage if it isn’t a Construct or an Undead, and you gain Temporary Hit Points equal to the amount of Necrotic damage taken.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "83dde8bb0c5160c13c3e1eb1498ae0484176e5b85dacad569d75d24b19739e38",
+      "html": "\n\n<p>When you attack a creature with this magic weapon and roll a 20 on the d20 for the attack roll, that target takes an extra 15 Necrotic damage if it isn’t a Construct or an Undead, and you gain Temporary Hit Points equal to the amount of Necrotic damage taken.</p>\n\n\n",
+      "sha256": "b7b02603f984f8f56e252beed75e93ef354126fffe03e338644722cd7dff5b56",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Sword%20of%20Life%20Stealing?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:stone of good luck (luckstone)": {
@@ -7694,10 +7694,10 @@
       "tables": 1
     },
     "templates:sword of wounding": {
-      "html": "\n\n<p>When you hit a creature with an attack using this magic weapon, the target takes an extra 2d6 Necrotic damage and must succeed on a DC 15 Constitution saving throw or be unable to regain Hit Points for 1 hour. The target repeats the save at the end of each of its turns, ending the effect on itself on a success.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "68dc83620bc3d91da5ed4e1f3d3a11f49f1278db540ef0948209ae9b298e3dfa",
+      "html": "\n\n<p>When you hit a creature with an attack using this magic weapon, the target takes an extra 2d6 Necrotic damage and must succeed on a DC 15 Constitution saving throw or be unable to regain Hit Points for 1 hour. The target repeats the save at the end of each of its turns, ending the effect on itself on a success.</p>\n\n\n",
+      "sha256": "b03f98424eb1012bb4129bf70001944db1a589d330f1af32be3ef8c9d22a9d87",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Sword%20of%20Wounding?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:sun blade": {
@@ -7750,17 +7750,17 @@
       "tables": 0
     },
     "templates:sword of sharpness": {
-      "html": "\n\n<p>When you attack an object with this magic weapon and hit, maximize your weapon damage dice against the target.</p>\n<p>When you attack a creature with this weapon and roll a 20 on the d20 for the attack roll, that target takes an extra 14 Slashing damage and gains 1 Exhaustion level.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "6bfd94de37b33f516bbad2893ffbfad38a24cfc9c0ca9bab588cdbb890b29010",
+      "html": "\n\n<p>When you attack an object with this magic weapon and hit, maximize your weapon damage dice against the target.</p>\n<p>When you attack a creature with this weapon and roll a 20 on the d20 for the attack roll, that target takes an extra 14 Slashing damage and gains 1 Exhaustion level.</p>\n\n\n",
+      "sha256": "6a68a40f0a8cefcd6a59b6238139d35c861e79983721eae9495a92124373cc40",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Sword%20of%20Sharpness?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "templates:vicious weapon": {
-      "html": "\n\n<p>This magic weapon deals an extra 2d6 damage to any creature it hits. This extra damage is of the same type as the weapon’s normal damage.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "2df002b15fa91e004fc79e0bd0eb33653397128a587e2488c399ae4ac76a37ef",
+      "html": "\n\n<p>This magic weapon deals an extra 2d6 damage to any creature it hits. This extra damage is of the same type as the weapon’s normal damage.</p>\n\n\n",
+      "sha256": "b5e72eda3389048e2979a20936e57da58b52428faaf668f0e09d6db8765e39bd",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Vicious%20Weapon?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:universal solvent": {
@@ -7799,10 +7799,10 @@
       "tables": 1
     },
     "templates:vorpal sword": {
-      "html": "\n\n<p>You gain a +3 bonus to attack rolls and damage rolls made with this magic weapon. In addition, the weapon ignores Resistance to Slashing damage.</p>\n<p>When you use this weapon to attack a creature that has at least one head and roll a 20 on the d20 for the attack roll, you cut off one of the creature’s heads. The creature dies if it can’t survive without the lost head. A creature is immune to this effect if it has Immunity to Slashing damage, if it doesn’t have or need a head, or if the DM decides that the creature is too big for its head to be cut off with this weapon. Such a creature instead takes an extra 30 Slashing damage from the hit. If the creature has Legendary Resistance, it can expend one daily use of that trait to avoid losing its head, taking the extra damage instead.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "a3291dc474a18db95d5771c2a7d58ac2b7cf116136e5eed3770caa471dd41d7c",
+      "html": "\n\n<p>You gain a +3 bonus to attack rolls and damage rolls made with this magic weapon. In addition, the weapon ignores Resistance to Slashing damage.</p>\n<p>When you use this weapon to attack a creature that has at least one head and roll a 20 on the d20 for the attack roll, you cut off one of the creature’s heads. The creature dies if it can’t survive without the lost head. A creature is immune to this effect if it has Immunity to Slashing damage, if it doesn’t have or need a head, or if the DM decides that the creature is too big for its head to be cut off with this weapon. Such a creature instead takes an extra 30 Slashing damage from the hit. If the creature has Legendary Resistance, it can expend one daily use of that trait to avoid losing its head, taking the extra damage instead.</p>\n\n\n",
+      "sha256": "a1905999bcce3fa5d031a5b5f30cce09f62cc71d3fa7ed47c2f32afb712bd350",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Vorpal%20Sword?expansion=33335",
-      "paragraphs": 3,
+      "paragraphs": 2,
       "tables": 0
     },
     "items:wand of lightning bolts": {
@@ -7897,17 +7897,17 @@
       "tables": 0
     },
     "templates:weapon +1": {
-      "html": "\n\n<p>You have a +1 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "0ae68e9a04f9110afcc8f335ae724da089442575c47d46fd4fb202d8fa57e550",
+      "html": "\n\n<p>You have a +1 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n\n\n",
+      "sha256": "4c221b5d4efd78af7d374add53f6eb0a904da4e24f141d530901b208cad144bb",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Weapon%20+1?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "templates:weapon +2": {
-      "html": "\n\n<p>You have a +2 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "0f2c18914a490ae7a0f85917e26298d7fbd16d2064606a8019931b8cca074886",
+      "html": "\n\n<p>You have a +2 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n\n\n",
+      "sha256": "2b90af3ff8c85a77f69184c4ae7941698dfab361db0ef70a1e810c33ffd25d8e",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Weapon%20+2?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:well of many worlds": {
@@ -7918,10 +7918,10 @@
       "tables": 0
     },
     "templates:weapon of warning": {
-      "html": "\n\n<p>As long as this weapon is within your reach and you are attuned to it, you and allies within 30 feet of you gain the following benefits.</p>\n<p><em><strong>Alarm.</strong></em> The weapon magically awakens each subject who is sleeping naturally when combat begins. This benefit doesn’t wake a subject from magically induced sleep.</p>\n<p><em><strong>Supernatural Readiness.</strong></em> Each subject has Advantage on its Initiative rolls.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "13946eadbd412a7c57de89c67dc36b8f1ccdea856bd9dd9277f83b5c1517998a",
+      "html": "\n\n<p>As long as this weapon is within your reach and you are attuned to it, you and allies within 30 feet of you gain the following benefits.</p>\n<p><em><strong>Alarm.</strong></em> The weapon magically awakens each subject who is sleeping naturally when combat begins. This benefit doesn’t wake a subject from magically induced sleep.</p>\n<p><em><strong>Supernatural Readiness.</strong></em> Each subject has Advantage on its Initiative rolls.</p>\n\n\n",
+      "sha256": "b3303a12004517b52b3912ced89a944f3a0dd6d3d61911016037b3f2ef645efb",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Weapon%20of%20Warning?expansion=33335",
-      "paragraphs": 4,
+      "paragraphs": 3,
       "tables": 0
     },
     "items:winged boots": {
@@ -7939,10 +7939,10 @@
       "tables": 0
     },
     "templates:weapon +3": {
-      "html": "\n\n<p>You have a +3 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n<p><em><strong>Roll20 Note: This item is not supported for drag and drop.</strong></em></p>\n\n",
-      "sha256": "6219ea05f2830ae80abe719d8dc05a5ecca98664c7e6875f7a27cd37762b01c9",
+      "html": "\n\n<p>You have a +3 bonus to attack rolls and damage rolls made with this magic weapon.</p>\n\n\n",
+      "sha256": "5e986c07035a0bef0cdd2a098bd09c6c9d225bb7cd4fcce9c325eca5a0a3fc7f",
       "source_url": "https://roll20.net/compendium/dnd5e/Templates:Weapon%20+3?expansion=33335",
-      "paragraphs": 2,
+      "paragraphs": 1,
       "tables": 0
     },
     "items:wings of flying": {
