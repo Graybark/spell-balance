@@ -37,9 +37,17 @@ def index(expansion):
         href=urljoin(url,a['href'])
         if not any(p in href for p in ('/Items:','/Templates:')):continue
         li=a.find_parent('li')
-        ancestors=list(li.find_parents('li'))
-        family=ancestors[-1].find('a',href=True) if ancestors else a
-        records.append({'name':re.sub(r'\s*\(Template\)$','',a.get_text(' ',strip=True)),
+        family=a
+        parent_ul=li.find_parent('ul')
+        while parent_ul is not ul:
+            # Roll20 places child ULs beside the owning LI, rather than inside it.
+            owner=parent_ul.parent if parent_ul.parent.name=='li' else parent_ul.find_previous_sibling('li')
+            if owner:
+                owner_link=owner.find('a',href=True)
+                if owner_link:family=owner_link
+            parent_ul=parent_ul.find_parent('ul')
+            assert parent_ul is not None,'Unowned variant list'
+        records.append({'name':re.sub(r'\s*\(Template\)$','',a.get_text())),
                         'key':key(href),'url':href,'family_key':key(urljoin(url,family['href'])),
                         'is_template':'/Templates:' in href,'id':identifier(href)})
     assert len(records)>300,(url,len(records))
@@ -60,7 +68,7 @@ def item(record,full):
     html=fetch(record['url'])
     soup=BeautifulSoup(html,'html.parser',parse_only=SoupStrainer('div',class_=lambda c:c and 'page' in c.split()))
     title=soup.select_one('.page__title')
-    assert title and title.get_text(' ',strip=True).casefold()==record['name'].casefold(),('Wrong item edition/title',record['name'])
+    assert title and re.sub(r'[^a-z0-9]','',title.get_text(' ',strip=True).casefold())==re.sub(r'[^a-z0-9]','',record['name'].casefold()),('Wrong item edition/title',record['name'])
     selected=soup.select_one('#expansion-select option[selected]')
     if selected:assert '(2024)' in selected.get_text(),('Wrong edition',record['name'])
     body=soup.select_one('.page__body')
@@ -71,7 +79,7 @@ def item(record,full):
     header.decompose()
     for el in list(body.select('script,style,img,picture,figure,iframe,svg,button,.clearfix')):
         el.decompose()
-    before=re.sub(r'\s+',' ',body.get_text(' ',strip=True))
+    before=re.sub(r'\s+',' ',body.get_text()))
     original_paragraphs=len(body.select('p'))
     original_tables=len(body.select('table'))
     for el in list(body.find_all(True)):
@@ -86,7 +94,7 @@ def item(record,full):
             allowed={k:v for k,v in el.attrs.items() if k in ('colspan','rowspan','scope')}
         el.attrs=allowed
     clean=body.decode_contents()
-    after=re.sub(r'\s+',' ',BeautifulSoup(clean,'html.parser').get_text(' ',strip=True))
+    after=re.sub(r'\s+',' ',BeautifulSoup(clean,'html.parser').get_text()))
     assert before==after,('Source text changed in sanitization',record['name'])
     assert original_paragraphs==len(BeautifulSoup(clean,'html.parser').select('p'))
     result['description']={'html':clean,'sha256':hashlib.sha256(clean.encode()).hexdigest(),
@@ -102,7 +110,11 @@ def main():
     tasks={r['key']:(r,True) for r in free}
     for r in dmg:
         if r['key']==r['family_key'] and r['key'] not in tasks:tasks[r['key']]=(r,False)
-    fetched={}; errors=[]
+    cache=ROOT/'data/magic-items-import-cache.json'
+    fetched=json.loads(cache.read_text()) if cache.exists() else {}
+    tasks={k:v for k,v in tasks.items() if k not in fetched}
+    print('SOURCE_TASKS',len(tasks),'CACHED',len(fetched),flush=True)
+    errors=[]
     with ThreadPoolExecutor(max_workers=6) as pool:
         futures={pool.submit(item,r,full):(k,r,full) for k,(r,full) in tasks.items()}
         for i,f in enumerate(as_completed(futures),1):
@@ -111,7 +123,10 @@ def main():
             except Exception as e:
                 if full:errors.append([r['name'],str(e)])
                 else:fetched[k]={'metadata':{'type':'Not listed','rarity':'Not listed','attunement':None,'attunement_text':'Not listed','subtitle':''},'metadata_source':r['url'],'metadata_error':str(e)}
-            if i%25==0 or i==len(futures):print('FETCHED',i,'/',len(futures),'ERRORS',len(errors),flush=True)
+            if i%25==0 or i==len(futures):
+                cache.write_text(json.dumps(fetched,ensure_ascii=False))
+                print('FETCHED',i,'/',len(futures),'ERRORS',len(errors),flush=True)
+    cache.write_text(json.dumps(fetched,ensure_ascii=False))
     assert not errors,errors
     descriptions={k:v['description'] for k,v in fetched.items() if 'description' in v}
     entries=[]
