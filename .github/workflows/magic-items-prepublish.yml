@@ -1,4 +1,4 @@
-name: Inspect 2024 magic item sources
+name: Inspect magic item content and metadata
 on:
   push:
     branches: [feature/magic-items-20261026]
@@ -44,4 +44,10 @@ jobs:
                       print('NODE',selector,str(node)[:18000])
                       break
               print('HEADINGS',[(h.name,h.get_text(' ',strip=True)) for h in s.find_all(['h1','h2','h3','h4'])][-15:])
+              if 'Items:' in url:
+                  for h in s.find_all('h1'):
+                      print('H1_PARENTS',[(p.name,p.attrs) for p in list(h.parents)[:4]])
+                      print('H1_CONTAINER',str(h.parent.parent)[:26000])
+                  print('DESCRIPTION_NODES',[(e.name,e.attrs) for e in s.find_all(class_=lambda c:c and any(w in c.lower() for w in ['content','description','attribute']))][:50])
+
           PY
