@@ -47,7 +47,7 @@ def index(expansion):
                 if owner_link:family=owner_link
             parent_ul=parent_ul.find_parent('ul')
             assert parent_ul is not None,'Unowned variant list'
-        records.append({'name':re.sub(r'\s*\(Template\)$','',a.get_text())),
+        records.append({'name':re.sub(r'\s*\(Template\)$','',a.get_text()),
                         'key':key(href),'url':href,'family_key':key(urljoin(url,family['href'])),
                         'is_template':'/Templates:' in href,'id':identifier(href)})
     assert len(records)>300,(url,len(records))
@@ -79,7 +79,7 @@ def item(record,full):
     header.decompose()
     for el in list(body.select('script,style,img,picture,figure,iframe,svg,button,.clearfix')):
         el.decompose()
-    before=re.sub(r'\s+',' ',body.get_text()))
+    before=re.sub(r'\s+',' ',body.get_text())
     original_paragraphs=len(body.select('p'))
     original_tables=len(body.select('table'))
     for el in list(body.find_all(True)):
@@ -94,7 +94,7 @@ def item(record,full):
             allowed={k:v for k,v in el.attrs.items() if k in ('colspan','rowspan','scope')}
         el.attrs=allowed
     clean=body.decode_contents()
-    after=re.sub(r'\s+',' ',BeautifulSoup(clean,'html.parser').get_text()))
+    after=re.sub(r'\s+',' ',BeautifulSoup(clean,'html.parser').get_text())
     assert before==after,('Source text changed in sanitization',record['name'])
     assert original_paragraphs==len(BeautifulSoup(clean,'html.parser').select('p'))
     result['description']={'html':clean,'sha256':hashlib.sha256(clean.encode()).hexdigest(),

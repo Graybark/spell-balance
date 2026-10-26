@@ -1,4 +1,4 @@
-name: Import grouped 2024 magic item catalog
+name: Import 2024 item families and variants
 on:
   push:
     branches: [feature/magic-items-20261026]
