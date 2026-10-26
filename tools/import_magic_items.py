@@ -21,14 +21,14 @@ def fetch(url):
     error=None
     for attempt in range(3):
         try:
-            return urlopen(Request(url,headers={'User-Agent':'Mozilla/5.0 (compatible; SpellwrightReference/1.0)'}),timeout=40).read()
+            return urlopen(Request(url,headers={'User-Agent':'Mozilla/5.0'}),timeout=40).read()
         except Exception as e:
             error=e
             time.sleep(attempt+1)
     raise RuntimeError(str(error)+' '+url)
 def index(expansion):
     url=INDEX+expansion
-    soup=BeautifulSoup(fetch(url),'html.parser',parse_only=SoupStrainer('div',class_='page'))
+    soup=BeautifulSoup(fetch(url),'html.parser',parse_only=SoupStrainer('div',class_=lambda c:c and 'page' in c.split()))
     heading=next((h for h in soup.find_all(['h2','h3']) if h.get_text(' ',strip=True)=='Magic Items A–Z'),None)
     assert heading is not None,'Missing 2024 A–Z index'
     ul=heading.find_next('ul')
@@ -58,7 +58,7 @@ def metadata(body):
             'attunement_text':attune.group() if attune else 'Not required','subtitle':label},p
 def item(record,full):
     html=fetch(record['url'])
-    soup=BeautifulSoup(html,'html.parser',parse_only=SoupStrainer('div',class_='page'))
+    soup=BeautifulSoup(html,'html.parser',parse_only=SoupStrainer('div',class_=lambda c:c and 'page' in c.split()))
     title=soup.select_one('.page__title')
     assert title and title.get_text(' ',strip=True).casefold()==record['name'].casefold(),('Wrong item edition/title',record['name'])
     selected=soup.select_one('#expansion-select option[selected]')
