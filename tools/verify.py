@@ -81,6 +81,8 @@ def main():
     check_rule_content(page, data, json.loads((ROOT/'data/house-rules.json').read_text()))
     from conditions_test import check_condition_content
     check_condition_content(page, data, json.loads((ROOT/'data/house-rules.json').read_text()))
+    from magic_items_test import check_item_content
+    check_item_content(page)
     # User-supplied PHB 2014 screenshot confirms additive, not asterisk, bonuses.
     elemental=page.find(id='spell-elemental-weapon').select_one('[data-panel="2014"] .original-body').get_text()
     for phrase in ['has a +1 bonus to attack rolls','attack rolls increases to +2','the bonus increases to +3']:

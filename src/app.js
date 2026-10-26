@@ -42,12 +42,14 @@
   const isHouse = () => controls['house-rules-toggle'].checked;
   // Class tables are a separate in-page view reached from the header, not a disclosure.
   // Keep the existing reader, filters and phone-menu preference intact when switching views.
+  const isItemView=()=>location.hash==='#magic-items'||location.hash.startsWith('#item-');
   function syncView(navigate = false) {
     doc.dispatchEvent(new Event('spellwright:navigate'));
     const showingSlots = location.hash === '#spell-slots';
-    doc.documentElement.dataset.view = showingSlots ? 'slots' : 'spells';
+    doc.documentElement.dataset.view = showingSlots ? 'slots' : isItemView() ? 'items' : 'spells';
     doc.querySelectorAll('.section-nav a').forEach(link => {
-      const selected = (link.getAttribute('href') === '#spell-slots') === showingSlots;
+      const href=link.getAttribute('href');
+      const selected=href==='#spell-slots'?showingSlots:href==='#magic-items'?isItemView():!showingSlots&&!isItemView();
       if (selected) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
     });
     setOffsets();
@@ -76,11 +78,11 @@
     active=entry;
     if (!active) return;
     active.card.classList.add('is-active'); active.item.querySelector('a').setAttribute('aria-current','true');
-    if (navigate && location.hash !== '#spell-slots') {
+    if (navigate && location.hash !== '#spell-slots' && !isItemView()) {
       active.card.querySelector('h2').focus({preventScroll:true});
       active.card.scrollIntoView({block:'start'});
     }
-    if (!mobile.matches && location.hash !== '#spell-slots') requestAnimationFrame(() => {
+    if (!mobile.matches && location.hash !== '#spell-slots' && !isItemView()) requestAnimationFrame(() => {
       if (!active) return;
       const nav=menu.querySelector('nav'), r=active.item.getBoundingClientRect(), n=nav.getBoundingClientRect();
       if(r.top<n.top || r.bottom>n.bottom) nav.scrollTop+=r.top-n.top-60;
@@ -160,6 +162,92 @@
   window.addEventListener('hashchange',()=>{syncView(true);if(location.hash!=='#spell-slots')filter(true,true);});
   function setOffsets(){const toolbar=doc.querySelector('.toolbar');const h=matchMedia('(max-width:700px)').matches?0:toolbar.getBoundingClientRect().height;doc.documentElement.style.setProperty('--top',Math.ceil(h+12)+'px');}
   setOffsets();if('ResizeObserver'in window)new ResizeObserver(setOffsets).observe(doc.querySelector('.toolbar'));else window.addEventListener('resize',setOffsets);
+  // Magic items have their own filters, URL parameters and selection state.
+  const itemSection=doc.getElementById('magic-items');
+  const itemControls=Object.fromEntries(['item-search','item-type','item-rarity','item-attunement','item-jump','item-clear','item-reset'].map(id=>[id,doc.getElementById(id)]));
+  const itemList=new Map([...doc.querySelectorAll('#item-menu li')].map(li=>[li.dataset.item,li]));
+  const itemEntries=[...doc.querySelectorAll('.magic-item-card')].map(card=>({card,li:itemList.get(card.id),text:card.textContent.toLocaleLowerCase()}));
+  const itemsById=new Map(itemEntries.map(e=>[e.card.id,e]));
+  const itemMenu=doc.getElementById('item-menu');
+  let activeItem=null,itemTimer;
+  itemMenu.open=!mobile.matches;
+  function writeItemURL(push=false,hash) {
+    const url=new URL(location.href);
+    for(const [param,id] of [['itemq','item-search'],['itemtype','item-type'],['rarity','item-rarity'],['attuned','item-attunement']]) {
+      const value=itemControls[id].value.trim();
+      if(value)url.searchParams.set(param,value);else url.searchParams.delete(param);
+    }
+    if(hash!==undefined)url.hash=hash;
+    try {if(push)history.pushState(null,'',url);else history.replaceState(null,'',url);}catch(_){}
+    syncView();
+  }
+  function filterItems(preferHash=false,navigate=false) {
+    doc.dispatchEvent(new Event('spellwright:navigate'));
+    const q=itemControls['item-search'].value.trim().toLocaleLowerCase();
+    const type=itemControls['item-type'].value,rarity=itemControls['item-rarity'].value,attune=itemControls['item-attunement'].value;
+    const matches=[];
+    for(const e of itemEntries) {
+      const yes=(!q||e.text.includes(q))&&(!type||e.card.dataset.type===type)&&(!rarity||e.card.dataset.rarity===rarity)&&(!attune||e.card.dataset.attunement===attune);
+      e.li.hidden=!yes;if(yes)matches.push(e);
+    }
+    const requested=itemsById.get(location.hash.slice(1));
+    const next=preferHash&&matches.includes(requested)?requested:matches.includes(activeItem)?activeItem:matches[0]||null;
+    if(activeItem){activeItem.card.classList.remove('is-active');activeItem.li.querySelector('a').removeAttribute('aria-current');}
+    activeItem=next;
+    if(activeItem){activeItem.card.classList.add('is-active');activeItem.li.querySelector('a').setAttribute('aria-current','true');}
+    doc.getElementById('item-empty').hidden=matches.length>0;
+    doc.getElementById('item-count').textContent=matches.length+' entries';
+    doc.getElementById('item-sidebar-count').textContent='('+matches.length+')';
+    if(requested&&!matches.includes(requested))writeItemURL(false,activeItem?activeItem.card.id:'magic-items');
+    if(navigate&&isItemView()) {
+      const target=activeItem?activeItem.card.querySelector('h3'):doc.getElementById('magic-items-heading');
+      target.focus({preventScroll:true});target.scrollIntoView({block:'start'});
+    }
+  }
+  function restoreItems(navigate=false) {
+    clearTimeout(itemTimer);
+    const p=new URLSearchParams(location.search);
+    itemControls['item-search'].value=p.get('itemq')||'';
+    for(const [param,id] of [['itemtype','item-type'],['rarity','item-rarity'],['attuned','item-attunement']]) {
+      const control=itemControls[id],want=p.get(param)||'';
+      control.value=[...control.options].some(o=>o.value===want)?want:'';
+    }
+    filterItems(true,navigate);
+  }
+  function clearItems() {
+    clearTimeout(itemTimer);
+    for(const id of ['item-search','item-type','item-rarity','item-attunement'])itemControls[id].value='';
+    writeItemURL();filterItems();
+  }
+  itemControls['item-search'].addEventListener('input',()=>{
+    doc.dispatchEvent(new Event('spellwright:navigate'));
+    clearTimeout(itemTimer);itemTimer=setTimeout(()=>{writeItemURL();filterItems();},100);
+  });
+  for(const id of ['item-type','item-rarity','item-attunement'])itemControls[id].addEventListener('change',()=>{clearTimeout(itemTimer);writeItemURL();filterItems();});
+  itemControls['item-clear'].addEventListener('click',clearItems);
+  itemControls['item-reset'].addEventListener('click',clearItems);
+  function navigateItem(id) {
+    const e=itemsById.get(id);if(!e)return;
+    if(e.li.hidden)for(const control of ['item-search','item-type','item-rarity','item-attunement'])itemControls[control].value='';
+    writeItemURL(true,id);filterItems(true,true);
+  }
+  itemControls['item-jump'].addEventListener('change',()=>{navigateItem(itemControls['item-jump'].value);itemControls['item-jump'].value='';});
+  doc.addEventListener('click',event=>{
+    const a=event.target.closest('a');
+    if(event.defaultPrevented||!a||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+    const href=a.getAttribute('href');
+    if(href?.startsWith('#item-')&&itemsById.has(href.slice(1))) {
+      event.preventDefault();navigateItem(href.slice(1));
+    }else if(href==='#magic-items') {
+      event.preventDefault();writeItemURL(true,'magic-items');filterItems(false,false);
+      doc.getElementById('magic-items-heading').focus({preventScroll:true});itemSection.scrollIntoView({block:'start'});
+    }
+  });
+  window.addEventListener('popstate',()=>restoreItems(isItemView()));
+  window.addEventListener('hashchange',()=>restoreItems(isItemView()));
+  itemSection.querySelectorAll('[disabled]').forEach(c=>{c.disabled=false;});
+  restoreItems();
+
   // Restore state and select the existing card before enabling interactions.
   restore();doc.documentElement.classList.add('enhanced');
   doc.querySelectorAll('.toolbar [disabled]').forEach(control=>{control.disabled=false;});

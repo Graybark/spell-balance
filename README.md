@@ -50,6 +50,16 @@ One shared desktop popover stays open over the word or preview and scrolls when 
 
 `tools/conditions_test.py` checks all 30 edition entries for the original effect counts, bold headings, the 2014 Exhaustion table, absence of popup source links, text/HTML preservation, scope and exact matching, edition-specific content, hover traversal and viewport boundaries, keyboard behavior, touch dismissal and focus, scrolling, navigation cleanup, and no-script fallback. Discussion tests also verify that Mordenkainen’s Sword appears under the Buff filter on desktop and mobile.
 
+## Magic items
+
+The header's Magic Items section is independent of spells and class tables. `data/magic-items.json` contains the union of Roll20's 2024 Free Basic Rules and 2024 Dungeon Master's Guide A–Z indexes, including templates and named variants. Source keys in the coverage manifest make omissions and duplicate records fail validation.
+
+Full descriptions are imported only from Free Basic Rules (2024), preserving paragraphs, emphasis, lists and tables. Other variants can use the matching openly licensed family description and are identified as variants. Entries outside that corpus retain factual metadata and their Roll20 reference; proprietary descriptions are not copied. Unknown source metadata is marked “Not listed.” The original spell catalog and five house rules are unchanged.
+
+`tools/import_magic_items.py` explicitly refreshes the catalog from its two source indexes. This is an editorial maintenance step, not part of a normal build. It checks edition/title, sanitization, readable text, paragraph/table counts, IDs, coverage, and per-description checksums. `tools/magic_items.py` renders every entry before JavaScript. Shared family descriptions are stored once in the source data.
+
+The reader supports search, type, rarity, attunement, jump controls, history and direct `#item-*` links. Item URL filters are `itemq`, `itemtype`, `rarity` and `attuned`; spell filters keep their existing parameters. Condition references reuse the edition-aware popover and touch dialog. Native item list links and descriptions remain usable without JavaScript. `tools/magic_items_test.py` verifies coverage, source text/structure, independent reader state, keyboard/touch interactions, narrow tables and native fallbacks.
+
 ## URLs
 
 Existing `#spell-*` anchors are preserved. Filters use `q`, `class`, `level`, `label` and `rules=official`; class-table selection uses `caster`. Invalid filter values clear safely. The legacy `label=balance` parameter shows all categories. House-rule mode is the default.

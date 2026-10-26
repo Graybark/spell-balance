@@ -218,6 +218,8 @@ async def run(filename):
         await check_reader_copy_browser(browser,url,REPORT)
         from conditions_test import check_condition_browser
         await check_condition_browser(browser,url,REPORT)
+        from magic_items_test import check_item_browser
+        await check_item_browser(browser,url,REPORT)
         await browser.close()
     server.shutdown()
     assert not errors,errors

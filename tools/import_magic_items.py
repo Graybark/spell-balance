@@ -8,6 +8,7 @@ from urllib.parse import urlsplit, unquote, urljoin
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from bs4 import BeautifulSoup, SoupStrainer
 import hashlib, json, re, time
+from datetime import date
 ROOT=Path(__file__).resolve().parents[1]
 INDEX='https://roll20.net/compendium/dnd5e/Rules:Magic%20Items?expansion='
 RARITIES=('Very Rare','Uncommon','Common','Rare','Legendary','Artifact','Varies')
@@ -54,8 +55,11 @@ def index(expansion):
     assert len({r['key'] for r in records})==len(records),'Duplicate source paths'
     return records
 def metadata(body):
-    p=body.find('p') if body else None
-    label=p.get_text(' ',strip=True) if p else ''
+    p=None;label=''
+    for candidate in body.find_all(['p','em','i']) if body else []:
+        value=candidate.get_text(' ',strip=True)
+        if len(value)<400 and re.match(r'^(Armor|Potion|Ring|Rod|Scroll|Staff|Wand|Weapon|Wondrous Item)\b',value,re.I) and re.search(r'\b('+('|'.join(RARITIES))+r')\b',value,re.I):
+            p=candidate;label=value;break
     found=re.search(r'\b('+('|'.join(RARITIES))+r')\b',label,re.I)
     if not found:return {'type':'Not listed','rarity':'Not listed','attunement':None,'attunement_text':'Not listed','subtitle':''},None
     rarity=next(v for v in RARITIES if v.casefold()==found.group().casefold())
@@ -111,8 +115,8 @@ def main():
     for r in dmg:
         if r['key']==r['family_key'] and r['key'] not in tasks:tasks[r['key']]=(r,False)
     cache=ROOT/'data/magic-items-import-cache.json'
-    fetched=json.loads(cache.read_text()) if cache.exists() else {}
-    tasks={k:v for k,v in tasks.items() if k not in fetched}
+    fetched=json.loads(cache.read_text(encoding='utf-8')) if cache.exists() else {}
+    tasks={k:v for k,v in tasks.items() if k not in fetched or fetched[k]['metadata']['type']=='Not listed'}
     print('SOURCE_TASKS',len(tasks),'CACHED',len(fetched),flush=True)
     errors=[]
     with ThreadPoolExecutor(max_workers=6) as pool:
@@ -124,9 +128,9 @@ def main():
                 if full:errors.append([r['name'],str(e)])
                 else:fetched[k]={'metadata':{'type':'Not listed','rarity':'Not listed','attunement':None,'attunement_text':'Not listed','subtitle':''},'metadata_source':r['url'],'metadata_error':str(e)}
             if i%25==0 or i==len(futures):
-                cache.write_text(json.dumps(fetched,ensure_ascii=False))
+                cache.write_text(json.dumps(fetched,ensure_ascii=False),encoding='utf-8')
                 print('FETCHED',i,'/',len(futures),'ERRORS',len(errors),flush=True)
-    cache.write_text(json.dumps(fetched,ensure_ascii=False))
+    cache.write_text(json.dumps(fetched,ensure_ascii=False),encoding='utf-8')
     assert not errors,errors
     descriptions={k:v['description'] for k,v in fetched.items() if 'description' in v}
     entries=[]
@@ -148,7 +152,7 @@ def main():
               'template_count':sum(r['is_template'] for r in entries),
               'metadata_unknown_count':sum(r['type']=='Not listed' for r in entries),
               'free_index_keys':sorted(free_by),'dmg_index_keys':sorted(r['key'] for r in dmg)}
-    output={'edition':'2024','checked_on':'2026-10-26','index_sources':[INDEX+'33335',INDEX+'33359'],
+    output={'edition':'2024','checked_on':date.today().isoformat(),'index_sources':[INDEX+'33335',INDEX+'33359'],
             'coverage':coverage,'descriptions':descriptions,'entries':entries}
     (ROOT/'data/magic-items.json').write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print('COVERAGE',json.dumps({k:v for k,v in coverage.items() if not k.endswith('_keys')}),flush=True)

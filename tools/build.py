@@ -6,6 +6,8 @@ from pathlib import Path
 from bs4 import BeautifulSoup, NavigableString
 from html import escape
 import argparse, copy, hashlib, json, re
+from functools import lru_cache
+from magic_items import render_items
 ROOT=Path(__file__).resolve().parents[1]
 SCHOOLS={s:s.lower()+'.svg' for s in ['Abjuration','Conjuration','Divination','Enchantment','Evocation','Illusion','Necromancy','Transmutation']}
 CLASS_NAMES=['Bard','Cleric','Druid','Paladin','Ranger','Sorcerer','Warlock','Wizard']
@@ -20,6 +22,7 @@ NONCONDITION_INVISIBLE=re.compile(r'^\s*,?\s*(?:(?:invulnerable|magical|floating
 def condition_url(name,edition):
     title=name.title()
     return ('https://roll20.net/compendium/dnd5e/Rules:Rules%20Definitions?expansion=33335#'+title+'%20%5BCondition%5D') if edition=='2024' else ('https://roll20.net/compendium/dnd5e/Conditions#'+title)
+@lru_cache(maxsize=4096)
 def link_conditions(html,edition):
     """Decorate rendered spell text only. Leave original catalog entries and hashes untouched."""
     soup=BeautifulSoup(html,'html.parser')
@@ -214,12 +217,13 @@ def build(output, check=False):
 <!-- State only; the complete layout and rules are already static HTML. -->
 <script>try{document.documentElement.dataset.rules=new URLSearchParams(location.search).get('rules')==='official'?'official':'house'}catch(e){}</script>
 '''+f'<link rel="stylesheet" href="assets/{cssname}">\n<script defer src="assets/{jsname}"></script>\n</head>\n<body>\n'
-    page+='<a class="skip-link" href="#spells">Skip to spells</a><header class="site-header"><div class="header-inner"><a class="brand" href="#spells"><img src="favicon.svg?v=d20-brand-1" width="52" height="52" alt=""><div><h1>Spellwright</h1><small>D&amp;D Spell Reference &amp; House Rules</small></div></a><nav class="section-nav" aria-label="Page sections"><a href="#spell-slots">Spell Slots</a><a href="#spells">Browse spells</a></nav><details class="overview"><summary>Overview</summary><div class="counts">'+''.join('<span>'+esc(x)+'</span>' for x in overview)+f'<span>{len(house)} house rules</span></div></details></div></header>'
+    page+='<a class="skip-link" href="#spells">Skip to spells</a><header class="site-header"><div class="header-inner"><a class="brand" href="#spells"><img src="favicon.svg?v=d20-brand-1" width="52" height="52" alt=""><div><h1>Spellwright</h1><small>D&amp;D Spell Reference &amp; House Rules</small></div></a><nav class="section-nav" aria-label="Page sections"><a href="#spell-slots">Spell Slots</a><a href="#spells">Browse spells</a><a href="#magic-items">Magic Items</a></nav><details class="overview"><summary>Overview</summary><div class="counts">'+''.join('<span>'+esc(x)+'</span>' for x in overview)+f'<span>{len(house)} house rules</span></div></details></div></header>'
     page+='<nav class="toolbar" aria-label="Find spells"><div class="toolbar-inner">'+toolbar+'</div></nav>'
     page+='<main class="content"><section id="spell-slots" class="slot-section" aria-labelledby="spell-slots-heading"><header class="slot-view-header"><h2 id="spell-slots-heading" tabindex="-1">Spell Slots (Full Casters)</h2><a class="back-to-spells" href="#spells">Back to spells</a></header>'+tabs('caster','Full caster class',class_defs)+'</section>'
     # Content-first DOM matches phone reading/tab order; desktop CSS places the list left.
     navigation='<aside class="sidebar" aria-label="Spell navigation"><details id="spell-menu" open><summary>Spells <span id="sidebar-count">(391)</span></summary><nav aria-label="Spell list"><ul>'+''.join(sidebar)+'</ul></nav></details></aside>'
-    page+='<div class="reader-layout" id="spells"><div class="reader-detail"><div id="empty" hidden><p>No spells match these filters.</p><button id="reset" type="button">Clear filters</button></div>'+''.join(cards)+'</div>'+navigation+'</div></main>'
+    page+='<div class="reader-layout" id="spells"><div class="reader-detail"><div id="empty" hidden><p>No spells match these filters.</p><button id="reset" type="button">Clear filters</button></div>'+''.join(cards)+'</div>'+navigation+'</div>'
+    page+=render_items(load('magic-items'),link_conditions,catalog)+'</main>'
     page+=condition_ui(conditions)
     page+='<footer class="site-footer">Spellwright · 2014 &amp; 2024 editions · House-rule versions are marked in purple. <a href="attribution.html">Rules attribution</a></footer></body></html>\n'
     return page
