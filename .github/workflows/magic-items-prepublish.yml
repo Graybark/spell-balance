@@ -1,4 +1,4 @@
-name: Inspect magic item content and metadata
+name: Inspect primary item rules containers
 on:
   push:
     branches: [feature/magic-items-20261026]
@@ -45,6 +45,10 @@ jobs:
                       break
               print('HEADINGS',[(h.name,h.get_text(' ',strip=True)) for h in s.find_all(['h1','h2','h3','h4'])][-15:])
               if 'Items:' in url:
+                  page=s.select_one('.page')
+                  print('PAGE_CHILDREN',[(e.name,e.attrs) for e in page.find_all(recursive=False)])
+                  for e in page.find_all(recursive=False):
+                      if 'page__header' not in e.get('class',[]): print('PAGE_BODY',str(e)[:30000])
                   for h in s.find_all('h1'):
                       print('H1_PARENTS',[(p.name,p.attrs) for p in list(h.parents)[:4]])
                       print('H1_CONTAINER',str(h.parent.parent)[:26000])
