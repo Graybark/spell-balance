@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rogue homebrew for the 2024 Dungeons & Dragons rules: Reliable Talent, Magical Ambush, and Opportune Backstab.">
+  <meta name="color-scheme" content="light">
+  <title>Rogue Homebrew · Spellwright</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    :root{--ink:#243f5d;--muted:#5c7189;--line:#d6e3ef;--house:#6d32b5;--paper:#fff;--bg:#f8fafc}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:24px}
+    body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.75 'Segoe UI',Arial,sans-serif}
+    a{color:#25578b;text-underline-offset:4px}
+    a:focus-visible{outline:3px solid #5392c9;outline-offset:5px}
+    .skip{position:absolute;left:16px;top:-100px;padding:8px 14px;background:#fff;z-index:10}
+    .skip:focus{top:12px}
+    .site-header{border-bottom:1px solid var(--line);background:#fafbfd}
+    .header-inner{max-width:1040px;margin:auto;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#162d4e}
+    .brand img{width:44px;height:44px}
+    .brand strong{display:block;font:700 25px/1.15 Georgia,serif;letter-spacing:-.025em}
+    .brand small{display:block;margin-top:5px;font:600 10px/1.3 'Segoe UI',Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#577798}
+    .back{font-size:13px}
+    main{max-width:920px;margin:auto;padding:52px 28px 64px}
+    .eyebrow{margin:0 0 12px;color:var(--house);font-size:11px;line-height:1.4;letter-spacing:.18em;font-weight:700;text-transform:uppercase}
+    h1{margin:0;font:700 clamp(2.8rem,8vw,4.5rem)/1.06 Georgia,serif;letter-spacing:-.045em;color:#142f54}
+    .intro{margin:16px 0 24px;color:var(--muted);font-size:16px}
+    .jump{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0 0 44px;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13px}
+    .jump a{text-decoration:none}
+    .jump a:hover{text-decoration:underline}
+    section+section{margin-top:40px}
+    h2{margin:0 0 16px;font:700 27px/1.25 Georgia,serif;letter-spacing:-.02em;color:#19395d}
+    .feature{padding:26px 30px;border:1px solid var(--line);border-radius:9px;background:var(--paper);box-shadow:0 3px 15px #203e6108}
+    .feature+.feature{margin-top:16px}
+    .feature-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;margin-bottom:14px}
+    h3{margin:0;font:700 22px/1.35 Georgia,serif;color:#19395d}
+    .level{color:var(--muted);font-size:12px;white-space:nowrap}
+    .feature p{margin:0}
+    .feature p+p{margin-top:14px}
+    .pending{margin-top:16px;padding:11px 15px;border-left:3px solid #b6a0d3;color:var(--muted);font-size:13px;line-height:1.6}
+    .pending strong{font-weight:600;color:var(--house)}
+    footer{max-width:864px;margin:0 auto;padding:0 0 30px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+    footer p{margin:16px 0 0}
+    @media(max-width:560px){
+      body{font-size:16px;line-height:1.7}
+      .header-inner{padding:16px 20px}
+      .brand img{width:36px;height:36px}
+      .brand strong{font-size:22px}
+      .back{font-size:12px}
+      main{padding:34px 20px 44px}
+      .jump{margin-bottom:32px;gap:9px 18px}
+      .feature{padding:21px 20px}
+      h3{font-size:21px}
+      footer{margin:0 20px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+    @media print{
+      body{background:#fff;color:#111;font-size:11pt;line-height:1.5}
+      .site-header,.jump,.skip{display:none}
+      main{max-width:none;padding:0}
+      h1{font-size:32pt}
+      h2{font-size:19pt}
+      h3{font-size:15pt}
+      .feature{box-shadow:none;break-inside:avoid;padding:15px 18px}
+      section+section{margin-top:24px}
+      footer{padding:0;margin-top:24px}
+      a{color:inherit}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to features</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="Spellwright home">
+        <img src="favicon.svg" width="44" height="44" alt="">
+        <span><strong>Spellwright</strong><small>D&amp;D reference</small></span>
+      </a>
+      <a class="back" href="./">Spell reference</a>
+    </div>
+  </header>
+  <main id="main">
+    <p class="eyebrow">D&amp;D 2024 · Homebrew</p>
+    <h1>Rogue</h1>
+    <p class="intro">Class and Arcane Trickster features.</p>
+    <nav class="jump" aria-label="Page sections">
+      <a href="#rogue">Rogue</a>
+      <a href="#arcane-trickster">Arcane Trickster</a>
+      <a href="#opportune-backstab">Opportune Backstab</a>
+    </nav>
+    <section id="rogue" aria-labelledby="rogue-heading">
+      <h2 id="rogue-heading">Rogue</h2>
+      <article class="feature" id="reliable-talent" aria-labelledby="reliable-talent-heading">
+        <div class="feature-head">
+          <h3 id="reliable-talent-heading">Reliable Talent</h3>
+          <span class="level">Level 7</span>
+        </div>
+        <p>When you make an ability check using a skill or tool with which you have proficiency and roll a 9 or lower on the d20, you can treat the roll as a 10.</p>
+        <p>You can use this feature a number of times equal to your Proficiency Bonus, and you regain all expended uses when you finish a Long Rest.</p>
+      </article>
+    </section>
+    <section id="arcane-trickster" aria-labelledby="arcane-trickster-heading">
+      <h2 id="arcane-trickster-heading">Arcane Trickster</h2>
+      <article class="feature" id="magical-ambush" aria-labelledby="magical-ambush-heading">
+        <div class="feature-head">
+          <h3 id="magical-ambush-heading">Magical Ambush</h3>
+          <span class="level">Level 6</span>
+        </div>
+        <p>If you have the Invisible condition when you cast a spell on a creature, it has Disadvantage on any saving throw it makes against the spell on the same turn.</p>
+      </article>
+      <article class="feature" id="improved-magical-ambush" aria-labelledby="improved-magical-ambush-heading">
+        <div class="feature-head">
+          <h3 id="improved-magical-ambush-heading">Improved Magical Ambush</h3>
+          <span class="level">Level 9</span>
+        </div>
+        <p>You can use your Sneak Attack when you hit a creature with a spell attack. The attack needn’t use a Finesse or Ranged weapon, but all other requirements of Sneak Attack apply.</p>
+        <p>The extra damage is the same type as the spell’s damage. If the spell deals more than one damage type, you choose which type the extra damage uses.</p>
+      </article>
+    </section>
+    <section id="opportune-backstab" aria-labelledby="opportune-backstab-heading">
+      <h2 id="opportune-backstab-heading">Opportune Backstab</h2>
+      <article class="feature" aria-label="Opportune Backstab feature">
+        <p>Immediately after an ally makes an attack roll against a creature within 5 feet of you, you can take a Reaction to make one melee attack with a Finesse weapon against that creature.</p>
+      </article>
+      <p class="pending"><strong>To confirm:</strong> level and placement in the Rogue class or a subclass.</p>
+    </section>
+  </main>
+  <footer>
+    <p>Homebrew for the 2024 rules. <a href="attribution.html">Rules attribution</a>.</p>
+  </footer>
+</body>
+</html>
